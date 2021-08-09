@@ -4,6 +4,28 @@ import {View, Text, StyleSheet, TextInput, StatusBar,
 
 export default function Login({navigation}){
 
+  /*
+  const maleta = [
+    {name: 'B-BRA', value: 1280.00, key: '1'},
+    {name: 'CCTRF', value: 1390.00, key: '2'},
+    {name: 'CAIXA', value: 4760.00, key: '3'},
+    {name: 'CASA', value: 300.00, key: '4'},
+    {name: 'BTC', value: 0.00502, key: '5' }
+  ];
+  */
+
+  var url = "http://192.168.0.182:3000/data";
+
+  const requestData = () => {
+    var data = [];
+    fetch(url)
+    .then(response => response.json())
+    .then((responseJson) => {
+      data = responseJson;
+      navigation.navigate('HomeScreen', data);
+    }).catch((error) => {});
+  }
+
   return(
     <View style={styles.screen}>
 
@@ -11,23 +33,26 @@ export default function Login({navigation}){
 
       <KeyboardAvoidingView behavior="position" style={{top: '50%'}}>
         <View style={styles.container}>
+
           <TextInput
             placeholder = "Digite seu email."
-            placeholderTextColor="black"
+            placeholderTextColor = "black"
             style={styles.input}
             elevation={10}/>
+
           <TextInput
             placeholder = "Digite sua senha."
             placeholderTextColor="black"
             style={styles.input}
             secureTextEntry={true}
             elevation={10}/>
+
           <View style={{width: 150, marginTop: 20}}>
-            <Button onPress={ () => navigation.navigate('HomeScreen') }
+            <Button onPress={ () => requestData() }
               title="Login"
-              color="#39970A"
-            />
+              color="#39970A"/>
           </View>
+
         </View>
       </KeyboardAvoidingView>
 
@@ -40,16 +65,6 @@ export default function Login({navigation}){
     </View>
   );
 }
-
-/*
-//
-<TouchableOpacity
-  style={styles.botao}
-  elevation={30}>
-  <Text style={styles.textoBotao}> Login </Text>
-</TouchableOpacity>
-/
-*/
 
 const styles = StyleSheet.create({
   screen: {
