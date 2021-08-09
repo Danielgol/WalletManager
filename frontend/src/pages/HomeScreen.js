@@ -5,24 +5,6 @@ import { View, Text, StyleSheet, StatusBar,
 export default function HomeScreen({route, navigation}){
 
   var maleta = route.params;
-  var isLoading = true;
-  var url = "http://192.168.0.182:3000/data";
-
-  /*
-  const requestData = () => {
-    fetch(url)
-    .then(response => response.json())
-    .then((responseJson) => {
-
-        isLoading = false;
-        maleta = responseJson;
-          
-    }).catch((error) => {});
-  }
-  */
-
-  //requestData();
-
   var total = maleta.reduce((total, object) => total + Object.values(object)[1], 0);
 
   return(
@@ -31,7 +13,7 @@ export default function HomeScreen({route, navigation}){
       <StatusBar hidden={true}/>
 
       <View style={{height: '30%', justifyContent: 'center'}}>
-        <Text style={styles.textoBotao}>R$ {total} </Text>
+        <Text style={styles.textoBotao}>R$ {total.toFixed(2)} </Text>
       </View>
 
       <FlatList
@@ -53,8 +35,6 @@ export default function HomeScreen({route, navigation}){
     </View>
   );
 }
-
-//{isLoading ? <ActivityIndicator style={{position: 'absolute', top: 30}}/> : null}
 
 const styles = StyleSheet.create({
   row: {

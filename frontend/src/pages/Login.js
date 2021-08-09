@@ -5,7 +5,7 @@ import {View, Text, StyleSheet, TextInput, StatusBar,
 export default function Login({navigation}){
 
   /*
-  const maleta = [
+  const data = [
     {name: 'B-BRA', value: 1280.00, key: '1'},
     {name: 'CCTRF', value: 1390.00, key: '2'},
     {name: 'CAIXA', value: 4760.00, key: '3'},
