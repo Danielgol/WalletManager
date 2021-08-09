@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import {View, Text, StyleSheet, TextInput, StatusBar,
         TouchableOpacity, Button, KeyboardAvoidingView} from 'react-native'
 

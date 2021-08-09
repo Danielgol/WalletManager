@@ -3,28 +3,32 @@ import {View, Text, StyleSheet, StatusBar, TouchableOpacity, Button, FlatList} f
 
 export default function HomeScreen({navigation}){
 
-  const [money, quant] = useState([
-    {name: 'B-BRA', key: '1280'},
-    {name: 'CCTRF', key: '1390'},
-    {name: 'CAIXA', key: '4760'},
-    {name: 'CASA', key: '300'},
-    {name: 'BTC', key: '0,00502'},
-  ]);
+  const maleta = [
+    {name: 'B-BRA', value: 1280.00, key: '1'},
+    {name: 'CCTRF', value: 1390.00, key: '2'},
+    {name: 'CAIXA', value: 4760.00, key: '3'},
+    {name: 'CASA', value: 300.00, key: '4'},
+    {name: 'BTC', value: 0.00502, key: '5' }
+  ];
+
+  var total = maleta.reduce((total, object) => total + Object.values(object)[1], 0);
 
   return(
     <View style={styles.screen}>
       <StatusBar hidden={true}/>
-      <View style={{height: '30%'}}/>
+      <View style={{height: '30%', justifyContent: 'center'}}>
+        <Text style={styles.textoBotao}>R$ {total} </Text>
+      </View>
       <FlatList
-        data={money}
+        data={maleta}
         style={{padding: 2}}
         renderItem={({ item }) => (
           <TouchableOpacity
             style={styles.botao}
             elevation={30}>
             <View style={styles.row}>
-              <Text> {item.name} </Text>
-              <Text> {item.key} </Text>
+              <Text style={styles.textoBotao}> {item.name} </Text>
+              <Text style={styles.textoBotao}> {item.value} </Text>
             </View>
           </TouchableOpacity>
         )}
@@ -34,12 +38,6 @@ export default function HomeScreen({navigation}){
 }
 
 /*
-//
-<TouchableOpacity
-  style={styles.botao}
-  elevation={30}>
-  <Text style={styles.textoBotao}> Login </Text>
-</TouchableOpacity>
 /
 */
 
@@ -66,7 +64,7 @@ const styles = StyleSheet.create({
     width: 350,
     height: 70,
     marginTop: 20,
-    backgroundColor: '#39970A',
+    backgroundColor: '#505050',
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 4
