@@ -19,6 +19,23 @@ export default class Money extends React.Component{
         this.setState({ total: newText })
     }
 
+    setValue = () => {
+
+        this.setState({ saved: this.state.total, showEdit: false })
+
+        fetch('http://192.168.0.182:3000/post', {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                name: this.state.name,
+                value: this.state.total
+            })
+        });
+    }
+
     render(){
         return(
             <View style={styles.screen}>
@@ -33,7 +50,6 @@ export default class Money extends React.Component{
                 </View>
 
                 {this.state.showEdit ?
-
                     <View style={{alignItems: 'center'}}>
                         <CurrencyInput
                             padding={10}
@@ -47,13 +63,10 @@ export default class Money extends React.Component{
                             fontSize={26}
                             width={200}
                         />
-                        <Button onPress={ () => this.setState({ saved: this.state.total, showEdit: false }) }
+                        <Button onPress={ this.setValue }
                             title="Clique" color="#39970A"/>
                     </View>
-
                 : null }
-
-
 
                 <View style={{alignItems: 'center'}}></View>
 

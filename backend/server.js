@@ -3,6 +3,12 @@ const express = require('express');
 const app = express();
 const https = require('https');
 
+var bodyParser = require('body-parser');
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }))
+// parse application/json
+app.use(bodyParser.json())
+
 const PORT = process.env.PORT || 3000;
 
 var banco = [
@@ -36,6 +42,22 @@ app.get('/btc', (req, res) =>{
 
 app.get('/data', (req, res) =>{
 	console.log('Receiving request!');
+	res.json(banco);
+});
+
+app.post('/post', (req, res) =>{
+
+	let json = req.body;
+	console.log(json);
+
+	for(var i=0; i<banco.length; i++){
+		if(banco[i].name === json.name){
+			console.log(banco[i].name);
+			banco[i].value = json.value;
+			break;
+		}
+	}
+
 	res.json(banco);
 });
 
