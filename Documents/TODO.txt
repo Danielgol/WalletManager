@@ -1,0 +1,31 @@
+TODO:
+
+
+Geral:
+Criar animação de Loading
+Integrar a um Banco de Dados (MongoDB)
+
+Login:
+Logar de fato
+Criar Signin
+
+HomeScreen:
+Criar adicionar Maleta
+Criar Drawer Navigation
+Criar adicionar Grupo (Maleta)
+Criar "Total Views" (Soma de determinadas maletas)
+
+Money:
+Mudar o nome Money para Maletas
+Permitir Edição de Nome das Maletas
+Mudar o currency input (Ruim para valores com alta precisão)
+Criar tela de interação mais bonita no Money
+Colocar para editar automaticamente o Money ao clicar em cima do valor ("cursor no input")
+-Criar botão de Transação (+-)
+-Criar botão de Planos (Mensais Semanais)
+-Criar Notificações de Planos
+-Definir tipos de Planos (Inserção Automática ou por Confirmação de Notificação)
+Criar Histórico
+
+History:
+Remover ítem histórico
