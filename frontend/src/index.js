@@ -13,7 +13,7 @@ import Money from './pages/Money.js';
 
 export default function App(){
     return(
-        <NavigationContainer>
+        <NavigationContainer theme={{ colors: { background: '#303030' }}}>
             <Stack.Navigator initialRouteName="Login" screenOptions={{headerShown: false}}>
                 <Stack.Screen name="Login" component={Login}/>
                 <Stack.Screen name="HomeScreen" component={HomeScreen}/>

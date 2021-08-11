@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState , NavigationEvents } from 'react'
 import { View, Text, StyleSheet, StatusBar,
         TouchableOpacity, Button, FlatList, ActivityIndicator} from 'react-native'
 
@@ -16,15 +16,25 @@ export default class HomeScreen extends React.Component{
     }
 
     componentDidMount(){
+        this.refresh();
+    }
+
+    goMoney(item){
+        this.setState({isLoading: true});
+        this.props.navigation.navigate('Money', { name: item.name, value: item.value, refresh: this.refresh.bind(this)});
+    }
+
+    refresh() {
         fetch(url).then(response => response.json()).then((responseJson) => {
             this.state.maleta = responseJson;
-            this.state.total = responseJson.reduce((total, object) => total + Object.values(object)[1], 0);
+            this.state.total = responseJson.reduce((total, object) => total + Object.values(object)[1],0);
             this.setState({ isLoading: false })
         }).catch((error) => {});
     }
 
     render(){
         return(
+
             <View style={styles.screen}>
 
                 <StatusBar hidden={true}/>
@@ -41,7 +51,7 @@ export default class HomeScreen extends React.Component{
 
                             <TouchableOpacity
                                 style={styles.botao}
-                                onPress={() => this.props.navigation.navigate('Money', {name: item.name, value: item.value})}
+                                onPress={() => this.goMoney(item) }
                                 elevation={30}>
                                 <View style={styles.row}>
                                     <Text style={styles.textoBotao}> {item.name} </Text>

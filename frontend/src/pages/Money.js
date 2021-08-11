@@ -1,6 +1,6 @@
-import React, { Component, useState } from 'react'
+import React, { Component } from 'react'
 import { View, Text, StyleSheet, StatusBar, TextInput,
-        TouchableOpacity, Button, FlatList} from 'react-native'
+        TouchableOpacity, Button, FlatList, YellowBox } from 'react-native'
 import CurrencyInput from 'react-native-currency-input';
 
 export default class Money extends React.Component{
@@ -15,14 +15,17 @@ export default class Money extends React.Component{
         }
     }
 
+    componentWillUnmount(){
+        const params = this.props.route.params;
+        params.refresh();
+    }
+
     handleInputTextChange = (newText) => {
         this.setState({ total: newText })
     }
 
     setValue = () => {
-
         this.setState({ saved: this.state.total, showEdit: false })
-
         fetch('http://192.168.0.182:3000/post', {
             method: 'POST',
             headers: {
@@ -33,6 +36,10 @@ export default class Money extends React.Component{
                 name: this.state.name,
                 value: this.state.total
             })
+        }).then(response => {
+
+        }).catch(error => {
+            console.error(error);
         });
     }
 
@@ -44,8 +51,8 @@ export default class Money extends React.Component{
 
                 <View style={{height: '22%', backgroundColor: '#505050', elevation: 10}}>
                     <Text style={[styles.total, {fontSize: 22, top: '50%',}]}> {this.state.name} </Text>
-                    <Text style={[styles.total, {fontSize: 30, top: '52%',}]} onPress={()=> this.setState({showEdit: true})
-                     }> R$ {this.state.saved.toFixed(2)}
+                    <Text style={[styles.total, {fontSize: 30, top: '52%',}]}
+                        onPress={()=> this.setState({showEdit: true})}> R$ {this.state.saved.toFixed(2)}
                     </Text>
                 </View>
 
@@ -101,3 +108,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold'
     }
 });
+
+YellowBox.ignoreWarnings([
+    'Non-serializable values were found in the navigation state',
+]);
