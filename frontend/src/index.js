@@ -9,7 +9,7 @@ const Drawer = createDrawerNavigator();
 
 import Login from './pages/Login.js';
 import HomeScreen from './pages/HomeScreen.js';
-import Money from './pages/Money.js';
+import Bag from './pages/Bag.js';
 
 export default function App(){
     return(
@@ -17,7 +17,7 @@ export default function App(){
             <Stack.Navigator initialRouteName="Login" screenOptions={{headerShown: false}}>
                 <Stack.Screen name="Login" component={Login}/>
                 <Stack.Screen name="HomeScreen" component={HomeScreen}/>
-                <Stack.Screen name="Money" component={Money}/>
+                <Stack.Screen name="Bag" component={Bag}/>
             </Stack.Navigator>
         </NavigationContainer>
     );

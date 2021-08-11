@@ -10,7 +10,7 @@ export default class HomeScreen extends React.Component{
         super(props);
         this.state = {
             isLoading: true,
-            maleta: [],
+            group: [],
             total: 0
         }
     }
@@ -34,7 +34,7 @@ export default class HomeScreen extends React.Component{
         var precision = this.getPrecision(item);
 
         this.setState({isLoading: true});
-        this.props.navigation.navigate('Money', { 
+        this.props.navigation.navigate('Bag', { 
             name: item.name,
             value: item.value,
             prefix: item.prefix,
@@ -45,8 +45,9 @@ export default class HomeScreen extends React.Component{
 
     refresh() {
         fetch(url).then(response => response.json()).then((responseJson) => {
-            this.state.maleta = responseJson;
-            this.state.total = responseJson.reduce((total, object) => total + Object.values(object)[1],0);
+            this.state.group = responseJson;
+            this.state.total = responseJson.reduce(
+                (total, object) => total + Object.values(object)[1],0);
             this.setState({ isLoading: false })
         }).catch((error) => {});
     }
@@ -64,13 +65,13 @@ export default class HomeScreen extends React.Component{
                             <Text style={styles.textoBotao}>R$ {this.state.total.toFixed(2)} </Text>
                         </View>
 
-                        <FlatList data={this.state.maleta}
+                        <FlatList data={this.state.group}
                             style={{padding: 2}}
                             renderItem={({ item }) => (
 
                             <TouchableOpacity
                                 style={styles.botao}
-                                onPress={() => this.goMoney(item) }
+                                onPress={() => this.goMoney(item)}
                                 elevation={30}>
                                 <View style={styles.row}>
                                     <Text style={styles.textoBotao}> {item.name} </Text>
