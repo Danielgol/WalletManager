@@ -19,9 +19,28 @@ export default class HomeScreen extends React.Component{
         this.refresh();
     }
 
+    getPrecision(item){
+        var precision = 2;
+
+        if(item.prefix === 'BTC'){
+            precision = 8;
+        }
+
+        return precision;
+    }
+
     goMoney(item){
+
+        var precision = this.getPrecision(item);
+
         this.setState({isLoading: true});
-        this.props.navigation.navigate('Money', { name: item.name, value: item.value, refresh: this.refresh.bind(this)});
+        this.props.navigation.navigate('Money', { 
+            name: item.name,
+            value: item.value,
+            prefix: item.prefix,
+            precision: precision,
+            refresh: this.refresh.bind(this)
+        });
     }
 
     refresh() {
@@ -55,7 +74,9 @@ export default class HomeScreen extends React.Component{
                                 elevation={30}>
                                 <View style={styles.row}>
                                     <Text style={styles.textoBotao}> {item.name} </Text>
-                                    <Text style={styles.textoBotao}> {item.value.toFixed(2)} </Text>
+                                    <Text style={styles.textoBotao}>
+                                        {item.prefix} {item.value.toFixed(this.getPrecision(item))}
+                                    </Text>
                                 </View>
                             </TouchableOpacity>
 

@@ -11,6 +11,8 @@ export default class Money extends React.Component{
             name: this.props.route.params.name,
             total: this.props.route.params.value,
             saved: this.props.route.params.value,
+            prefix: this.props.route.params.prefix,
+            precision: this.props.route.params.precision,
             showEdit: false,
         }
     }
@@ -51,8 +53,8 @@ export default class Money extends React.Component{
 
                 <View style={{height: '22%', backgroundColor: '#505050', elevation: 10}}>
                     <Text style={[styles.total, {fontSize: 22, top: '50%',}]}> {this.state.name} </Text>
-                    <Text style={[styles.total, {fontSize: 30, top: '52%',}]}
-                        onPress={()=> this.setState({showEdit: true})}> R$ {this.state.saved.toFixed(2)}
+                    <Text style={[styles.total, {fontSize: 30, top: '52%',}]} onPress={()=> this.setState({showEdit: true})}>
+                        {' '}{this.state.prefix} {this.state.saved.toFixed(this.state.precision)}
                     </Text>
                 </View>
 
@@ -62,10 +64,10 @@ export default class Money extends React.Component{
                             padding={10}
                             value={this.state.total}
                             onChangeValue={ this.handleInputTextChange }
-                            prefix="R$ "
+                            prefix={ this.state.prefix+' ' }
                             delimiter=","
                             separator="."
-                            precision={2}
+                            precision={this.state.precision}
                             backgroundColor="white"
                             fontSize={26}
                             width={200}

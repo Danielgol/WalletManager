@@ -12,11 +12,11 @@ app.use(bodyParser.json())
 const PORT = process.env.PORT || 3000;
 
 var banco = [
-		{name: 'B-BRA', value: 1280.00, key: '1'},
-		{name: 'CCTRF', value: 1390.00, key: '2'},
-    	{name: 'CAIXA', value: 4760.00, key: '3'},
-    	{name: 'CASA', value: 300.00, key: '4'},
-    	{name: 'BTC', value: 2.00, key: '5'}];
+		{name: 'B-BRA', value: 1280.00, prefix: 'R$', key: '1'},
+		{name: 'CCTRF', value: 1390.00, prefix: 'R$', key: '2'},
+    	{name: 'CAIXA', value: 4760.00, prefix: 'R$', key: '3'},
+    	{name: 'CASA', value: 300.00,  prefix: 'U$', key: '4'},
+    	{name: 'BTC', value: 2.00, prefix: 'BTC', key: '5'}];
 
 
 app.get('/btc', (req, res) =>{
