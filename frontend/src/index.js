@@ -4,13 +4,12 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import { createDrawerNavigator } from '@react-navigation/drawer';
 
+const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 
 import Login from './pages/Login.js';
 import HomeScreen from './pages/HomeScreen.js';
 import Money from './pages/Money.js';
-
-const Stack = createStackNavigator();
 
 export default function App(){
     return(

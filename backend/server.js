@@ -5,6 +5,14 @@ const https = require('https');
 
 const PORT = process.env.PORT || 3000;
 
+var banco = [
+		{name: 'B-BRA', value: 1280.00, key: '1'},
+		{name: 'CCTRF', value: 1390.00, key: '2'},
+    	{name: 'CAIXA', value: 4760.00, key: '3'},
+    	{name: 'CASA', value: 300.00, key: '4'},
+    	{name: 'BTC', value: 2.00, key: '5'}];
+
+
 app.get('/btc', (req, res) =>{
 
 	const api_url = 'https://api.coindesk.com/v1/bpi/currentprice.json';
@@ -28,13 +36,7 @@ app.get('/btc', (req, res) =>{
 
 app.get('/data', (req, res) =>{
 	console.log('Receiving request!');
-	res.json([
-		{name: 'B-BRA', value: 1280.00, key: '1'},
-		{name: 'CCTRF', value: 1390.00, key: '2'},
-    	{name: 'CAIXA', value: 4760.00, key: '3'},
-    	{name: 'CASA', value: 300.00, key: '4'},
-    	{name: 'BTC', value: 2.00, key: '5'}
-	]);
+	res.json(banco);
 });
 
 app.listen(PORT, () => console.log('Server started on port '+PORT));
