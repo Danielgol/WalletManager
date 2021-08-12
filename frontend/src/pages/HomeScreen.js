@@ -21,11 +21,9 @@ export default class HomeScreen extends React.Component{
 
     getPrecision(item){
         var precision = 2;
-
         if(item.prefix === 'BTC'){
             precision = 8;
         }
-
         return precision;
     }
 
@@ -34,7 +32,8 @@ export default class HomeScreen extends React.Component{
         var precision = this.getPrecision(item);
 
         this.setState({isLoading: true});
-        this.props.navigation.navigate('Bag', { 
+        this.props.navigation.navigate('Bag', {
+            key: item.key,
             name: item.name,
             value: item.value,
             prefix: item.prefix,
