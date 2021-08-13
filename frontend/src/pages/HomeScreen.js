@@ -46,7 +46,7 @@ export default class HomeScreen extends React.Component{
         fetch(url).then(response => response.json()).then((responseJson) => {
             this.state.group = responseJson;
             this.state.total = responseJson.reduce(
-                (total, object) => total + Object.values(object)[1],0);
+                (total, object) => parseFloat(total) + parseFloat(Object.values(object)[1]),0);
             this.setState({ isLoading: false })
         }).catch((error) => {});
     }
@@ -61,7 +61,7 @@ export default class HomeScreen extends React.Component{
                 {this.state.isLoading ? <ActivityIndicator style={{position: 'absolute', top: 30}}/> : 
                     <View>
                         <View style={{height: '30%', alignItems: 'center', justifyContent: 'center'}}>
-                            <Text style={styles.textoBotao}>R$ {this.state.total.toFixed(2)} </Text>
+                            <Text style={styles.textoBotao}>R$ {parseFloat(this.state.total).toFixed(2)} </Text>
                         </View>
 
                         <FlatList data={this.state.group}
@@ -75,7 +75,7 @@ export default class HomeScreen extends React.Component{
                                 <View style={styles.row}>
                                     <Text style={styles.textoBotao}> {item.name} </Text>
                                     <Text style={styles.textoBotao}>
-                                        {item.prefix} {item.value.toFixed(this.getPrecision(item))}
+                                        {item.prefix} {parseFloat(item.value).toFixed(this.getPrecision(item))}
                                     </Text>
                                 </View>
                             </TouchableOpacity>

@@ -16,7 +16,7 @@ export default class Bag extends React.Component{
             precision: this.props.route.params.precision,
 
             showEdit: false,
-            showPopup: true,
+            showPopup: false,
             signal: '+',
             color: '#40970A',
             text: '0.00'
@@ -48,7 +48,7 @@ export default class Bag extends React.Component{
 
 
 
-    handleInputChange = (amount) => {
+    handlePopUpChange = (amount) => {
         var aux = amount;
         aux = aux.replace('.','');
         aux = aux.replace(',','');
@@ -57,7 +57,18 @@ export default class Bag extends React.Component{
         }
     }
 
-    changeButtonColor(){
+    handleEditChange = (amount) => {
+        var aux = amount;
+        aux = aux.replace('.','');
+        aux = aux.replace(',','');
+        if (/^\d+$/.test(aux) || aux === '') {
+            this.setState({ value: amount.replace(',','') })
+        }
+    }
+
+
+
+    changeSignColor(){
         if(this.state.signal === '+'){
             this.setState({ signal: '-', color: '#BB0000'});
         } else {
@@ -67,16 +78,17 @@ export default class Bag extends React.Component{
 
 
 
+
     newTransfer(){
         var valor = this.state.text;
         if(valor != null){
             var novo = 0;
             if(this.state.signal === '+'){
-                novo = this.state.value + parseFloat(valor);
+                novo = parseFloat(this.state.value) + parseFloat(valor);
             }else{
-                novo = this.state.value - parseFloat(valor);
+                novo = parseFloat(this.state.value) - parseFloat(valor);
             }
-            this.setState({ saved: novo, value: novo });
+            this.setState({ saved: novo, value: novo, showPopup: false });
             this.postUpdate(novo);
         }
     }
@@ -97,17 +109,22 @@ export default class Bag extends React.Component{
                 <View style={{height: '22%', backgroundColor: '#505050', elevation: 10}}>
                     <Text style={[styles.total, {fontSize: 22, top: '50%',}]}> {this.state.name} </Text>
                     <Text style={[styles.total, {fontSize: 30, top: '52%',}]}
-                            onPress={()=> this.setState({showEdit: true})}>
-                            {' '}{this.state.prefix} {this.state.saved.toFixed(this.state.precision)}
+                            onPress={()=> this.setState({showEdit: true, showPopup: false})}>
+                            {' '}{this.state.prefix} {parseFloat(this.state.saved).toFixed(this.state.precision)}
                     </Text>
                 </View>
 
-                { this.state.showEdit ?
-                    <KeyboardAvoidingView behavior="position" style={styles.middle}>
-                        <View style={[styles.popup, {hide: true}]}>
+                <View style={{height: '10%', backgroundColor: '#606060'}}></View>
+
+                <KeyboardAvoidingView behavior="position" style={styles.middle}>
+                    <View style={{height: '40%'}}>
+
+                    { this.state.showEdit ?
+                        <View style={styles.popup}>
                             <View style={styles.row}>
 
                                 <TextInput
+                                    autoFocus={true}
                                     borderRadius={8}
                                     padding={10}
                                     fontSize={20}
@@ -115,22 +132,22 @@ export default class Bag extends React.Component{
                                     elevation={4}
                                     backgroundColor='#909090'
                                     keyboardType='numeric'
-                                    onChangeText={this.handleInputChange}
-                                    value={this.state.text}
+                                    onChangeText={this.handleEditChange}
+                                    value={ String(this.state.value) }
                                 />
                             </View>
 
                             <View style={styles.row}>
                                 <View style={{width: 150}}>
                                     <Button
-                                        onPress={() => this.setValue()}
+                                        onPress={() => this.setState({ showEdit: false }) }
                                         title="Cancelar"
                                         color="#40970A"
                                     />
                                 </View>
                                 <View style={{width: 150}}>
                                     <Button
-                                        onPress={() => this.setState({}) }
+                                        onPress={() => this.setValue({ saved: parseFloat(this.state.value) }) }
                                         title="Editar"
                                         color="#40970A"
                                     />
@@ -138,20 +155,19 @@ export default class Bag extends React.Component{
                             </View> 
 
                         </View>
-                    </KeyboardAvoidingView>
-                : null }
+                    : null }
 
-                { this.state.showPopup ?
-                    <KeyboardAvoidingView behavior="position" style={styles.middle}>
-                        <View style={[styles.popup, {hide: true}]}>
+                    { this.state.showPopup ?
+                        <View style={styles.popup}>
                             <View style={styles.row}>
                                 <TouchableOpacity
                                     style={[styles.signButtom,{backgroundColor: this.state.color}]}
-                                    onPress={() => this.changeButtonColor() }>
+                                    onPress={() => this.changeSignColor() }>
                                     <Text style={{fontWeight: 'bold', fontSize: 40}}> {this.state.signal} </Text>
                                 </TouchableOpacity>
 
                                 <TextInput
+                                    autoFocus={true}
                                     borderRadius={8}
                                     padding={10}
                                     fontSize={20}
@@ -159,7 +175,7 @@ export default class Bag extends React.Component{
                                     elevation={4}
                                     backgroundColor='#909090'
                                     keyboardType='numeric'
-                                    onChangeText={this.handleInputChange}
+                                    onChangeText={this.handlePopUpChange}
                                     value={this.state.text}
                                 />
                             </View>
@@ -167,7 +183,7 @@ export default class Bag extends React.Component{
                             <View style={styles.row}>
                                 <View style={{width: 150}}>
                                     <Button
-                                        onPress={() => {alert('Nothing by now :(')}}
+                                        onPress={() => this.setState({showPopup: false}) }
                                         title="Cancelar"
                                         color="#40970A"
                                     />
@@ -182,25 +198,28 @@ export default class Bag extends React.Component{
                             </View> 
 
                         </View>
-                    </KeyboardAvoidingView>
-                : null }
-                    
-                
+                    : null }
 
-                {/*
-                <View style={{alignItems: 'center', justifyContent: 'center', backgroundColor: '#505050', height: '28%'}}>
-                    <TouchableOpacity
-                        style={styles.roundButton}>
-                        <Text style={{fontWeight: 'bold', fontSize: 60}}>+</Text>
-                    </TouchableOpacity>
+                    </View>
+                </KeyboardAvoidingView>
+
+                <View style={{height: '30%', alignItems: 'center', elevation: 10, backgroundColor: '#404040'}}>
+                    <View>
+                        <TouchableOpacity
+                            style={styles.roundButton}
+                            onPress={() => this.setState({showPopup: true, showEdit: false}) }>
+                            <Text style={{fontWeight: 'bold', fontSize: 65}}>+</Text>
+                        </TouchableOpacity>
+                    </View>
                 </View>
-                */}
-
+                
             </View>
         );
     }
-    
 }
+
+
+
 
 const styles = StyleSheet.create({
     row: {
@@ -212,21 +231,20 @@ const styles = StyleSheet.create({
     },
     screen: {
         flex: 1,
-        backgroundColor: '#404040'
+        backgroundColor: '#606060'
     },
     middle: {
         alignItems: 'center',
-        justifyContent: 'center',
-        elevation: 20,
+        elevation: 10,
     },
     popup: {
-        top: '18%',
+        top: '30%',
         alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: '#303030',
-        height: '70%',
+        height: 250,
         borderRadius: 20,
-        elevation: 20,
+        elevation: 10,
     },
     total: {
         paddingHorizontal: 25,
@@ -234,12 +252,11 @@ const styles = StyleSheet.create({
         fontWeight: 'bold'
     },
     roundButton: {
-        marginTop: 20,
+        top: '60%',
         width: 80,
         height: 80,
         justifyContent: 'center',
         alignItems: 'center',
-        padding: 10,
         borderRadius: 120,
         backgroundColor: '#40970A'
     },

@@ -14,7 +14,9 @@ export default class Login extends React.Component{
 
                 <StatusBar hidden={true}/>
 
-                <KeyboardAvoidingView behavior="position" style={{top: '50%'}}>
+                <View style={{height: '30%'}}></View>
+
+                <KeyboardAvoidingView behavior="position">
                     <View style={styles.container}>
 
                         <TextInput
@@ -39,10 +41,12 @@ export default class Login extends React.Component{
                     </View>
                 </KeyboardAvoidingView>
 
-                <View style={{width: 150, top: 540}}>
-                  <Button onPress={() => {alert('Nothing by now :(')}}
-                    title="Sign In"
-                    color="#39970A"/>
+                <View style={{alignItems: 'center'}}>
+                    <View style={{width: 150, top: 80}}>
+                      <Button onPress={() => {alert('Nothing by now :(')}}
+                        title="Sign In"
+                        color="#39970A"/>
+                    </View>
                 </View>
 
             </View>
@@ -53,11 +57,11 @@ export default class Login extends React.Component{
 const styles = StyleSheet.create({
     screen: {
         flex: 1,
-        backgroundColor: '#404040',
-        alignItems: 'center'
+        backgroundColor: '#404040'
     },
     container: {
-        backgroundColor: '#404040',
+        top: '75%',
+        height: '50%',
         alignItems: 'center'
     },
     input: {
