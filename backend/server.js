@@ -54,6 +54,7 @@ app.post('/post', (req, res) =>{
 		if(banco[i].name === json.name){
 			console.log(banco[i].name);
 			banco[i].value = json.value;
+			banco[i].prefix = json.prefix;
 			break;
 		}
 	}

@@ -7,9 +7,9 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 
-import Login from './pages/Login.js';
-import HomeScreen from './pages/HomeScreen.js';
-import Bag from './pages/Bag.js';
+import Login from './pages/login.js';
+import HomeScreen from './pages/homeScreen.js';
+import Bag from './pages/bag.js';
 
 export default function App(){
     return(

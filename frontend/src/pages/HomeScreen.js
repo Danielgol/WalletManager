@@ -61,7 +61,7 @@ export default class HomeScreen extends React.Component{
                 {this.state.isLoading ? <ActivityIndicator style={{position: 'absolute', top: 30}}/> : 
                     <View>
                         <View style={{height: '30%', alignItems: 'center', justifyContent: 'center'}}>
-                            <Text style={styles.textoBotao}>R$ {parseFloat(this.state.total).toFixed(2)} </Text>
+                            <Text style={styles.textoBotao}>R$ {parseFloat(this.state.total).toFixed(2)}</Text>
                         </View>
 
                         <FlatList data={this.state.group}

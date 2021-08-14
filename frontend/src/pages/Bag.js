@@ -1,7 +1,11 @@
 import React, { Component } from 'react'
 import { View, Text, StyleSheet, StatusBar, TextInput,
-        TouchableOpacity, Button, FlatList, YellowBox, KeyboardAvoidingView } from 'react-native'
-import CurrencyInput from 'react-native-currency-input';
+        TouchableOpacity, Button, FlatList, YellowBox,
+        KeyboardAvoidingView, Dimensions } from 'react-native'
+
+import Picker from '../components/selectCurrency.js';
+import EditPopUp from '../components/editPopup';
+import TransferPopUp from '../components/transferPopup';
 
 export default class Bag extends React.Component{
 
@@ -11,15 +15,18 @@ export default class Bag extends React.Component{
             key: this.props.route.params.key,
             name: this.props.route.params.name,
             value: this.props.route.params.value,
-            saved: this.props.route.params.value,
             prefix: this.props.route.params.prefix,
             precision: this.props.route.params.precision,
-
+            
             showEdit: false,
-            showPopup: false,
+            showTransfer: false,
+            showCurrencies: false,
+
             signal: '+',
             color: '#40970A',
-            text: '0.00'
+            text: '0.00',
+            auxValue: this.props.route.params.value,
+            auxPrefix: this.props.route.params.prefix,
         }
     }
 
@@ -28,7 +35,7 @@ export default class Bag extends React.Component{
         params.refresh();
     }
 
-    postUpdate(value){
+    postUpdate(value, prefix){
         fetch('http://192.168.0.182:3000/post', {
             method: 'POST',
             headers: {
@@ -37,7 +44,8 @@ export default class Bag extends React.Component{
             },
             body: JSON.stringify({
                 name: this.state.name,
-                value: value
+                value: value,
+                prefix: prefix,
             })
         }).then(response => {
 
@@ -46,57 +54,30 @@ export default class Bag extends React.Component{
         });
     }
 
-
-
-    handlePopUpChange = (amount) => {
-        var aux = amount;
-        aux = aux.replace('.','');
-        aux = aux.replace(',','');
-        if (/^\d+$/.test(aux) || aux === '') {
-            this.setState({ text: amount.replace(',','') })
-        }
-    }
-
-    handleEditChange = (amount) => {
-        var aux = amount;
-        aux = aux.replace('.','');
-        aux = aux.replace(',','');
-        if (/^\d+$/.test(aux) || aux === '') {
-            this.setState({ value: amount.replace(',','') })
-        }
-    }
-
-
-
-    changeSignColor(){
-        if(this.state.signal === '+'){
-            this.setState({ signal: '-', color: '#BB0000'});
-        } else {
-            this.setState({ signal: '+', color: '#40970A'});
-        }
-    }
-
-
-
-
-    newTransfer(){
+    pressTransfer(){
         var valor = this.state.text;
-        if(valor != null){
+        if(valor != null && valor != '' && valor != '.'){
             var novo = 0;
             if(this.state.signal === '+'){
                 novo = parseFloat(this.state.value) + parseFloat(valor);
             }else{
                 novo = parseFloat(this.state.value) - parseFloat(valor);
             }
-            this.setState({ saved: novo, value: novo, showPopup: false });
-            this.postUpdate(novo);
+            this.setState({value: novo, auxValue: novo, showTransfer: false});
+            this.postUpdate(novo, this.state.prefix);
         }
     }
 
-    setValue = () => {
-        this.setState({ saved: this.state.value, showEdit: false })
-        this.postUpdate(this.state.value);
+    pressEdit(){
+        if(this.state.auxValue != '' && this.state.auxValue != '.' && this.state.auxValue != null){
+            this.setState({
+            value: this.state.auxValue,
+            prefix: this.state.auxPrefix,
+            showEdit: false });
+            this.postUpdate(this.state.auxValue, this.state.auxPrefix);
+        }   
     }
+
 
 
 
@@ -109,96 +90,44 @@ export default class Bag extends React.Component{
                 <View style={{height: '22%', backgroundColor: '#505050', elevation: 10}}>
                     <Text style={[styles.total, {fontSize: 22, top: '50%',}]}> {this.state.name} </Text>
                     <Text style={[styles.total, {fontSize: 30, top: '52%',}]}
-                            onPress={()=> this.setState({showEdit: true, showPopup: false})}>
-                            {' '}{this.state.prefix} {parseFloat(this.state.saved).toFixed(this.state.precision)}
+                            onPress={()=> this.setState({showEdit: true, showTransfer: false})}>
+                            {' '}{this.state.prefix} {parseFloat(this.state.value).toFixed(this.state.precision)}
                     </Text>
                 </View>
 
-                <View style={{height: '10%', backgroundColor: '#606060'}}></View>
+                <View style={{height: '1%', backgroundColor: '#606060'}}></View>
 
-                <KeyboardAvoidingView behavior="position" style={styles.middle}>
-                    <View style={{height: '40%'}}>
+                <KeyboardAvoidingView behavior="position" style={[styles.middle]}>
+                    <View style={{height: '50%'}}>
 
-                    { this.state.showEdit ?
-                        <View style={styles.popup}>
-                            <View style={styles.row}>
+                    { this.state.showCurrencies ?
+                        <Picker
+                            onChoose={(curr) => this.setState({auxPrefix: curr, showCurrencies: false, showEdit: true})}
+                        />
+                    : null}
 
-                                <TextInput
-                                    autoFocus={true}
-                                    borderRadius={8}
-                                    padding={10}
-                                    fontSize={20}
-                                    width={200}
-                                    elevation={4}
-                                    backgroundColor='#909090'
-                                    keyboardType='numeric'
-                                    onChangeText={this.handleEditChange}
-                                    value={ String(this.state.value) }
-                                />
-                            </View>
+                    { this.state.showTransfer ?
+                        <TransferPopUp
+                            value={this.state.text}
+                            color={this.state.color}
+                            signal={this.state.signal}
+                            pressTransfer={() => this.pressTransfer()}
+                            changeSign={(obj) => this.setState(obj)}
+                            cancel={() => this.setState({showTransfer: false, text: '0.00'})}
+                            handleChange={(text) => this.setState({text: text})}
+                        />
+                    : null}
 
-                            <View style={styles.row}>
-                                <View style={{width: 150}}>
-                                    <Button
-                                        onPress={() => this.setState({ showEdit: false }) }
-                                        title="Cancelar"
-                                        color="#40970A"
-                                    />
-                                </View>
-                                <View style={{width: 150}}>
-                                    <Button
-                                        onPress={() => this.setValue({ saved: parseFloat(this.state.value) }) }
-                                        title="Editar"
-                                        color="#40970A"
-                                    />
-                                </View>
-                            </View> 
-
-                        </View>
-                    : null }
-
-                    { this.state.showPopup ?
-                        <View style={styles.popup}>
-                            <View style={styles.row}>
-                                <TouchableOpacity
-                                    style={[styles.signButtom,{backgroundColor: this.state.color}]}
-                                    onPress={() => this.changeSignColor() }>
-                                    <Text style={{fontWeight: 'bold', fontSize: 40}}> {this.state.signal} </Text>
-                                </TouchableOpacity>
-
-                                <TextInput
-                                    autoFocus={true}
-                                    borderRadius={8}
-                                    padding={10}
-                                    fontSize={20}
-                                    width={200}
-                                    elevation={4}
-                                    backgroundColor='#909090'
-                                    keyboardType='numeric'
-                                    onChangeText={this.handlePopUpChange}
-                                    value={this.state.text}
-                                />
-                            </View>
-
-                            <View style={styles.row}>
-                                <View style={{width: 150}}>
-                                    <Button
-                                        onPress={() => this.setState({showPopup: false}) }
-                                        title="Cancelar"
-                                        color="#40970A"
-                                    />
-                                </View>
-                                <View style={{width: 150}}>
-                                    <Button
-                                        onPress={() => this.newTransfer() }
-                                        title="Realizar"
-                                        color="#40970A"
-                                    />
-                                </View>
-                            </View> 
-
-                        </View>
-                    : null }
+                    {this.state.showEdit ?
+                        <EditPopUp
+                            auxValue={this.state.auxValue}
+                            auxPrefix={this.state.auxPrefix}
+                            cancel={() => this.setState({showEdit: false, auxPrefix: this.state.prefix, auxValue: this.state.value})}
+                            pressEdit={() => this.pressEdit()}
+                            pressCurr={() => this.setState({showEdit: false, showCurrencies: true})}
+                            handleChange={(text) => this.setState({auxValue: text})}
+                        />
+                    : null}
 
                     </View>
                 </KeyboardAvoidingView>
@@ -207,7 +136,7 @@ export default class Bag extends React.Component{
                     <View>
                         <TouchableOpacity
                             style={styles.roundButton}
-                            onPress={() => this.setState({showPopup: true, showEdit: false}) }>
+                            onPress={() => this.setState({showTransfer: true, showEdit: false}) }>
                             <Text style={{fontWeight: 'bold', fontSize: 65}}>+</Text>
                         </TouchableOpacity>
                     </View>
@@ -217,7 +146,6 @@ export default class Bag extends React.Component{
         );
     }
 }
-
 
 
 
