@@ -4,9 +4,8 @@ const app = express();
 const https = require('https');
 
 var bodyParser = require('body-parser');
-// parse application/x-www-form-urlencoded
+
 app.use(bodyParser.urlencoded({ extended: false }))
-// parse application/json
 app.use(bodyParser.json())
 
 const PORT = process.env.PORT || 3000;
@@ -18,7 +17,6 @@ var banco = [
     	{name: 'CASA', value: 300.00,  prefix: 'U$', key: '4'},
     	{name: 'BTC', value: 0.00502143, prefix: 'BTC', key: '5'},
     	{name: 'BTC-RIPIO', value: 0.000202, prefix: 'BTC', key: '6'},];
-
 
 app.get('/btc', (req, res) =>{
 

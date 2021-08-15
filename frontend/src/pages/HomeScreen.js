@@ -1,8 +1,11 @@
 import React, { useState , NavigationEvents } from 'react'
 import { View, Text, StyleSheet, StatusBar, Dimensions,
         TouchableOpacity, Button, FlatList, ActivityIndicator,
-        SafeAreaView, Animated } from 'react-native'
+        SafeAreaView, Animated, Image } from 'react-native'
 
+import SideMenu from '../components/sideMenu.js';
+
+import sidebutton from '../images/sidemenu.png'
 
 const url = "http://192.168.0.182:3000/data";
 const { width, height } = Dimensions.get("screen");
@@ -58,14 +61,16 @@ export default class HomeScreen extends React.Component{
 
 
     slide(){
+        /*
         Animated.timing(this.scaleValue, {
-            toValue: this.showSideMenu ? 1 : 0.88,
+            toValue: this.showSideMenu ? 1 : 0.80,
             duration: 300,
             useNativeDriver: true
         }).start()
+        */
 
         Animated.timing(this.positionX, {
-            toValue: this.showSideMenu ? 0 : width/2,
+            toValue: this.showSideMenu ? 0 : width*0.65,
             duration: 300,
             useNativeDriver: true
         }).start()
@@ -74,59 +79,57 @@ export default class HomeScreen extends React.Component{
     }
 
 
+
     render(){
         return(
 
-            <SafeAreaView style={[styles.screen]}>
+            <SafeAreaView style={[styles.container]}>
 
-            {/*<View style={[styles.screen, {backgroundColor: 'white'}]}>
-            </View>*/}
+            <SideMenu style={{justifyContent: 'flex-start'}}/>
 
             <Animated.View style={[styles.screen, { alignItems: 'center', backgroundColor: '#404040',
                 transform: [{scale: this.scaleValue, translateX: this.positionX}] }]}>
 
                 <StatusBar hidden={true}/>
 
-                {this.state.isLoading ? <ActivityIndicator style={{position: 'absolute', top: 30}}/> : 
-                    <View>
-                        <View style={{height: '30%', alignItems: 'center', justifyContent: 'center'}}>
+                { this.state.isLoading ? <ActivityIndicator style={{position: 'absolute', top: 30}}/> : 
+                <View>
+                    <View style={{height: '30%', alignItems: 'center', justifyContent: 'center'}}>
 
-                            <TouchableOpacity
-                                style={{position: 'absolute', left: 10, top: '20%'}}
-                                onPress={() => 
-                                    this.slide()
-                                }>
-                                <View>
-                                    <Text style={{color: 'white'}}> Teste </Text>
-                                </View>
-                            </TouchableOpacity>
+                        <TouchableOpacity
+                            style={{position: 'absolute', left: 10, top: '20%'}}
+                            onPress={() => 
+                                this.slide()
+                            }>
+                            <Image source={sidebutton} style={{height: 40, width: 40}}/>
+                        </TouchableOpacity>
 
-                            <Text style={styles.textoBotao}>
-                                R$ {parseFloat(this.state.total).toFixed(2)}
-                            </Text>
+                        <Text style={styles.textoBotao}>
+                            R$ {parseFloat(this.state.total).toFixed(2)}
+                        </Text>
 
-                        </View>
-
-                        <FlatList data={this.state.group}
-                            style={{padding: 2}}
-                            renderItem={({ item }) => (
-
-                            <TouchableOpacity
-                                style={styles.botao}
-                                onPress={() => this.goMoney(item)}
-                                elevation={30}>
-                                <View style={styles.row}>
-                                    <Text style={styles.textoBotao}> {item.name} </Text>
-                                    <Text style={styles.textoBotao}>
-                                        {item.prefix} {parseFloat(item.value).toFixed(this.getPrecision(item))}
-                                    </Text>
-                                </View>
-                            </TouchableOpacity>
-
-                            )}
-                        />
                     </View>
-                }
+
+                    <FlatList data={this.state.group}
+                        style={{padding: 2, bottom: 20}}
+                        renderItem={({ item }) => (
+
+                        <TouchableOpacity
+                            style={styles.botao}
+                            onPress={() => this.goMoney(item)}
+                            elevation={30}>
+                            <View style={styles.row}>
+                                <Text style={styles.textoBotao}> {item.name} </Text>
+                                <Text style={styles.textoBotao}>
+                                    {item.prefix} {parseFloat(item.value).toFixed(this.getPrecision(item))}
+                                </Text>
+                            </View>
+                        </TouchableOpacity>
+
+                        )}
+                    />
+                </View> }
+
             </Animated.View>
 
             </SafeAreaView>
@@ -143,8 +146,20 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
     },
-    screen: {
+    container :{
         flex: 1,
+        backgroundColor: '#606060',
+        alignItems: 'flex-start',
+        justifyContent: 'flex-start',
+        elevation: 10,
+    },
+    screen: {
+        flexGrow: 1,
+        position: 'absolute',
+        left: 0,
+        right: 0,
+        top: 0,
+        bottom: 0,
         borderRadius: 15,
     },
     botao: {
