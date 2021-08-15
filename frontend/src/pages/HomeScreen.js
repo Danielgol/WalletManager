@@ -1,8 +1,12 @@
 import React, { useState , NavigationEvents } from 'react'
-import { View, Text, StyleSheet, StatusBar,
-        TouchableOpacity, Button, FlatList, ActivityIndicator} from 'react-native'
+import { View, Text, StyleSheet, StatusBar, Dimensions,
+        TouchableOpacity, Button, FlatList, ActivityIndicator,
+        SafeAreaView, Animated } from 'react-native'
+
 
 const url = "http://192.168.0.182:3000/data";
+const { width, height } = Dimensions.get("screen");
+
 
 export default class HomeScreen extends React.Component{
 
@@ -11,8 +15,11 @@ export default class HomeScreen extends React.Component{
         this.state = {
             isLoading: true,
             group: [],
-            total: 0
+            total: 0,
         }
+        this.showSideMenu = false;
+        this.scaleValue = new Animated.Value(1);
+        this.positionX = new Animated.Value(0);
     }
 
     componentDidMount(){
@@ -28,9 +35,7 @@ export default class HomeScreen extends React.Component{
     }
 
     goMoney(item){
-
         var precision = this.getPrecision(item);
-
         this.setState({isLoading: true});
         this.props.navigation.navigate('Bag', {
             key: item.key,
@@ -51,17 +56,55 @@ export default class HomeScreen extends React.Component{
         }).catch((error) => {});
     }
 
+
+    slide(){
+        Animated.timing(this.scaleValue, {
+            toValue: this.showSideMenu ? 1 : 0.88,
+            duration: 300,
+            useNativeDriver: true
+        }).start()
+
+        Animated.timing(this.positionX, {
+            toValue: this.showSideMenu ? 0 : width/2,
+            duration: 300,
+            useNativeDriver: true
+        }).start()
+
+        this.showSideMenu = !this.showSideMenu;
+    }
+
+
     render(){
         return(
 
-            <View style={styles.screen}>
+            <SafeAreaView style={[styles.screen]}>
+
+            {/*<View style={[styles.screen, {backgroundColor: 'white'}]}>
+            </View>*/}
+
+            <Animated.View style={[styles.screen, { alignItems: 'center', backgroundColor: '#404040',
+                transform: [{scale: this.scaleValue, translateX: this.positionX}] }]}>
 
                 <StatusBar hidden={true}/>
 
                 {this.state.isLoading ? <ActivityIndicator style={{position: 'absolute', top: 30}}/> : 
                     <View>
                         <View style={{height: '30%', alignItems: 'center', justifyContent: 'center'}}>
-                            <Text style={styles.textoBotao}>R$ {parseFloat(this.state.total).toFixed(2)}</Text>
+
+                            <TouchableOpacity
+                                style={{position: 'absolute', left: 10, top: '20%'}}
+                                onPress={() => 
+                                    this.slide()
+                                }>
+                                <View>
+                                    <Text style={{color: 'white'}}> Teste </Text>
+                                </View>
+                            </TouchableOpacity>
+
+                            <Text style={styles.textoBotao}>
+                                R$ {parseFloat(this.state.total).toFixed(2)}
+                            </Text>
+
                         </View>
 
                         <FlatList data={this.state.group}
@@ -84,8 +127,9 @@ export default class HomeScreen extends React.Component{
                         />
                     </View>
                 }
+            </Animated.View>
 
-            </View>
+            </SafeAreaView>
         );
     }
 
@@ -101,20 +145,13 @@ const styles = StyleSheet.create({
     },
     screen: {
         flex: 1,
-        backgroundColor: '#404040',
-        alignItems: 'center'
-    },
-    container: {
-        //position: 'relative',
-        //top: '50%',
-        backgroundColor: '#404040',
-        alignItems: 'center'
+        borderRadius: 15,
     },
     botao: {
-        width: 350,
-        height: 70,
+        width: width*0.9,
+        height: height*0.075,
         marginTop: 20,
-        backgroundColor: '#505050',
+        backgroundColor: '#606060',
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 4

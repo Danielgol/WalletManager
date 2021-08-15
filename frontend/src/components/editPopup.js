@@ -23,7 +23,7 @@ const EditPopUp = (props) => {
 
                 <TouchableOpacity
                     style={{backgroundColor: '#bbb', borderRadius: 8, justifyContent: 'center'}}
-                    onPress={ () => props.pressCurr() }>
+                    onPress={() => props.pressCurr() }>
                     <Text style={{fontSize: 20}}>  {props.auxPrefix}      </Text>
                 </TouchableOpacity>
 
@@ -38,7 +38,7 @@ const EditPopUp = (props) => {
                     backgroundColor='#ccc'
                     keyboardType='numeric'
                     onChangeText={(text) => handleEditChange(text, props) }
-                    value={ String(props.auxValue) }
+                    value={String(props.auxValue)}
                 />
 
             </View>

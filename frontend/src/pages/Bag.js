@@ -7,6 +7,9 @@ import Picker from '../components/selectCurrency.js';
 import EditPopUp from '../components/editPopup';
 import TransferPopUp from '../components/transferPopup';
 
+const { width, height } = Dimensions.get("screen");
+
+
 export default class Bag extends React.Component{
 
     constructor(props){
@@ -80,7 +83,6 @@ export default class Bag extends React.Component{
 
 
 
-
     render(){
         return(
             <View style={styles.screen}>
@@ -90,8 +92,8 @@ export default class Bag extends React.Component{
                 <View style={{height: '22%', backgroundColor: '#505050', elevation: 10}}>
                     <Text style={[styles.total, {fontSize: 22, top: '50%',}]}> {this.state.name} </Text>
                     <Text style={[styles.total, {fontSize: 30, top: '52%',}]}
-                            onPress={()=> this.setState({showEdit: true, showTransfer: false})}>
-                            {' '}{this.state.prefix} {parseFloat(this.state.value).toFixed(this.state.precision)}
+                        onPress={()=> this.setState({showEdit: true, showTransfer: false})}>
+                    {' '}{this.state.prefix} {parseFloat(this.state.value).toFixed(this.state.precision)}
                     </Text>
                 </View>
 
@@ -102,7 +104,11 @@ export default class Bag extends React.Component{
 
                     { this.state.showCurrencies ?
                         <Picker
-                            onChoose={(curr) => this.setState({auxPrefix: curr, showCurrencies: false, showEdit: true})}
+                            onChoose={(curr) => this.setState({
+                                auxPrefix: curr,
+                                showCurrencies: false,
+                                showEdit: true
+                            })}
                         />
                     : null}
 
@@ -122,7 +128,10 @@ export default class Bag extends React.Component{
                         <EditPopUp
                             auxValue={this.state.auxValue}
                             auxPrefix={this.state.auxPrefix}
-                            cancel={() => this.setState({showEdit: false, auxPrefix: this.state.prefix, auxValue: this.state.value})}
+                            cancel={() => this.setState({
+                                showEdit: false,
+                                auxPrefix: this.state.prefix,
+                                auxValue: this.state.value})}
                             pressEdit={() => this.pressEdit()}
                             pressCurr={() => this.setState({showEdit: false, showCurrencies: true})}
                             handleChange={(text) => this.setState({auxValue: text})}
@@ -132,7 +141,11 @@ export default class Bag extends React.Component{
                     </View>
                 </KeyboardAvoidingView>
 
-                <View style={{height: '30%', alignItems: 'center', elevation: 10, backgroundColor: '#404040'}}>
+                <View style={{
+                    height: '30%',
+                    alignItems: 'center',
+                    elevation: 10,
+                    backgroundColor: '#404040'}}>
                     <View>
                         <TouchableOpacity
                             style={styles.roundButton}
@@ -147,31 +160,13 @@ export default class Bag extends React.Component{
     }
 }
 
-
-
 const styles = StyleSheet.create({
-    row: {
-        width: '100%',
-        paddingVertical: 25,
-        paddingHorizontal: 15,
-        flexDirection: 'row',
-        justifyContent: 'center',
-    },
     screen: {
         flex: 1,
         backgroundColor: '#606060'
     },
     middle: {
         alignItems: 'center',
-        elevation: 10,
-    },
-    popup: {
-        top: '30%',
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: '#303030',
-        height: 250,
-        borderRadius: 20,
         elevation: 10,
     },
     total: {
@@ -187,15 +182,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         borderRadius: 120,
         backgroundColor: '#40970A'
-    },
-    signButtom: {
-        width: 40,
-        height: 40,
-        justifyContent: 'center',
-        alignItems: 'center',
-        borderRadius: 120,
-        right: 15,
-        elevation: 5
     },
 });
 

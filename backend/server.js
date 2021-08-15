@@ -16,7 +16,8 @@ var banco = [
 		{name: 'CCTRF', value: 1390.00, prefix: 'R$', key: '2'},
     	{name: 'CAIXA', value: 4760.00, prefix: 'R$', key: '3'},
     	{name: 'CASA', value: 300.00,  prefix: 'U$', key: '4'},
-    	{name: 'BTC', value: 2.00, prefix: 'BTC', key: '5'}];
+    	{name: 'BTC', value: 0.00502143, prefix: 'BTC', key: '5'},
+    	{name: 'BTC-RIPIO', value: 0.000202, prefix: 'BTC', key: '6'},];
 
 
 app.get('/btc', (req, res) =>{
