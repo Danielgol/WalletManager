@@ -94,10 +94,10 @@ export default class HomeScreen extends React.Component{
 
                 { this.state.isLoading ? <ActivityIndicator style={{position: 'absolute', top: 30}}/> : 
                 <View>
-                    <View style={{height: '30%', alignItems: 'center', justifyContent: 'center'}}>
 
+                    <View style={{height: '30%', alignItems: 'center', justifyContent: 'center'}}>
                         <TouchableOpacity
-                            style={{position: 'absolute', left: 10, top: '20%'}}
+                            style={{position: 'absolute', left: 0, top: '20%'}}
                             onPress={() => 
                                 this.slide()
                             }>
@@ -107,10 +107,10 @@ export default class HomeScreen extends React.Component{
                         <Text style={styles.textoBotao}>
                             R$ {parseFloat(this.state.total).toFixed(2)}
                         </Text>
-
                     </View>
 
-                    <FlatList data={this.state.group}
+                    <FlatList
+                        data={this.state.group}
                         style={{padding: 2, bottom: 20}}
                         renderItem={({ item }) => (
 
@@ -121,7 +121,7 @@ export default class HomeScreen extends React.Component{
                             <View style={styles.row}>
                                 <Text style={styles.textoBotao}> {item.name} </Text>
                                 <Text style={styles.textoBotao}>
-                                    {item.prefix} {parseFloat(item.value).toFixed(this.getPrecision(item))}
+                                {item.prefix} {parseFloat(item.value).toFixed(this.getPrecision(item))}
                                 </Text>
                             </View>
                         </TouchableOpacity>

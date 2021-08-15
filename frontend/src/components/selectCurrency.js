@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
     screen: {
         top: '30%',
         width: width*0.9,
-        height: '350%',
+        height: 250,
         alignItems: 'center',
         backgroundColor: '#303030',
         borderRadius: 20,

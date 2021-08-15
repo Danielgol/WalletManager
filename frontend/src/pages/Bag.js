@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 import { View, Text, StyleSheet, StatusBar, TextInput,
         TouchableOpacity, Button, FlatList, YellowBox,
-        KeyboardAvoidingView, Dimensions } from 'react-native'
+        KeyboardAvoidingView, Dimensions, Image } from 'react-native'
+
+import seta from '../images/seta3.png';
 
 import Picker from '../components/selectCurrency.js';
 import EditPopUp from '../components/editPopup';
@@ -90,17 +92,36 @@ export default class Bag extends React.Component{
                 <StatusBar hidden={true}/>
 
                 <View style={{height: '22%', backgroundColor: '#505050', elevation: 10}}>
-                    <Text style={[styles.total, {fontSize: 22, top: '50%',}]}> {this.state.name} </Text>
-                    <Text style={[styles.total, {fontSize: 30, top: '52%',}]}
-                        onPress={()=> this.setState({showEdit: true, showTransfer: false})}>
-                    {' '}{this.state.prefix} {parseFloat(this.state.value).toFixed(this.state.precision)}
+
+                    <TouchableOpacity
+                        onPress={() => this.props.navigation.goBack(null) }
+                        style={{
+                            top: 20,
+                            left: 25,
+                            height: 40,
+                            width: 40,
+                            justifyContent: 'center',
+                        }}>
+                        <Image source={seta} style={{height: 30, width: 30}}/>
+                    </TouchableOpacity>
+
+                    <Text style={[styles.total, {fontSize: 22, top: '25%', left: 30}]}>
+                        {this.state.name}
                     </Text>
+
+                    <Text style={[styles.total, {fontSize: 30, top: '25%', left: 30}]}
+                        onPress={() =>
+                        this.state.showCurrencies 
+                            ? this.setState({showEdit: true, showCurrencies: false})
+                            : this.setState({showEdit: true, showTransfer: false})}>
+                        {this.state.prefix} {parseFloat(this.state.value).toFixed(this.state.precision)}
+                    </Text>
+
                 </View>
 
                 <View style={{height: '1%', backgroundColor: '#606060'}}></View>
 
-                <KeyboardAvoidingView behavior="position" style={[styles.middle]}>
-                    <View style={{height: '50%'}}>
+                <KeyboardAvoidingView behavior="position" style={[styles.middle, {height: '50%'}]}>
 
                     { this.state.showCurrencies ?
                         <Picker
@@ -138,10 +159,10 @@ export default class Bag extends React.Component{
                         />
                     : null}
 
-                    </View>
                 </KeyboardAvoidingView>
 
                 <View style={{
+                    top: 20,
                     height: '30%',
                     alignItems: 'center',
                     elevation: 10,
@@ -149,7 +170,10 @@ export default class Bag extends React.Component{
                     <View>
                         <TouchableOpacity
                             style={styles.roundButton}
-                            onPress={() => this.setState({showTransfer: true, showEdit: false}) }>
+                            onPress={() =>
+                            this.state.showCurrencies
+                                ? this.setState({showTransfer: true, showCurrencies: false})
+                                : this.setState({showTransfer: true, showEdit: false})}>
                             <Text style={{fontWeight: 'bold', fontSize: 65}}>+</Text>
                         </TouchableOpacity>
                     </View>
@@ -170,7 +194,6 @@ const styles = StyleSheet.create({
         elevation: 10,
     },
     total: {
-        paddingHorizontal: 25,
         color: 'white',
         fontWeight: 'bold'
     },
