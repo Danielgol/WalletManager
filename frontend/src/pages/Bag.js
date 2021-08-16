@@ -107,21 +107,21 @@ export default class Bag extends React.Component{
 
                 <StatusBar hidden={true}/>
 
-                <View style={{height: '22%', backgroundColor: '#505050', elevation: 10}}>
+                <View style={{height: '22%', backgroundColor: '#404040', elevation: 10}}>
 
                     <TouchableOpacity
-                    onPress={() => this.props.navigation.goBack(null) }
-                    style={{
-                        top: 20,
-                        left: 25,
-                        height: 40,
-                        width: 40,
-                        justifyContent: 'center',
-                    }}>
-                    <Image source={seta} style={{height: 30, width: 30}}/>
+                        onPress={() => this.props.navigation.goBack(null) }
+                        style={{
+                            top: 20,
+                            left: 25,
+                            height: 40,
+                            width: 40,
+                            justifyContent: 'center',
+                        }}>
+                        <Image source={seta} style={{height: 30, width: 30}}/>
                     </TouchableOpacity>
 
-                    <View style={{top: '25%'}}>
+                    <View style={{top: '20%'}}>
                         <View style={{left: 30}}>
                             <Text style={[styles.total, {fontSize: 22}]}>
                                 {this.state.name}
