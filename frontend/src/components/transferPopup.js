@@ -36,7 +36,7 @@ const TransferPopUp = (props) => {
                 </TouchableOpacity>
 
                 <TextInput
-                    autoFocus={true}
+                    //autoFocus={true}
                     borderRadius={8}
                     padding={10}
                     fontSize={20}

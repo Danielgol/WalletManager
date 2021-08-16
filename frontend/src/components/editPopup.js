@@ -28,8 +28,8 @@ const EditPopUp = (props) => {
                 </TouchableOpacity>
 
                 <TextInput
+                    //autoFocus={true}
                     left={-12}
-                    autoFocus={true}
                     borderRadius={8}
                     padding={10}
                     fontSize={20}

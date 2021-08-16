@@ -25,7 +25,7 @@ const group = [
 ];
 
 
-const Picker = (props) => {
+const CurrencyPopup = (props) => {
     return(
         <View style={styles.screen} >
             <Text style={styles.text}> Selecione a Moeda </Text>
@@ -49,9 +49,8 @@ const Picker = (props) => {
 
 const styles = StyleSheet.create({
     screen: {
-        top: '30%',
         width: width*0.9,
-        height: 250,
+        height: height*0.5,
         alignItems: 'center',
         backgroundColor: '#303030',
         borderRadius: 20,
@@ -66,7 +65,7 @@ const styles = StyleSheet.create({
     },
     list: {
         top: 25,
-        height: '74%',
+        height: '82%',
         flexGrow: 0
     },
     text: {
@@ -89,4 +88,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default Picker;
+export default CurrencyPopup;

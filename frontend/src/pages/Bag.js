@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
 import { View, Text, StyleSheet, StatusBar, TextInput,
         TouchableOpacity, Button, FlatList, YellowBox,
-        KeyboardAvoidingView, Dimensions, Image } from 'react-native'
+        KeyboardAvoidingView, Dimensions, Image, Animated } from 'react-native'
 
 import seta from '../images/seta3.png';
 import historico from '../images/historico.png';
 
-import Picker from '../components/selectCurrency.js';
+import CurrencyPopup from '../components/currencyPopup.js';
 import EditPopUp from '../components/editPopup';
 import TransferPopUp from '../components/transferPopup';
 
@@ -34,6 +34,7 @@ export default class Bag extends React.Component{
             auxValue: this.props.route.params.value,
             auxPrefix: this.props.route.params.prefix,
         }
+        this.popUpScale = new Animated.Value(0);
     }
 
     componentWillUnmount(){
@@ -89,6 +90,15 @@ export default class Bag extends React.Component{
         this.props.navigation.navigate('History');
     }
 
+    emerge(shows){
+        this.setState(shows);
+        Animated.timing(this.popUpScale, {
+            toValue: 1,
+            duration: 300,
+            useNativeDriver: true
+        }).start();
+    }
+
 
 
     render(){
@@ -141,52 +151,54 @@ export default class Bag extends React.Component{
 
                 <View style={{height: '1%', backgroundColor: '#606060'}}></View>
 
-                <KeyboardAvoidingView behavior="position" style={[styles.middle, {height: '50%'}]}>
+                { this.state.showCurrencies ?
+                    <Animated.View style={[styles.middle, {top: 10, transform: [{scale: this.popUpScale}]}]}>
+                        <CurrencyPopup onChoose={(curr) => this.setState({
+                                auxPrefix: curr,
+                                showCurrencies: false,
+                                showEdit: true
+                            })}/>
+                        </Animated.View>
+                : 
 
-                    { this.state.showCurrencies ?
-                    <Picker onChoose={(curr) => this.setState({
-                            auxPrefix: curr,
-                            showCurrencies: false,
-                            showEdit: true
-                    })}/>
-                    : null}
+                <KeyboardAvoidingView behavior="position" style={[styles.middle]}>
 
                     { this.state.showTransfer ?
-                    <TransferPopUp
-                        value={this.state.text}
-                        color={this.state.color}
-                        signal={this.state.signal}
-                        pressTransfer={() => this.pressTransfer()}
-                        changeSign={(obj) => this.setState(obj)}
-                        cancel={() => this.setState({showTransfer: false, text: '0.00'})}
-                        handleChange={(text) => this.setState({text: text})}
-                    />
+                        <TransferPopUp
+                            value={this.state.text}
+                            color={this.state.color}
+                            signal={this.state.signal}
+                            pressTransfer={() => this.pressTransfer()}
+                            changeSign={(obj) => this.setState(obj)}
+                            cancel={() => this.setState({showTransfer: false, text: '0.00'})}
+                            handleChange={(text) => this.setState({text: text})}
+                        />
                     : null}
 
                     {this.state.showEdit ?
-                    <EditPopUp
-                        auxValue={this.state.auxValue}
-                        auxPrefix={this.state.auxPrefix}
-                        cancel={() => this.setState({
-                            showEdit: false,
-                            auxPrefix: this.state.prefix,
-                            auxValue: this.state.value})}
-                        pressEdit={() => this.pressEdit()}
-                        pressCurr={() => this.setState({showEdit: false, showCurrencies: true})}
-                        handleChange={(text) => this.setState({auxValue: text})}
-                    />
+                        <EditPopUp
+                            auxValue={this.state.auxValue}
+                            auxPrefix={this.state.auxPrefix}
+                            cancel={() => this.setState({
+                                showEdit: false,
+                                auxPrefix: this.state.prefix,
+                                auxValue: this.state.value})}
+                            pressEdit={() => this.pressEdit()}
+                            pressCurr={() => this.emerge({showEdit: false, showCurrencies: true})}
+                            handleChange={(text) => this.setState({auxValue: text})}
+                        />
                     : null}
 
                 </KeyboardAvoidingView>
+
+                }
 
                 <View style={{
                     top: 20,
                     height: '30%',
                     alignItems: 'center',
-                    elevation: 10,
                     backgroundColor: '#404040'}}>
-
-                    <View>
+                    <View style={{top: 20}}>
                     <TouchableOpacity
                         style={styles.roundButton}
                         onPress={() =>
@@ -196,7 +208,6 @@ export default class Bag extends React.Component{
                         <Text style={{fontWeight: 'bold', fontSize: 65}}>+</Text>
                     </TouchableOpacity>
                     </View>
-
                 </View>
                 
             </View>
@@ -210,6 +221,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#606060'
     },
     middle: {
+        height: height/2,
         alignItems: 'center',
         elevation: 10,
     },
@@ -218,7 +230,6 @@ const styles = StyleSheet.create({
         fontWeight: 'bold'
     },
     roundButton: {
-        top: '60%',
         width: 80,
         height: 80,
         justifyContent: 'center',
