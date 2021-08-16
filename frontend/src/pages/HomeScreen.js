@@ -59,7 +59,6 @@ export default class HomeScreen extends React.Component{
         }).catch((error) => {});
     }
 
-
     slide(){
         /*
         Animated.timing(this.scaleValue, {

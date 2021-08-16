@@ -4,6 +4,7 @@ import { View, Text, StyleSheet, StatusBar, TextInput,
         KeyboardAvoidingView, Dimensions, Image } from 'react-native'
 
 import seta from '../images/seta3.png';
+import historico from '../images/historico.png';
 
 import Picker from '../components/selectCurrency.js';
 import EditPopUp from '../components/editPopup';
@@ -83,6 +84,10 @@ export default class Bag extends React.Component{
         }   
     }
 
+    goHistory(){
+        this.props.navigation.navigate('History');
+    }
+
 
 
     render(){
@@ -94,28 +99,42 @@ export default class Bag extends React.Component{
                 <View style={{height: '22%', backgroundColor: '#505050', elevation: 10}}>
 
                     <TouchableOpacity
-                        onPress={() => this.props.navigation.goBack(null) }
-                        style={{
-                            top: 20,
-                            left: 25,
-                            height: 40,
-                            width: 40,
-                            justifyContent: 'center',
-                        }}>
-                        <Image source={seta} style={{height: 30, width: 30}}/>
+                    onPress={() => this.props.navigation.goBack(null) }
+                    style={{
+                        top: 20,
+                        left: 25,
+                        height: 40,
+                        width: 40,
+                        justifyContent: 'center',
+                    }}>
+                    <Image source={seta} style={{height: 30, width: 30}}/>
                     </TouchableOpacity>
 
-                    <Text style={[styles.total, {fontSize: 22, top: '25%', left: 30}]}>
-                        {this.state.name}
-                    </Text>
+                    <View style={{top: '25%'}}>
+                        <View style={{left: 30}}>
+                            <Text style={[styles.total, {fontSize: 22}]}>
+                                {this.state.name}
+                            </Text>
+                        </View>
 
-                    <Text style={[styles.total, {fontSize: 30, top: '25%', left: 30}]}
-                        onPress={() =>
-                        this.state.showCurrencies 
-                            ? this.setState({showEdit: true, showCurrencies: false})
-                            : this.setState({showEdit: true, showTransfer: false})}>
-                        {this.state.prefix} {parseFloat(this.state.value).toFixed(this.state.precision)}
-                    </Text>
+                        <View style={{flexDirection: 'row', left: 30, width: width*0.86}}>
+                            <TouchableOpacity style={{marginRight: 'auto'}}>
+                            <Text style={[styles.total, {fontSize: 30}]} onPress={() =>
+                                this.state.showCurrencies 
+                                    ? this.setState({showEdit: true, showCurrencies: false})
+                                    : this.setState({showEdit: true, showTransfer: false})}>
+                                {this.state.prefix} {parseFloat(this.state.value).toFixed(this.state.precision)}
+                            </Text>
+                            </TouchableOpacity>
+
+                            <TouchableOpacity
+                                style={{right: 0, top: 4}}
+                                onPress={() => this.goHistory()}>
+                                <Image source={historico} style={{height: 30, width: 30}}/>
+                            </TouchableOpacity>
+
+                        </View>
+                    </View>
 
                 </View>
 
@@ -124,39 +143,37 @@ export default class Bag extends React.Component{
                 <KeyboardAvoidingView behavior="position" style={[styles.middle, {height: '50%'}]}>
 
                     { this.state.showCurrencies ?
-                        <Picker
-                            onChoose={(curr) => this.setState({
-                                auxPrefix: curr,
-                                showCurrencies: false,
-                                showEdit: true
-                            })}
-                        />
+                    <Picker onChoose={(curr) => this.setState({
+                            auxPrefix: curr,
+                            showCurrencies: false,
+                            showEdit: true
+                    })}/>
                     : null}
 
                     { this.state.showTransfer ?
-                        <TransferPopUp
-                            value={this.state.text}
-                            color={this.state.color}
-                            signal={this.state.signal}
-                            pressTransfer={() => this.pressTransfer()}
-                            changeSign={(obj) => this.setState(obj)}
-                            cancel={() => this.setState({showTransfer: false, text: '0.00'})}
-                            handleChange={(text) => this.setState({text: text})}
-                        />
+                    <TransferPopUp
+                        value={this.state.text}
+                        color={this.state.color}
+                        signal={this.state.signal}
+                        pressTransfer={() => this.pressTransfer()}
+                        changeSign={(obj) => this.setState(obj)}
+                        cancel={() => this.setState({showTransfer: false, text: '0.00'})}
+                        handleChange={(text) => this.setState({text: text})}
+                    />
                     : null}
 
                     {this.state.showEdit ?
-                        <EditPopUp
-                            auxValue={this.state.auxValue}
-                            auxPrefix={this.state.auxPrefix}
-                            cancel={() => this.setState({
-                                showEdit: false,
-                                auxPrefix: this.state.prefix,
-                                auxValue: this.state.value})}
-                            pressEdit={() => this.pressEdit()}
-                            pressCurr={() => this.setState({showEdit: false, showCurrencies: true})}
-                            handleChange={(text) => this.setState({auxValue: text})}
-                        />
+                    <EditPopUp
+                        auxValue={this.state.auxValue}
+                        auxPrefix={this.state.auxPrefix}
+                        cancel={() => this.setState({
+                            showEdit: false,
+                            auxPrefix: this.state.prefix,
+                            auxValue: this.state.value})}
+                        pressEdit={() => this.pressEdit()}
+                        pressCurr={() => this.setState({showEdit: false, showCurrencies: true})}
+                        handleChange={(text) => this.setState({auxValue: text})}
+                    />
                     : null}
 
                 </KeyboardAvoidingView>
@@ -167,16 +184,18 @@ export default class Bag extends React.Component{
                     alignItems: 'center',
                     elevation: 10,
                     backgroundColor: '#404040'}}>
+
                     <View>
-                        <TouchableOpacity
-                            style={styles.roundButton}
-                            onPress={() =>
-                            this.state.showCurrencies
-                                ? this.setState({showTransfer: true, showCurrencies: false})
-                                : this.setState({showTransfer: true, showEdit: false})}>
-                            <Text style={{fontWeight: 'bold', fontSize: 65}}>+</Text>
-                        </TouchableOpacity>
+                    <TouchableOpacity
+                        style={styles.roundButton}
+                        onPress={() =>
+                        this.state.showCurrencies
+                            ? this.setState({showTransfer: true, showCurrencies: false})
+                            : this.setState({showTransfer: true, showEdit: false})}>
+                        <Text style={{fontWeight: 'bold', fontSize: 65}}>+</Text>
+                    </TouchableOpacity>
                     </View>
+
                 </View>
                 
             </View>

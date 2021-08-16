@@ -1,6 +1,11 @@
 import React, { Component } from 'react'
-import {View, Text, StyleSheet, TextInput, StatusBar,
-        TouchableOpacity, Button, KeyboardAvoidingView} from 'react-native'
+import {View, Text, StyleSheet, TextInput, StatusBar, Dimensions,
+        Image , TouchableOpacity, Button, KeyboardAvoidingView} from 'react-native'
+
+import logo from '../images/logo.png';
+
+const { width, height } = Dimensions.get("screen");
+
 
 export default class Login extends React.Component{
 
@@ -14,10 +19,10 @@ export default class Login extends React.Component{
 
                 <StatusBar hidden={true}/>
 
-                <View style={{height: '30%'}}></View>
-
-                <KeyboardAvoidingView behavior="position">
+                <KeyboardAvoidingView behavior="position" style={{top: '22%'}}>
                     <View style={styles.container}>
+                        
+                        <Image source={logo} style={{top: -20, height: 100, width: 100}}/>
 
                         <TextInput
                             placeholder = "Digite seu email."
@@ -42,7 +47,7 @@ export default class Login extends React.Component{
                 </KeyboardAvoidingView>
 
                 <View style={{alignItems: 'center'}}>
-                    <View style={{width: 150, top: 80}}>
+                    <View style={{width: 150, top: height/3}}>
                       <Button onPress={() => {alert('Nothing by now :(')}}
                         title="Sign In"
                         color="#39970A"/>
@@ -60,7 +65,6 @@ const styles = StyleSheet.create({
         backgroundColor: '#404040'
     },
     container: {
-        top: '75%',
         height: '50%',
         alignItems: 'center'
     },
@@ -71,6 +75,6 @@ const styles = StyleSheet.create({
         width: 300,
         fontSize: 16,
         backgroundColor: '#808080',
-        borderRadius: 4
+        borderRadius: 20
     }
 });

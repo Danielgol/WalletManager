@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity,
         Button, FlatList, Image } from 'react-native'
 
-import logo from '../images/profile.png';
+import logo from '../images/logo.png';
 import editar from '../images/editar.png';
 import grupo from '../images/grupo.png';
 import contador from '../images/contador.png';
@@ -69,10 +69,10 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     logo: {
-        top: 20,
-        left: 10,
-        width: 80,
-        height: 80,
+        top: 30,
+        left: 25,
+        width: 60,
+        height: 60,
     }
 });
 
