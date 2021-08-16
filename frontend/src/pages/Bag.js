@@ -54,7 +54,7 @@ export default class Bag extends React.Component{
                 prefix: prefix,
             })
         }).then(response => {
-
+            this.setState({value: value, prefix: prefix});
         }).catch(error => {
             console.error(error);
         });
@@ -69,17 +69,18 @@ export default class Bag extends React.Component{
             }else{
                 novo = parseFloat(this.state.value) - parseFloat(valor);
             }
-            this.setState({value: novo, auxValue: novo, showTransfer: false});
+            this.setState({showTransfer: false});
             this.postUpdate(novo, this.state.prefix);
         }
     }
 
     pressEdit(){
         if(this.state.auxValue != '' && this.state.auxValue != '.' && this.state.auxValue != null){
-            this.setState({
-            value: this.state.auxValue,
-            prefix: this.state.auxPrefix,
-            showEdit: false });
+            var precision = 2;
+            if(this.state.auxPrefix === 'BTC'){
+                precision = 8;
+            }
+            this.setState({ showEdit: false, precision: precision});
             this.postUpdate(this.state.auxValue, this.state.auxPrefix);
         }   
     }

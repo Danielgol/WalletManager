@@ -69,7 +69,7 @@ export default class HomeScreen extends React.Component{
         */
 
         Animated.timing(this.positionX, {
-            toValue: this.showSideMenu ? 0 : width*0.65,
+            toValue: this.showSideMenu ? 0 : width*0.60,
             duration: 300,
             useNativeDriver: true
         }).start()

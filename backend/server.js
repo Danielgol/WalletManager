@@ -19,9 +19,7 @@ var banco = [
     	{name: 'BTC-RIPIO', value: 0.000202, prefix: 'BTC', key: '6'},];
 
 app.get('/btc', (req, res) =>{
-
 	const api_url = 'https://api.coindesk.com/v1/bpi/currentprice.json';
-
 	https.get(api_url, (resp) => {
 		let data = '';
 
@@ -36,7 +34,6 @@ app.get('/btc', (req, res) =>{
 			res.send(btc_value+'');
 		});
 	});
-
 });
 
 app.get('/data', (req, res) =>{
@@ -45,10 +42,8 @@ app.get('/data', (req, res) =>{
 });
 
 app.post('/post', (req, res) =>{
-
 	let json = req.body;
 	console.log(json);
-
 	for(var i=0; i<banco.length; i++){
 		if(banco[i].name === json.name){
 			console.log(banco[i].name);
@@ -57,7 +52,6 @@ app.post('/post', (req, res) =>{
 			break;
 		}
 	}
-
 	res.json(banco);
 });
 
