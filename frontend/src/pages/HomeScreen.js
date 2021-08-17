@@ -31,7 +31,7 @@ export default class HomeScreen extends React.Component{
 
     getPrecision(item){
         var precision = 2;
-        if(item.prefix === 'BTC'){
+        if(item.prefix === 'BTC' || item.prefix === 'ETH'){
             precision = 8;
         }
         return precision;
@@ -100,7 +100,7 @@ export default class HomeScreen extends React.Component{
                             onPress={() => 
                                 this.slide()
                             }>
-                            <Image source={sidebutton} style={{height: 40, width: 40}}/>
+                            <Image source={sidebutton} style={{height: 32, width: 32}}/>
                         </TouchableOpacity>
 
                         <Text style={styles.textoBotao}>
@@ -110,7 +110,7 @@ export default class HomeScreen extends React.Component{
 
                     <FlatList
                         data={this.state.group}
-                        style={{padding: 2, bottom: 20}}
+                        style={{padding: 2, bottom: 10}}
                         renderItem={({ item }) => (
 
                         <TouchableOpacity
@@ -164,16 +164,16 @@ const styles = StyleSheet.create({
     botao: {
         width: width*0.9,
         height: height*0.075,
-        marginTop: 20,
+        marginTop: 8,
         backgroundColor: '#606060',
         justifyContent: 'center',
         alignItems: 'center',
-        borderRadius: 4
+        borderRadius: 4,
+        elevation: 5,
     },
     textoBotao: {
         color: 'white',
-        fontSize: 20,
-        fontWeight: 'bold'
+        fontSize: width/22,
     },
     item: {
         fontSize: 16,

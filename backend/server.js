@@ -11,12 +11,13 @@ app.use(bodyParser.json())
 const PORT = process.env.PORT || 3000;
 
 var banco = [
-		{name: 'B-BRA', value: 1280.00, prefix: 'R$', key: '1'},
-		{name: 'CCTRF', value: 1390.00, prefix: 'R$', key: '2'},
+		{name: 'B-BRA', value: 1285.00, prefix: 'R$', key: '1'},
+		{name: 'CCTRF', value: 840.00, prefix: 'R$', key: '2'},
     	{name: 'CAIXA', value: 4760.00, prefix: 'R$', key: '3'},
     	{name: 'CASA', value: 300.00,  prefix: 'U$', key: '4'},
-    	{name: 'BTC', value: 0.00502143, prefix: 'BTC', key: '5'},
-    	{name: 'BTC-RIPIO', value: 0.000202, prefix: 'BTC', key: '6'},];
+    	{name: 'BTC', value: 0.005020, prefix: 'BTC', key: '5'},
+    	{name: 'BTC-RIPIO', value: 0.00020, prefix: 'BTC', key: '6'},
+    	{name: 'ETH-RIPIO', value: 0.00312, prefix: 'ETH', key: '7'},];
 
 app.get('/btc', (req, res) =>{
 	const api_url = 'https://api.coindesk.com/v1/bpi/currentprice.json';

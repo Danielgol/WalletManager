@@ -49,15 +49,15 @@ const TransferPopUp = (props) => {
                 />
             </View>
 
-            <View style={styles.row}>
-                <View style={{width: 150}}>
+            <View style={[styles.row, {top: 40}]}>
+                <View style={{width: width/2.8}}>
                     <Button
                         onPress={() => props.cancel() }
                         title="Cancelar"
                         color="#40970A"
                     />
                 </View>
-                <View style={{width: 150}}>
+                <View style={{width: width/2.8}}>
                     <Button
                         onPress={() => props.pressTransfer() }
                         title="Realizar"
@@ -71,7 +71,6 @@ const TransferPopUp = (props) => {
 
 const styles = StyleSheet.create({
     screen: {
-        top: '30%',
         width: width*0.9,
         alignItems: 'center',
         justifyContent: 'center',
@@ -82,8 +81,6 @@ const styles = StyleSheet.create({
     },
     row: {
         width: '100%',
-        paddingVertical: 25,
-        paddingHorizontal: 15,
         flexDirection: 'row',
         justifyContent: 'center',
     },

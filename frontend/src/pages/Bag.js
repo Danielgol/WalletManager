@@ -34,6 +34,7 @@ export default class Bag extends React.Component{
             auxValue: this.props.route.params.value,
             auxPrefix: this.props.route.params.prefix,
         }
+
         this.popUpScale = new Animated.Value(0);
     }
 
@@ -90,11 +91,11 @@ export default class Bag extends React.Component{
         this.props.navigation.navigate('History');
     }
 
-    emerge(shows){
+    emerge(shows, scale){
         this.setState(shows);
-        Animated.timing(this.popUpScale, {
+        Animated.timing(scale, {
             toValue: 1,
-            duration: 300,
+            duration: 150,
             useNativeDriver: true
         }).start();
     }
@@ -107,10 +108,10 @@ export default class Bag extends React.Component{
 
                 <StatusBar hidden={true}/>
 
+
                 <View style={{height: '22%', backgroundColor: '#404040', elevation: 10}}>
 
-                    <TouchableOpacity
-                        onPress={() => this.props.navigation.goBack(null) }
+                    <TouchableOpacity onPress={() => this.props.navigation.goBack(null)}
                         style={{
                             top: 20,
                             left: 25,
@@ -122,6 +123,7 @@ export default class Bag extends React.Component{
                     </TouchableOpacity>
 
                     <View style={{top: '20%'}}>
+
                         <View style={{left: 30}}>
                             <Text style={[styles.total, {fontSize: 22}]}>
                                 {this.state.name}
@@ -131,9 +133,10 @@ export default class Bag extends React.Component{
                         <View style={{flexDirection: 'row', left: 30, width: width*0.86}}>
                             <TouchableOpacity style={{marginRight: 'auto'}}>
                             <Text style={[styles.total, {fontSize: 30}]} onPress={() =>
-                                this.state.showCurrencies 
-                                    ? this.setState({showEdit: true, showCurrencies: false})
-                                    : this.setState({showEdit: true, showTransfer: false})}>
+                                this.emerge(this.state.showCurrencies 
+                                    ? {showEdit: true, showCurrencies: false}
+                                    : {showEdit: true, showTransfer: false}
+                                , this.popUpScale) }>
                                 {this.state.prefix} {parseFloat(this.state.value).toFixed(this.state.precision)}
                             </Text>
                             </TouchableOpacity>
@@ -145,25 +148,27 @@ export default class Bag extends React.Component{
                             </TouchableOpacity>
 
                         </View>
+
                     </View>
 
                 </View>
 
+
                 <View style={{height: '1%', backgroundColor: '#606060'}}></View>
 
+
                 { this.state.showCurrencies ?
-                    <Animated.View style={[styles.middle, {top: 10, transform: [{scale: this.popUpScale}]}]}>
-                        <CurrencyPopup onChoose={(curr) => this.setState({
-                                auxPrefix: curr,
-                                showCurrencies: false,
-                                showEdit: true
-                            })}/>
-                        </Animated.View>
-                : 
+                <Animated.View style={[styles.middle, {top: 10, transform: [{scale: this.popUpScale}]}]}>
+                    <CurrencyPopup onChoose={(curr) => this.setState({
+                        auxPrefix: curr,
+                        showCurrencies: false,
+                        showEdit: true})}/>
+                </Animated.View> :
 
                 <KeyboardAvoidingView behavior="position" style={[styles.middle]}>
 
                     { this.state.showTransfer ?
+                        <Animated.View style={[{top: '25%'}, {transform: [{scale: this.popUpScale}]}]}>
                         <TransferPopUp
                             value={this.state.text}
                             color={this.state.color}
@@ -171,11 +176,12 @@ export default class Bag extends React.Component{
                             pressTransfer={() => this.pressTransfer()}
                             changeSign={(obj) => this.setState(obj)}
                             cancel={() => this.setState({showTransfer: false, text: '0.00'})}
-                            handleChange={(text) => this.setState({text: text})}
-                        />
+                            handleChange={(text) => this.setState({text: text})}/>
+                        </Animated.View>
                     : null}
 
                     {this.state.showEdit ?
+                        <Animated.View style={[{top: '25%'}, {transform: [{scale: this.popUpScale}]}]}>
                         <EditPopUp
                             auxValue={this.state.auxValue}
                             auxPrefix={this.state.auxPrefix}
@@ -184,30 +190,25 @@ export default class Bag extends React.Component{
                                 auxPrefix: this.state.prefix,
                                 auxValue: this.state.value})}
                             pressEdit={() => this.pressEdit()}
-                            pressCurr={() => this.emerge({showEdit: false, showCurrencies: true})}
-                            handleChange={(text) => this.setState({auxValue: text})}
-                        />
+                            pressCurr={() => this.emerge({showEdit: false, showCurrencies: true}, this.popUpScale)}
+                            handleChange={(text) => this.setState({auxValue: text})}/>
+                        </Animated.View>
                     : null}
-
-                </KeyboardAvoidingView>
-
-                }
+                </KeyboardAvoidingView> }
 
                 <View style={{
-                    top: 20,
-                    height: '30%',
-                    alignItems: 'center',
-                    backgroundColor: '#404040'}}>
-                    <View style={{top: 20}}>
+                    top: 40,
+                    right: 20,
+                    alignItems: 'flex-end',
+                    justifyContent: 'flex-end',}}>
                     <TouchableOpacity
-                        style={styles.roundButton}
-                        onPress={() =>
-                        this.state.showCurrencies
-                            ? this.setState({showTransfer: true, showCurrencies: false})
-                            : this.setState({showTransfer: true, showEdit: false})}>
+                        style={[styles.roundButton]}
+                        onPress={() => this.emerge( this.state.showCurrencies
+                            ? {showTransfer: true, showCurrencies: false}
+                            : {showTransfer: true, showEdit: false}
+                            , this.popUpScale)}>
                         <Text style={{fontWeight: 'bold', fontSize: 65}}>+</Text>
                     </TouchableOpacity>
-                    </View>
                 </View>
                 
             </View>
@@ -218,7 +219,7 @@ export default class Bag extends React.Component{
 const styles = StyleSheet.create({
     screen: {
         flex: 1,
-        backgroundColor: '#606060'
+        backgroundColor: '#606060',
     },
     middle: {
         height: height/2,
@@ -230,12 +231,13 @@ const styles = StyleSheet.create({
         fontWeight: 'bold'
     },
     roundButton: {
-        width: 80,
-        height: 80,
+        width: width/5,
+        height: width/5,
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 120,
-        backgroundColor: '#40970A'
+        backgroundColor: '#40970A',
+        elevation: 10,
     },
 });
 
