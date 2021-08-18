@@ -74,7 +74,6 @@ const styles = StyleSheet.create({
         backgroundColor: '#303030',
         height: 250,
         borderRadius: 20,
-        elevation: 10,
     },
     row: {
         width: '100%',

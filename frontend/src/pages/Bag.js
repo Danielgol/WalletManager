@@ -12,6 +12,7 @@ import EditPopUp from '../components/editPopup';
 import TransferPopUp from '../components/transferPopup';
 
 const { width, height } = Dimensions.get("screen");
+const currURL = "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=20&page=1&sparkline=true&price_change_percentage=7d";
 
 
 export default class Bag extends React.Component{
@@ -28,15 +29,23 @@ export default class Bag extends React.Component{
             showEdit: false,
             showTransfer: false,
             showCurrencies: false,
+            isLoadingChart: true,
 
             signal: '+',
             color: '#40970A',
             text: '0.00',
             auxValue: this.props.route.params.value,
             auxPrefix: this.props.route.params.prefix,
+            points: [],
         }
-
         this.popUpScale = new Animated.Value(0);
+    }
+
+    componentDidMount(){
+        fetch(currURL).then(response => response.json()).then((responseJson) => {
+            this.state.points = responseJson;
+            this.setState({ isLoadingChart: false })
+        }).catch((error) => {});
     }
 
     componentWillUnmount(){
@@ -109,8 +118,16 @@ export default class Bag extends React.Component{
 
                 <StatusBar hidden={true}/>
 
+                { this.state.showCurrencies || this.state.showEdit || this.state.showTransfer ?
+                <View style={{position: 'absolute', top: 0, width: width, height: height,
+                backgroundColor: 'black', elevation: 10, opacity: 0.5, zIndex: 1}}></View>
+                : null
+                }
+                
 
-                <View style={{height: '22%', backgroundColor: '#404040', elevation: 10}}>
+
+
+                <View style={{height: '22%', backgroundColor: '#404040', elevation: 8}}>
 
                     <TouchableOpacity onPress={() => this.props.navigation.goBack(null)}
                         style={{
@@ -126,14 +143,14 @@ export default class Bag extends React.Component{
                     <View style={{top: '20%'}}>
 
                         <View style={{left: 30}}>
-                            <Text style={[styles.total, {fontSize: 22}]}>
+                            <Text style={[styles.total, {fontSize: width/18}]}>
                                 {this.state.name}
                             </Text>
                         </View>
 
                         <View style={{flexDirection: 'row', left: 30, width: width*0.86}}>
                             <TouchableOpacity style={{marginRight: 'auto'}}>
-                            <Text style={[styles.total, {fontSize: 30}]} onPress={() =>
+                            <Text style={[styles.total, {fontSize: width/15}]} onPress={() =>
                                 this.emerge(this.state.showCurrencies 
                                     ? {showEdit: true, showCurrencies: false}
                                     : {showEdit: true, showTransfer: false}
@@ -147,32 +164,31 @@ export default class Bag extends React.Component{
                                 onPress={() => this.goHistory()}>
                                 <Image source={historico} style={{height: 30, width: 30}}/>
                             </TouchableOpacity>
-
                         </View>
 
                     </View>
 
                 </View>
 
-
-                <View style={{height: '1%', backgroundColor: '#606060'}}></View>
-
-
-                <CurrencyChart/>
+                <View style={{height: '1%'}}>
+                    { this.state.isLoadingChart ? null : <CurrencyChart points={this.state.points}/> }
+                </View>
 
 
-                { this.state.showCurrencies ?
-                <Animated.View style={[styles.middle, {top: 10, transform: [{scale: this.popUpScale}]}]}>
-                    <CurrencyPopup onChoose={(curr) => this.setState({
-                        auxPrefix: curr,
-                        showCurrencies: false,
-                        showEdit: true})}/>
-                </Animated.View> :
 
-                <KeyboardAvoidingView behavior="position" style={[styles.middle]}>
+
+                <KeyboardAvoidingView behavior="position" style={[styles.middle, {zIndex: 2}]}>
+                    { this.state.showCurrencies ?
+                        <Animated.View style={[styles.middle, {top: 10, elevation: 10, transform: [{scale: this.popUpScale}]}]}>
+                            <CurrencyPopup onChoose={(curr) => this.setState({
+                                auxPrefix: curr,
+                                showCurrencies: false,
+                                showEdit: true})}/>
+                        </Animated.View> : null
+                    }
 
                     { this.state.showTransfer ?
-                        <Animated.View style={[{top: '25%'}, {transform: [{scale: this.popUpScale}]}]}>
+                        <Animated.View style={[{top: '25%'}, {elevation: 10, transform: [{scale: this.popUpScale}]}]}>
                         <TransferPopUp
                             value={this.state.text}
                             color={this.state.color}
@@ -185,7 +201,7 @@ export default class Bag extends React.Component{
                     : null}
 
                     {this.state.showEdit ?
-                        <Animated.View style={[{top: '25%'}, {transform: [{scale: this.popUpScale}]}]}>
+                        <Animated.View style={[{top: '25%'}, {elevation: 10, transform: [{scale: this.popUpScale}]}]}>
                         <EditPopUp
                             auxValue={this.state.auxValue}
                             auxPrefix={this.state.auxPrefix}
@@ -198,7 +214,10 @@ export default class Bag extends React.Component{
                             handleChange={(text) => this.setState({auxValue: text})}/>
                         </Animated.View>
                     : null}
-                </KeyboardAvoidingView> }
+                </KeyboardAvoidingView>
+
+
+
 
                 <View style={{
                     top: 40,
@@ -223,7 +242,7 @@ export default class Bag extends React.Component{
 const styles = StyleSheet.create({
     screen: {
         flex: 1,
-        backgroundColor: '#606060',
+        backgroundColor: '#303030',
     },
     middle: {
         height: height/2,
@@ -232,7 +251,6 @@ const styles = StyleSheet.create({
     },
     total: {
         color: 'white',
-        fontWeight: 'bold'
     },
     roundButton: {
         width: width/5,
@@ -241,7 +259,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         borderRadius: 120,
         backgroundColor: '#40970A',
-        elevation: 10,
+        elevation: 5,
     },
 });
 

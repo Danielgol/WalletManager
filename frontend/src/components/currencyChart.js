@@ -1,12 +1,11 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity,
+import { View, Text, StyleSheet, TouchableOpacity, ActivityIndicator,
         Button, FlatList, TextInput, Dimensions } from 'react-native';
 import { LineChart, Grid } from 'react-native-svg-charts';
 import * as shape from 'd3-shape';
 
 
 const { width, height } = Dimensions.get("screen");
-import SAMPLE_DATA from './data.js';
 
 
 function handleEditChange(amount, props){
@@ -19,23 +18,63 @@ function handleEditChange(amount, props){
 }
 
 
-class CurrencyChart extends React.PureComponent{
-    render(){
-        const data = [50, 10, 40, 95, -4, -24, 85, 91, 35, 53, -53, 24, 50, -20, -80];
+const CurrencyChart = (props) => {
 
-        return(
-            <View style={styles.screen}>
-                <LineChart
-                    style={{ top: 10, height: '80%', width: '90%'}}
-                    data={data}
-                    contentInset={{ top: 30, bottom: 30 }}
-                    svg={{ stroke: '#40970A', strokeWidth: 2.4}}
-                    curve={shape.curveMonotoneX}
-                    >
-                </LineChart>
+    const data = props.points;
+    const points = data[0].sparkline_in_7d.price;
+
+    return(
+        <View style={styles.screen}>
+            <View style={{alignItems: 'flex-start', width: width}}>
+                <Text style={{
+                    top: 10,
+                    left: 10,
+                    color: 'white',
+                    textTransform: 'uppercase',
+                    fontWeight: 'bold'}}>
+                    {data[0].symbol}
+                </Text>
             </View>
-        );
-    }
+
+            <LineChart
+                style={{ height: '60%', width: '95%'}}
+                data={points}
+                contentInset={{ top: 10 }}
+                svg={{ stroke: '#60C70F', strokeWidth: 2.4}}
+                curve={shape.curveMonotoneX}
+                >
+            </LineChart>
+
+            <View style={[styles.row, {top: 30, width: width}]}>
+
+                <View>
+                    <Text style={{
+                        left: 10,
+                        color: 'white',
+                        textTransform: 'uppercase',
+                        fontSize: height/47,
+                    }}>
+                        {'U$'} {data[0].current_price.toFixed(2)}
+                    </Text>
+                </View>
+
+                <View>
+                    <Text style={{
+                        right: 10,
+                        color: data[0].price_change_percentage_24h > 0 ? '#88C70F' : 'red',
+                        textTransform: 'uppercase',
+                        fontSize: height/47,
+                        fontWeight: 'bold',
+                    }}>
+                        {data[0].price_change_percentage_24h > 0 ? '+' : null}
+                        {data[0].price_change_percentage_24h.toFixed(2)}{'%'}
+                    </Text>
+                </View>
+
+            </View>
+
+        </View>
+    );
 }
 
 
@@ -43,15 +82,14 @@ const styles = StyleSheet.create({
     screen: {
         alignItems: 'center',
         height: height*0.3,
-        width: width*0.98,
-        borderRadius: 20,
-        elevation: 10,
-        backgroundColor: '#ddd'
+        width: width,
+        backgroundColor: '#303030',
+        elevation: 2,
     },
     row: {
-        width: '100%',
         flexDirection: 'row',
-        justifyContent: 'center',
+        paddingHorizontal: 15,
+        justifyContent: 'space-between',
     },
 });
 
