@@ -6,6 +6,7 @@ import { View, Text, StyleSheet, StatusBar, TextInput,
 import seta from '../images/seta3.png';
 import historico from '../images/historico.png';
 
+import CurrencyChart from '../components/currencyChart.js';
 import CurrencyPopup from '../components/currencyPopup.js';
 import EditPopUp from '../components/editPopup';
 import TransferPopUp from '../components/transferPopup';
@@ -155,6 +156,9 @@ export default class Bag extends React.Component{
 
 
                 <View style={{height: '1%', backgroundColor: '#606060'}}></View>
+
+
+                <CurrencyChart/>
 
 
                 { this.state.showCurrencies ?
