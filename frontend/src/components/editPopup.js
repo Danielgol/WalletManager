@@ -1,10 +1,10 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity,
-        Button, FlatList, TextInput, Dimensions } from 'react-native'
+        Button, FlatList, TextInput, Dimensions } from 'react-native';
+
 
 
 const { width, height } = Dimensions.get("screen");
-
 
 function handleEditChange(amount, props){
     var aux = amount;
@@ -14,6 +14,7 @@ function handleEditChange(amount, props){
         props.handleChange(amount.replace(',',''));
     }
 }
+
 
 
 const EditPopUp = (props) => {
