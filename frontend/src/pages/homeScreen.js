@@ -21,7 +21,6 @@ export default class HomeScreen extends React.Component{
             total: 0,
         }
         this.showSideMenu = false;
-        this.scaleValue = new Animated.Value(1);
         this.positionX = new Animated.Value(0);
     }
 
@@ -86,31 +85,40 @@ export default class HomeScreen extends React.Component{
 
             <SideMenu style={{justifyContent: 'flex-start'}}/>
 
-            <Animated.View style={[styles.screen, { alignItems: 'center', backgroundColor: '#404040',
-                transform: [{scale: this.scaleValue, translateX: this.positionX}] }]}>
+            {/* ----------- TELA ----------- */}
+            <Animated.View style={[styles.screen, { alignItems: 'center', backgroundColor: '#303030',
+                transform: [{translateX: this.positionX}] }]}>
 
                 <StatusBar hidden={true}/>
 
-                { this.state.isLoading ? <ActivityIndicator style={{position: 'absolute', top: 30}}/> : 
-                <View>
+                { this.state.isLoading ? <ActivityIndicator style={{position: 'absolute', top: 30}}/> :
 
-                    <View style={{height: '30%', alignItems: 'center', justifyContent: 'center'}}>
+                <View style={{width: '100%', alignItems: 'center'}}>
+
+                    {/* ----------- HEADER ----------- */}
+                    <View style={{
+                        width: '100%',
+                        height: '26%',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        backgroundColor: '#404040',
+                        elevation: 10,
+                        }}>
                         <TouchableOpacity
-                            style={{position: 'absolute', left: 0, top: '20%'}}
-                            onPress={() => 
-                                this.slide()
-                            }>
+                            style={{position: 'absolute', left: 20, top: '20%'}}
+                            onPress={() => this.slide()}>
                             <Image source={sidebutton} style={{height: 32, width: 32}}/>
                         </TouchableOpacity>
 
-                        <Text style={styles.textoBotao}>
+                        <Text style={{color: 'white', fontSize: width/18}}>
                             R$ {parseFloat(this.state.total).toFixed(2)}
                         </Text>
                     </View>
 
+                    {/* ----------- LISTA ----------- */}
                     <FlatList
                         data={this.state.group}
-                        style={{padding: 2, bottom: 10}}
+                        style={{bottom: 10, top: 20}}
                         renderItem={({ item }) => (
 
                         <TouchableOpacity
@@ -119,7 +127,10 @@ export default class HomeScreen extends React.Component{
                             elevation={30}>
                             <View style={styles.row}>
                                 <Text style={styles.textoBotao}> {item.name} </Text>
-                                <Text style={styles.textoBotao}>
+                                <Text style={[styles.textoBotao, {
+                                    color: ((item.prefix == 'BTC' || item.prefix == 'ETH') ? 'orange' : 'white'),
+                                    fontWeight: ((item.prefix == 'BTC' || item.prefix == 'ETH') ? 'bold' : 'normal'),
+                                }]}>
                                 {item.prefix} {parseFloat(item.value).toFixed(this.getPrecision(item))}
                                 </Text>
                             </View>
@@ -147,7 +158,7 @@ const styles = StyleSheet.create({
     },
     container :{
         flex: 1,
-        backgroundColor: '#606060',
+        backgroundColor: '#494949',
         alignItems: 'flex-start',
         justifyContent: 'flex-start',
         elevation: 10,
@@ -159,13 +170,12 @@ const styles = StyleSheet.create({
         right: 0,
         top: 0,
         bottom: 0,
-        borderRadius: 15,
     },
     botao: {
-        width: width*0.9,
+        width: width*1,
         height: height*0.075,
         marginTop: 8,
-        backgroundColor: '#606060',
+        backgroundColor: '#272727',
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 4,

@@ -38,7 +38,7 @@ const CurrencyChart = (props) => {
                     color: 'white',
                     textTransform: 'uppercase',
                     fontWeight: 'bold'}}>
-                    {data[0].symbol}
+                    {props.currency}
                 </Text>
             </View>
 

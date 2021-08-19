@@ -79,6 +79,13 @@ export default class Bag extends React.Component{
         return true;
     }
 
+    isCripto(){
+        if(this.state.prefix == 'BTC' || this.state.prefix == 'ETH'){
+            return true;
+        }
+        return false;
+    }
+
 
 
 
@@ -150,6 +157,7 @@ export default class Bag extends React.Component{
 
                 <StatusBar hidden={true}/>
 
+                {/* ----------- POPUP BACKGROUND ----------- */}
                 { this.state.showCurrencies || this.state.showEdit || this.state.showTransfer ?
                 <View style={{position: 'absolute', top: 0, width: width, height: height,
                 backgroundColor: 'black', elevation: 10, opacity: 0.5, zIndex: 1}}></View>
@@ -158,7 +166,7 @@ export default class Bag extends React.Component{
                 
 
                 {/* ----------- HEADER ----------- */}
-                <View style={{height: '22%', backgroundColor: '#404040', elevation: 8}}>
+                <View style={{height: '22%', backgroundColor: '#404040', elevation: 8,}}>
 
                     <TouchableOpacity onPress={() => this.props.navigation.goBack(null)}
                         style={{
@@ -204,7 +212,7 @@ export default class Bag extends React.Component{
 
                 {/* ----------- CHART ----------- */}
                 <View style={{height: '1%'}}>
-                    { this.state.isLoadingChart ? null :
+                    { ( this.state.isLoadingChart || !this.isCripto() ) ? null :
                     <CurrencyChart currency={this.state.prefix} points={this.state.points}/> }
                 </View>
 

@@ -16,8 +16,6 @@ Criar "Total Views" (Soma de determinadas maletas)
 
 Bag:
 Permitir Edição de Nome das Maletas
-Mudar o currency input (Adaptar para valores com alta precisão)
-Colocar para editar automaticamente o Bag ao clicar em cima do valor ("cursor no input")
 -Criar botão de Planos (Mensais Semanais)
 -Criar Notificações de Planos
 -Definir tipos de Planos (Inserção Automática ou por Confirmação de Notificação)
@@ -25,3 +23,7 @@ Criar Histórico
 
 History:
 Remover ítem histórico
+
+Específicos:
+1 - Depois de transferir um valor e depois clicar em Editar, ele mostra o valor
+anterior (tem que colocar para mostrar o atual).

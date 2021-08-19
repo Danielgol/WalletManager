@@ -76,8 +76,8 @@ const styles = StyleSheet.create({
     botao: {
         width: 300,
         height: 45,
-        marginTop: 20,
-        backgroundColor: '#505050',
+        marginTop: 5,
+        backgroundColor: '#272727',
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 4
