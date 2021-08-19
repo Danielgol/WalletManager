@@ -67,7 +67,6 @@ export default class Bag extends React.Component{
     }
 
     handleBackButton = () => {
-
         if(this.state.showCurrencies == true){
             this.setState({showEdit: true, showCurrencies: false});
         } else if(this.state.showEdit == true){
@@ -79,8 +78,6 @@ export default class Bag extends React.Component{
         }
         return true;
     }
-
-
 
 
 
@@ -145,6 +142,7 @@ export default class Bag extends React.Component{
 
 
 
+
     render(){
 
         return(
@@ -159,8 +157,7 @@ export default class Bag extends React.Component{
                 }
                 
 
-
-
+                {/* ----------- HEADER ----------- */}
                 <View style={{height: '22%', backgroundColor: '#404040', elevation: 8}}>
 
                     <TouchableOpacity onPress={() => this.props.navigation.goBack(null)}
@@ -201,16 +198,19 @@ export default class Bag extends React.Component{
                         </View>
 
                     </View>
-
                 </View>
 
+
+
+                {/* ----------- CHART ----------- */}
                 <View style={{height: '1%'}}>
-                    { this.state.isLoadingChart ? null : <CurrencyChart points={this.state.points}/> }
+                    { this.state.isLoadingChart ? null :
+                    <CurrencyChart currency={this.state.prefix} points={this.state.points}/> }
                 </View>
 
 
 
-
+                {/* ----------- POPUPS ----------- */}
                 <KeyboardAvoidingView behavior="position" style={[styles.middle, {zIndex: 2}]}>
                     { this.state.showCurrencies ?
                         <Animated.View style={[styles.middle, {top: 10, elevation: 10, transform: [{scale: this.popUpScale}]}]}>
@@ -251,8 +251,7 @@ export default class Bag extends React.Component{
                 </KeyboardAvoidingView>
 
 
-
-
+                {/* ----------- BOTAO + ----------- */}
                 <View style={{
                     top: 40,
                     right: 20,

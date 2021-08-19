@@ -21,7 +21,12 @@ function handleEditChange(amount, props){
 const CurrencyChart = (props) => {
 
     const data = props.points;
-    const points = data[0].sparkline_in_7d.price;
+    const filter = data.filter(function equal(argument) {
+        if(argument.symbol.toUpperCase() === props.currency){
+            return argument;
+        }
+    });
+    const points = filter[0].sparkline_in_7d.price;
     const daily = points.slice( (-1)*(points.length*(   7   )/7) );
 
     return(
