@@ -56,30 +56,29 @@ export default class Bag extends React.Component{
             this.setState({ isLoadingChart: false })
         }).catch((error) => {});
 
-
-        //BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
-
-
+        BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
     }
 
     componentWillUnmount(){
         const params = this.props.route.params;
         params.refresh();
 
-
-        //BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
-
-
+        BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
     }
 
+    handleBackButton = () => {
 
-
-
-    ///
-    handleBackButton() {
+        if(this.state.showCurrencies == true){
+            this.setState({showEdit: true, showCurrencies: false});
+        } else if(this.state.showEdit == true){
+            this.setState({showEdit: false});
+        }else if(this.state.showTransfer == true){
+            this.setState({showTransfer: false})
+        }else if(this.state.showEdit == false && this.state.showTransfer == false && this.state.showCurrencies == false){
+            return false;
+        }
         return true;
     }
-    ///
 
 
 
@@ -130,10 +129,6 @@ export default class Bag extends React.Component{
         }   
     }
 
-    goHistory(){
-        this.props.navigation.navigate('History');
-    }
-
     emerge(shows, scale){
         this.setState(shows);
         Animated.timing(scale, {
@@ -141,6 +136,10 @@ export default class Bag extends React.Component{
             duration: 150,
             useNativeDriver: true
         }).start();
+    }
+
+    goHistory(){
+        this.props.navigation.navigate('History');
     }
 
 

@@ -22,6 +22,7 @@ const CurrencyChart = (props) => {
 
     const data = props.points;
     const points = data[0].sparkline_in_7d.price;
+    const daily = points.slice( (-1)*(points.length*(   7   )/7) );
 
     return(
         <View style={styles.screen}>
@@ -38,8 +39,8 @@ const CurrencyChart = (props) => {
 
             <LineChart
                 style={{ height: '60%', width: '95%'}}
-                data={points}
-                contentInset={{ top: 10 }}
+                data={daily}
+                contentInset={{ top: 10, bottom: 10 }}
                 svg={{ stroke: '#60C70F', strokeWidth: 2.4}}
                 curve={shape.curveMonotoneX}
                 >
