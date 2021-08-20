@@ -45,7 +45,7 @@ const CurrencyChart = (props) => {
             <LineChart
                 style={{ height: '60%', width: '95%'}}
                 data={daily}
-                contentInset={{ top: 10, bottom: 10 }}
+                contentInset={{ top: 15, bottom: 10 }}
                 svg={{ stroke: '#60C70F', strokeWidth: 2.4}}
                 curve={shape.curveMonotoneX}
                 >
@@ -60,20 +60,20 @@ const CurrencyChart = (props) => {
                         textTransform: 'uppercase',
                         fontSize: height/47,
                     }}>
-                        {'U$'} {data[0].current_price.toFixed(2)}
+                        {'U$'} {filter[0].current_price.toFixed(2)}
                     </Text>
                 </View>
 
                 <View>
                     <Text style={{
                         right: 10,
-                        color: data[0].price_change_percentage_24h > 0 ? '#88C70F' : 'red',
+                        color: filter[0].price_change_percentage_24h > 0 ? '#88C70F' : 'red',
                         textTransform: 'uppercase',
                         fontSize: height/47,
                         fontWeight: 'bold',
                     }}>
-                        {data[0].price_change_percentage_24h > 0 ? '+' : null}
-                        {data[0].price_change_percentage_24h.toFixed(2)}{'%'}
+                        {filter[0].price_change_percentage_24h > 0 ? '+' : null}
+                        {filter[0].price_change_percentage_24h.toFixed(2)}{'%'}
                     </Text>
                 </View>
 

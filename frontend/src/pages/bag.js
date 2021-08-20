@@ -73,7 +73,7 @@ export default class Bag extends React.Component{
             this.setState({showEdit: false});
         }else if(this.state.showTransfer == true){
             this.setState({showTransfer: false})
-        }else if(this.state.showEdit == false && this.state.showTransfer == false && this.state.showCurrencies == false){
+        }else if(!this.state.showEdit && !this.state.showTransfer && !this.state.showCurrencies){
             return false;
         }
         return true;
@@ -86,6 +86,39 @@ export default class Bag extends React.Component{
         return false;
     }
 
+    convertPrefix(){
+        const prefix = this.state.prefix;
+
+        if(prefix == 'BTC'){
+            return 'BTC ';
+        }
+        if(prefix == 'ETH'){
+            return 'ETH ';
+        }
+        if(prefix == 'BRL'){
+            return 'R$';
+        }
+        if(prefix == 'USD'){
+            return '$';
+        }
+        if(prefix == 'EUR'){
+            return '€';
+        }
+        if(prefix == 'GBP'){
+            return '£';
+        }
+        if(prefix == 'JPY'){
+            return '¥';
+        }
+    }
+
+    currencyFormat() {
+        if(this.state.prefix != 'BTC' && this.state.prefix != 'ETH'){
+            return parseFloat(this.state.value).toFixed(this.state.precision)
+            .replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
+        }
+        return parseFloat(this.state.value).toFixed(this.state.precision)
+    }
 
 
 
@@ -163,7 +196,8 @@ export default class Bag extends React.Component{
                 backgroundColor: 'black', elevation: 10, opacity: 0.5, zIndex: 1}}></View>
                 : null
                 }
-                
+
+
 
                 {/* ----------- HEADER ----------- */}
                 <View style={{height: '22%', backgroundColor: '#404040', elevation: 8,}}>
@@ -179,29 +213,45 @@ export default class Bag extends React.Component{
                         <Image source={seta} style={{height: 30, width: 30}}/>
                     </TouchableOpacity>
 
-                    <View style={{top: '20%'}}>
+                    <View style={{top: -10}}>
 
-                        <View style={{left: 30}}>
-                            <Text style={[styles.total, {fontSize: width/18}]}>
+                        <View style={{alignSelf: 'center'}}>
+                            <Text style={{color: 'white', fontSize: width/22}}>
                                 {this.state.name}
                             </Text>
                         </View>
 
-                        <View style={{flexDirection: 'row', left: 30, width: width*0.86}}>
-                            <TouchableOpacity style={{marginRight: 'auto'}}>
-                            <Text style={[styles.total, {fontSize: width/15}]} onPress={() =>
-                                this.emerge(this.state.showCurrencies 
+                        <View style={{top: 10, alignItems: 'center', alignSelf: 'center'}}>
+                            <TouchableOpacity onPress={() => this.emerge(this.state.showCurrencies 
                                     ? {showEdit: true, showCurrencies: false}
                                     : {showEdit: true, showTransfer: false}
                                 , this.popUpScale) }>
-                                {this.state.prefix} {parseFloat(this.state.value).toFixed(this.state.precision)}
-                            </Text>
-                            </TouchableOpacity>
+                                <View style={{flexDirection: 'row', right: 10}}>
 
+                                    <View style={{justifyContent: 'flex-end', bottom: 6, right: 3}}>
+                                        <Text style={{color: 'white', fontSize: width/22}}>
+                                            {this.convertPrefix()}
+                                        </Text>
+                                    </View>
+
+                                    <View style={{justifyContent: 'flex-end'}}>
+                                        <Text style={{ color: 'white', fontSize: width/10}} onPress={() =>
+                                            this.emerge(this.state.showCurrencies 
+                                            ? {showEdit: true, showCurrencies: false}
+                                            : {showEdit: true, showTransfer: false},
+                                            this.popUpScale) }>
+                                                { this.currencyFormat() }
+                                        </Text>
+                                    </View>
+
+                                </View>
+                            </TouchableOpacity>
+                        </View>
+
+                        <View style={{alignSelf: 'flex-end', right: 15}}>
                             <TouchableOpacity
-                                style={{right: 0, top: 4}}
                                 onPress={() => this.goHistory()}>
-                                <Image source={historico} style={{height: 30, width: 30}}/>
+                                <Image source={historico} style={{height: 25, width: 25}}/>
                             </TouchableOpacity>
                         </View>
 
@@ -259,6 +309,7 @@ export default class Bag extends React.Component{
                 </KeyboardAvoidingView>
 
 
+
                 {/* ----------- BOTAO + ----------- */}
                 <View style={{
                     top: 40,
@@ -289,9 +340,6 @@ const styles = StyleSheet.create({
         height: height/2,
         alignItems: 'center',
         elevation: 10,
-    },
-    total: {
-        color: 'white',
     },
     roundButton: {
         width: width/5,

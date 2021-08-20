@@ -7,7 +7,7 @@ const banco = [
     {name: 'CAIXA', value: 4760.00, prefix: 'BRL', key: '3'},
     {name: 'CASA', value: 300.00,  prefix: 'USD', key: '4'},
     {name: 'BTC', value: 0.005020, prefix: 'BTC', key: '5'},
-    {name: 'BTC-RIPIO', value: 0.00020, prefix: 'BTC', key: '6'},
+    {name: 'BTC-RIPIO', value: 0.00040, prefix: 'BTC', key: '6'},
     {name: 'ETH-RIPIO', value: 0.00312, prefix: 'ETH', key: '7'}
 ];
 

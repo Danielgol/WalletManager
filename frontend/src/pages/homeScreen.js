@@ -2,7 +2,8 @@ import React, { useState , NavigationEvents } from 'react';
 import { View, Text, StyleSheet, StatusBar, Dimensions,
         TouchableOpacity, Button, FlatList, ActivityIndicator,
         SafeAreaView, Animated, Image } from 'react-native';
-import { Swipeable } from 'react-native-gesture-handler';
+
+//import { Swipeable } from 'react-native-gesture-handler';
 
 import SideMenu from '../components/sideMenu.js';
 import sidebutton from '../images/sidemenu.png'
@@ -104,6 +105,38 @@ export default class HomeScreen extends React.Component{
         this.showSideMenu = !this.showSideMenu;
     }
 
+    convertPrefix(prefix){
+        if(prefix == 'BTC'){
+            return 'BTC ';
+        }
+        if(prefix == 'ETH'){
+            return 'ETH ';
+        }
+        if(prefix == 'BRL'){
+            return 'R$';
+        }
+        if(prefix == 'USD'){
+            return '$';
+        }
+        if(prefix == 'EUR'){
+            return '€';
+        }
+        if(prefix == 'GBP'){
+            return '£';
+        }
+        if(prefix == 'JPY'){
+            return '¥';
+        }
+    }
+
+    currencyFormat(item) {
+        if(item.prefix != 'BTC' && item.prefix != 'ETH'){
+            return parseFloat(item.value).toFixed(this.getPrecision(item))
+            .replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
+        }
+        return parseFloat(item.value).toFixed(this.getPrecision(item))
+    }
+
 
 
 
@@ -163,27 +196,58 @@ export default class HomeScreen extends React.Component{
                             <Image source={sidebutton} style={{height: 32, width: 32}}/>
                         </TouchableOpacity>
 
-                        <Text style={{color: 'white', fontSize: width/18}}>
-                            R$   {parseFloat(this.state.reais).toFixed(2)}
-                        </Text>
-
-                        <Text style={{color: 'white', fontSize: width/18}}>
-                            BTC   {parseFloat(this.state.bitcoins).toFixed(8)}
-                        </Text>
-
-                        <Text style={{color: 'white', fontSize: width/18}}>
-                            ETH   {parseFloat(this.state.ethereuns).toFixed(8)}
-                        </Text>
+                        <View style={{marginLeft: 'auto', right: 20}}>
 
 
 
-                        {/*-----------------*/}
+
+                        <View style={{flexDirection: 'row'}}>
+                            <View style={{justifyContent: 'flex-end', marginLeft: 'auto', 
+                            bottom: 2, right: 7}}>
+                                <Text style={{color: 'white', fontSize: width/27}}>
+                                    R$
+                                </Text>
+                            </View>
+                            <Text style={{color: 'white', fontSize: width/20}}>
+                                {parseFloat(this.state.reais).toFixed(2)}
+                            </Text>
+                        </View>
+
+                        <View style={{flexDirection: 'row'}}>
+                            <View style={{justifyContent: 'flex-end', marginLeft: 'auto',
+                            bottom: 2, right: 7}}>
+                                <Text style={{color: 'white', fontSize: width/27}}>
+                                    BTC
+                                </Text>
+                            </View>
+                            <Text style={{color: 'white', fontSize: width/20}}>
+                                {parseFloat(this.state.bitcoins).toFixed(8)}
+                            </Text>
+                        </View>
+
+                        <View style={{flexDirection: 'row'}}>
+                            <View style={{justifyContent: 'flex-end', marginLeft: 'auto',
+                            bottom: 2, right: 7}}>
+                                <Text style={{color: 'white', fontSize: width/27}}>
+                                    ETH
+                                </Text>
+                            </View>
+                            <Text style={{color: 'white', fontSize: width/20}}>
+                                {parseFloat(this.state.ethereuns).toFixed(8)}
+                            </Text>
+                        </View>
+
+                        </View>
+
+
+
+                        {/*-----------------
                         <TouchableOpacity
                             style={{top: 20}}
                             onPress={() => this.expandHeader()}>
                             <Image source={sidebutton} style={{height: 32, width: 32}}/>
                         </TouchableOpacity>
-                        {/*-----------------*/}
+                        -----------------*/}
 
 
 
@@ -209,7 +273,7 @@ export default class HomeScreen extends React.Component{
                                     color: ((item.prefix == 'BTC' || item.prefix == 'ETH') ? 'orange' : 'white'),
                                     fontWeight: ((item.prefix == 'BTC' || item.prefix == 'ETH') ? 'bold' : 'normal'),
                                 }]}>
-                                {item.prefix} {parseFloat(item.value).toFixed(this.getPrecision(item))}
+                                {this.convertPrefix(item.prefix)} {this.currencyFormat(item)}
                                 </Text>
                             </View>
                         </TouchableOpacity>
