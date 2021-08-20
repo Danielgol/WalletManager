@@ -200,7 +200,7 @@ export default class Bag extends React.Component{
 
 
                 {/* ----------- HEADER ----------- */}
-                <View style={{height: '22%', backgroundColor: '#404040', elevation: 8,}}>
+                <View style={styles.header}>
 
                     <TouchableOpacity onPress={() => this.props.navigation.goBack(null)}
                         style={{
@@ -280,7 +280,7 @@ export default class Bag extends React.Component{
                     }
 
                     { this.state.showTransfer ?
-                        <Animated.View style={[{top: '25%'}, {elevation: 10, transform: [{scale: this.popUpScale}]}]}>
+                        <Animated.View style={{top: '25%', elevation: 10, transform: [{scale: this.popUpScale}] }}>
                         <TransferPopUp
                             value={this.state.text}
                             color={this.state.color}
@@ -293,7 +293,7 @@ export default class Bag extends React.Component{
                     : null}
 
                     {this.state.showEdit ?
-                        <Animated.View style={[{top: '25%'}, {elevation: 10, transform: [{scale: this.popUpScale}]}]}>
+                        <Animated.View style={{top: '25%', elevation: 10, transform: [{scale: this.popUpScale}]}}>
                         <EditPopUp
                             auxValue={this.state.auxValue}
                             auxPrefix={this.state.auxPrefix}
@@ -335,6 +335,13 @@ const styles = StyleSheet.create({
     screen: {
         flex: 1,
         backgroundColor: '#303030',
+    },
+    header: {
+        height: '22%',
+        backgroundColor: '#101010',
+        elevation: 8,
+        borderBottomRightRadius: 22,
+        borderBottomLeftRadius: 22,
     },
     middle: {
         height: height/2,

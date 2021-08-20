@@ -37,7 +37,7 @@ module.exports = {
         res.json(banco);
     },
 
-    postIDontKnow(req, res) {
+    postDataUpdate(req, res) {
         let json = req.body;
         console.log(json);
         for(var i=0; i<banco.length; i++){

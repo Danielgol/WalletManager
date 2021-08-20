@@ -15,7 +15,7 @@ router.delete('/example/:index', exampleController.delete)
 // Endpoints used by application
 router.get('/btc', mockController.getBTC)
 router.get('/data', mockController.getAllData)
-router.post('/post', mockController.postIDontKnow)
+router.post('/post', mockController.postDataUpdate)
 
 
 module.exports = router

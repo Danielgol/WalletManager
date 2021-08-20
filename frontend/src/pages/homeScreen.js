@@ -166,9 +166,7 @@ export default class HomeScreen extends React.Component{
             <SideMenu style={{justifyContent: 'flex-start'}}/>
 
             {/* ----------- TELA ----------- */}
-            <Animated.View style={[styles.screen, { 
-                alignItems: 'center', backgroundColor: '#303030',
-                transform: [{translateX: this.positionX}] }]}>
+            <Animated.View style={[styles.screen, { transform: [{translateX: this.positionX}] }]}>     
 
                 <StatusBar hidden={true}/>
 
@@ -177,16 +175,8 @@ export default class HomeScreen extends React.Component{
                 <View style={{width: '100%', alignItems: 'center'}}>
 
                     {/* ----------- HEADER ----------- */}
-                    <Animated.View style={{
-                        zIndex: 1,
-                        width: '100%',
-                        height: '26%',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        backgroundColor: '#404040',
-                        elevation: 10,
-                        transform: [{translateY: this.headerY}],
-                    }}>
+                    <Animated.View style={ [styles.header,
+                        {transform: [{translateY: this.headerY}]} ]}>
 
                         
 
@@ -240,7 +230,6 @@ export default class HomeScreen extends React.Component{
                         </View>
 
 
-
                         {/*-----------------
                         <TouchableOpacity
                             style={{top: 20}}
@@ -248,8 +237,6 @@ export default class HomeScreen extends React.Component{
                             <Image source={sidebutton} style={{height: 32, width: 32}}/>
                         </TouchableOpacity>
                         -----------------*/}
-
-
 
                         
                     </Animated.View>
@@ -291,19 +278,23 @@ export default class HomeScreen extends React.Component{
 }
 
 const styles = StyleSheet.create({
-    row: {
-        width: '100%',
-        paddingVertical: 25,
-        paddingHorizontal: 15,
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-    },
     container :{
         flex: 1,
         backgroundColor: '#494949',
         alignItems: 'flex-start',
         justifyContent: 'flex-start',
         elevation: 10,
+    },
+    header: {
+        zIndex: 1,
+        width: '100%',
+        height: '26%',
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: '#101010',
+        elevation: 10,
+        borderBottomRightRadius: 22,
+        borderBottomLeftRadius: 22,
     },
     screen: {
         flexGrow: 1,
@@ -312,6 +303,15 @@ const styles = StyleSheet.create({
         right: 0,
         top: 0,
         bottom: 0,
+        alignItems: 'center',
+        backgroundColor: '#303030',
+    },
+    row: {
+        width: '100%',
+        paddingVertical: 25,
+        paddingHorizontal: 15,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
     },
     botao: {
         width: width*1,

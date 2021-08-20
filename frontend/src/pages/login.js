@@ -37,21 +37,41 @@ export default class Login extends React.Component{
                             secureTextEntry={true}
                             elevation={10}/>
 
-                        <View style={{width: 150, marginTop: 20}}>
-                            <Button onPress={() => this.props.navigation.navigate('HomeScreen')}
-                                title="Login"
-                                color="#39970A"/>
-                        </View>
+                        <TouchableOpacity 
+                            onPress={() => this.props.navigation.navigate('HomeScreen')}
+                            style={{
+                                marginTop: 20,
+                                width: width*0.5,
+                                backgroundColor: 'white',
+                                height: height*0.08,
+                                borderRadius: 35,
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                marginVertical: 5,
+                                elevation: 10,
+                            }}>
+                            <Text style={{fontSize: 20, fontWeight: 'bold'}}>LOG IN</Text>
+                        </TouchableOpacity>
 
                     </View>
                 </KeyboardAvoidingView>
 
-                <View style={{alignItems: 'center'}}>
-                    <View style={{width: 150, top: height/3}}>
-                      <Button onPress={() => {alert('Nothing by now :(')}}
-                        title="Sign In"
-                        color="#39970A"/>
-                    </View>
+                <View style={{alignItems: 'center', top: height/3.5}}>
+                    <TouchableOpacity 
+                        onPress={() => {alert('Nothing by now :(')}}
+                        style={{
+                            marginTop: 20,
+                            width: width*0.5,
+                            backgroundColor: '#ccaa44',
+                            height: height*0.08,
+                            borderRadius: 35,
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            marginVertical: 5,
+                            elevation: 10,
+                        }}>
+                        <Text style={{fontSize: 20, fontWeight: 'bold'}}>SIGN IN</Text>
+                    </TouchableOpacity>
                 </View>
 
             </View>
