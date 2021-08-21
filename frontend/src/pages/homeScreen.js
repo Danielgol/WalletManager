@@ -19,18 +19,17 @@ export default class HomeScreen extends React.Component{
         this.state = {
             isLoading: true,
             group: [],
-            reais: 0,
-            bitcoins: 0,
-            ethereuns: 0,
+            contadores: [],
         }
         this.showSideMenu = false;
         this.positionX = new Animated.Value(0);
 
-        ////////////
+
+        /*
+        * CASO QUEIRA "EXPANDIR" O HEADER
+        */
         this.expand = false;
         this.headerY = new Animated.Value(0);
-        ////////////
-
     }
 
     componentDidMount(){
@@ -45,64 +44,12 @@ export default class HomeScreen extends React.Component{
         return precision;
     }
 
-    goMoney(item){
-        var precision = this.getPrecision(item);
-        this.setState({isLoading: true});
-        this.props.navigation.navigate('Bag', {
-            key: item.key,
-            name: item.name,
-            value: item.value,
-            prefix: item.prefix,
-            precision: precision,
-            refresh: this.refresh.bind(this)
-        });
-    }
-
-    refresh() {
-        fetch(url).then(response => response.json()).then((responseJson) => {
-            this.state.group = responseJson;
-
-            const reais = responseJson.filter((argument) => {
-                if(argument.prefix === 'BRL'){
-                    return parseFloat(argument.value);
-                }
-            });
-            this.state.reais = reais.reduce((a, b) => parseFloat(a) + b.value, 0);
-
-            const bitcoins = responseJson.filter((argument) => {
-                if(argument.prefix === 'BTC'){
-                    return parseFloat(argument.value);
-                }
-            });
-            this.state.bitcoins = bitcoins.reduce((a, b) => parseFloat(a) + b.value, 0);
-
-            const ethereuns = responseJson.filter((argument) => {
-                if(argument.prefix === 'ETH'){
-                    return parseFloat(argument.value);
-                }
-            });
-            this.state.ethereuns = ethereuns.reduce((a, b) => parseFloat(a) + b.value, 0);
-
-            this.setState({ isLoading: false })
-        }).catch((error) => {});
-    }
-
-    slide(){
-        /*
-        Animated.timing(this.scaleValue, {
-            toValue: this.showSideMenu ? 1 : 0.80,
-            duration: 300,
-            useNativeDriver: true
-        }).start()
-        */
-
-        Animated.timing(this.positionX, {
-            toValue: this.showSideMenu ? 0 : width*0.60,
-            duration: 300,
-            useNativeDriver: true
-        }).start()
-
-        this.showSideMenu = !this.showSideMenu;
+    currencyFormat(item) {
+        if(item.prefix != 'BTC' && item.prefix != 'ETH'){
+            return parseFloat(item.value).toFixed(this.getPrecision(item))
+            .replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
+        }
+        return parseFloat(item.value).toFixed(this.getPrecision(item))
     }
 
     convertPrefix(prefix){
@@ -129,19 +76,68 @@ export default class HomeScreen extends React.Component{
         }
     }
 
-    currencyFormat(item) {
-        if(item.prefix != 'BTC' && item.prefix != 'ETH'){
-            return parseFloat(item.value).toFixed(this.getPrecision(item))
-            .replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
-        }
-        return parseFloat(item.value).toFixed(this.getPrecision(item))
+    goMoney(item){
+        var precision = this.getPrecision(item);
+        this.setState({isLoading: true});
+        this.props.navigation.navigate('Bag', {
+            key: item.key,
+            name: item.name,
+            value: item.value,
+            prefix: item.prefix,
+            precision: precision,
+            refresh: this.refresh.bind(this)
+        });
+    }
+
+    refresh() {
+        fetch(url).then(response => response.json()).then((responseJson) => {
+            this.state.group = responseJson.banco;
+            this.state.contadores = responseJson.contadores.map( function(item){
+                const value = responseJson.banco.filter((bag) => {
+                    if(item.bags.includes(bag.key)){
+
+                        /*
+                        * CONVERTER VALOR PARA O PREFIXO EM ITEM;
+                        */
+
+                        return bag.value;
+                    }
+                });
+                return {
+                    name: item.name,
+                    prefix: item.prefix,
+                    value: value.reduce((a, b) => parseFloat(a) + b.value, 0)
+                };
+            });
+            this.setState({ isLoading: false })
+        }).catch((error) => {});
+    }
+
+    slide(){
+        /*
+        Animated.timing(this.scaleValue, {
+            toValue: this.showSideMenu ? 1 : 0.80,
+            duration: 300,
+            useNativeDriver: true
+        }).start()
+        */
+        Animated.timing(this.positionX, {
+            toValue: this.showSideMenu ? 0 : width*0.60,
+            duration: 300,
+            useNativeDriver: true
+        }).start()
+
+        this.showSideMenu = !this.showSideMenu;
     }
 
 
 
 
 
-    ////////////
+
+    /*
+    * CASO QUEIRA "EXPANDIR" O HEADER
+    */
     expandHeader(){
         Animated.timing(this.headerY, {
             toValue: this.expand ? 0 : height*0.3,
@@ -151,7 +147,6 @@ export default class HomeScreen extends React.Component{
 
         this.expand = !this.expand;
     }
-    ////////////
 
 
 
@@ -178,31 +173,32 @@ export default class HomeScreen extends React.Component{
                     <Animated.View style={ [styles.header,
                         {transform: [{translateY: this.headerY}]} ]}>
 
-                        
-
                         <TouchableOpacity
-                            style={{position: 'absolute', left: 20, top: '20%'}}
+                            style={{position: 'absolute', left: 15, top: '15%'}}
                             onPress={() => this.slide()}>
                             <Image source={sidebutton} style={{height: 32, width: 32}}/>
                         </TouchableOpacity>
 
-                        <View style={{marginLeft: 'auto', right: 20}}>
+                        
+                        <View style={{top: 10, alignItems: 'center', alignSelf: 'center'}}>
+                            <View style={{flexDirection: 'row', right: 10}}>
 
+                                <View style={{justifyContent: 'flex-end', bottom: 6, right: 3}}>
+                                    <Text style={{color: 'white', fontSize: width/22}}>
+                                        {this.convertPrefix(this.state.contadores[0].prefix)}
+                                    </Text>
+                                </View>
 
+                                <View style={{justifyContent: 'flex-end'}}>
+                                    <Text style={{ color: 'white', fontSize: width/10}}>
+                                        {this.currencyFormat(this.state.contadores[0])}
+                                    </Text>
+                                </View>
 
-
-                        <View style={{flexDirection: 'row'}}>
-                            <View style={{justifyContent: 'flex-end', marginLeft: 'auto', 
-                            bottom: 2, right: 7}}>
-                                <Text style={{color: 'white', fontSize: width/27}}>
-                                    R$
-                                </Text>
                             </View>
-                            <Text style={{color: 'white', fontSize: width/20}}>
-                                {parseFloat(this.state.reais).toFixed(2)}
-                            </Text>
                         </View>
 
+                        {/*
                         <View style={{flexDirection: 'row'}}>
                             <View style={{justifyContent: 'flex-end', marginLeft: 'auto',
                             bottom: 2, right: 7}}>
@@ -214,31 +210,16 @@ export default class HomeScreen extends React.Component{
                                 {parseFloat(this.state.bitcoins).toFixed(8)}
                             </Text>
                         </View>
+                        */}
 
-                        <View style={{flexDirection: 'row'}}>
-                            <View style={{justifyContent: 'flex-end', marginLeft: 'auto',
-                            bottom: 2, right: 7}}>
-                                <Text style={{color: 'white', fontSize: width/27}}>
-                                    ETH
-                                </Text>
-                            </View>
-                            <Text style={{color: 'white', fontSize: width/20}}>
-                                {parseFloat(this.state.ethereuns).toFixed(8)}
-                            </Text>
-                        </View>
-
-                        </View>
-
-
-                        {/*-----------------
+                        {/* CASO QUEIRA "EXPANDIR" O HEADER
                         <TouchableOpacity
                             style={{top: 20}}
                             onPress={() => this.expandHeader()}>
                             <Image source={sidebutton} style={{height: 32, width: 32}}/>
                         </TouchableOpacity>
-                        -----------------*/}
+                        */}
 
-                        
                     </Animated.View>
 
 

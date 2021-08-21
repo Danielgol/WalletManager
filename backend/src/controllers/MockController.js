@@ -11,6 +11,12 @@ const banco = [
     {name: 'ETH-RIPIO', value: 0.00312455, prefix: 'ETH', key: '7'}
 ];
 
+const contadores = [
+    {name: 'FIRST', prefix: 'BRL', bags: ['1','2','3']},
+    {name: 'SECOND', prefix: 'BTC', bags: ['5','6']},
+    {name: 'THIRD', prefix: 'ETH', bags: ['7']},
+];
+
 
 module.exports = {
     getBTC(req, res) {
@@ -34,7 +40,13 @@ module.exports = {
 
     getAllData(req, res) {
         console.log('Receiving request!');
-        res.json(banco);
+
+        const json = {
+            banco: banco,
+            contadores: contadores,
+        }
+
+        res.json( json );
     },
 
     postDataUpdate(req, res) {

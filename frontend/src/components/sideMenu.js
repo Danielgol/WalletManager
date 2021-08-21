@@ -17,7 +17,7 @@ const SideMenu = (props) => {
 
             <Image source={logo} style={styles.logo}/>
 
-            <View style={{top: 40, left: 10}}>
+            <View style={{top: '35%', left: 10}}>
                 {button(selected, setSelected, 'Editar Perfil', editar)}
                 {button(selected, setSelected, 'Criar Grupo', grupo)}
                 {button(selected, setSelected, 'Criar Contador', contador)}
