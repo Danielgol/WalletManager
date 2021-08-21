@@ -4,17 +4,18 @@ const https = require('https');
 const banco = [
     {name: 'B-BRA', value: 1285.00, prefix: 'BRL', key: '1'},
     {name: 'CCTRF', value: 640.00, prefix: 'BRL', key: '2'},
-    {name: 'CAIXA', value: 4760.00, prefix: 'BRL', key: '3'},
-    {name: 'CASA', value: 300.00,  prefix: 'USD', key: '4'},
-    {name: 'BTC', value: 0.00502102, prefix: 'BTC', key: '5'},
-    {name: 'BTC-RIPIO', value: 0.00115792, prefix: 'BTC', key: '6'},
-    {name: 'ETH-RIPIO', value: 0.00312455, prefix: 'ETH', key: '7'}
+    {name: 'CAIXA', value: 260.00, prefix: 'BRL', key: '3'},
+    {name: 'NUBANK', value: 4500.00,  prefix: 'BRL', key: '4'},
+    {name: 'CASA', value: 300.00,  prefix: 'USD', key: '5'},
+    {name: 'BTC', value: 0.00502102, prefix: 'BTC', key: '6'},
+    {name: 'BTC-RIPIO', value: 0.00115792, prefix: 'BTC', key: '7'},
+    {name: 'ETH-RIPIO', value: 0.00312455, prefix: 'ETH', key: '8'},
 ];
 
 const contadores = [
-    {name: 'FIRST', prefix: 'BRL', bags: ['1','2','3']},
-    {name: 'SECOND', prefix: 'BTC', bags: ['5','6']},
-    {name: 'THIRD', prefix: 'ETH', bags: ['7']},
+    {name: 'FIRST', prefix: 'BRL', bags: ['1','2','3','4']},
+    {name: 'SECOND', prefix: 'BTC', bags: ['6','7']},
+    {name: 'THIRD', prefix: 'ETH', bags: ['8']},
 ];
 
 
