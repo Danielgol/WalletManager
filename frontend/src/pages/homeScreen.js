@@ -167,7 +167,7 @@ export default class HomeScreen extends React.Component{
 
                 { this.state.isLoading ? <ActivityIndicator style={{position: 'absolute', top: 30}}/> :
 
-                <View style={{width: '100%', alignItems: 'center'}}>
+                <View style={{width: '100%', alignItems: 'center', flex: 1}}>
 
                     {/* ----------- HEADER ----------- */}
                     <Animated.View style={ [styles.header,
@@ -223,12 +223,10 @@ export default class HomeScreen extends React.Component{
                     </Animated.View>
 
 
-
-
                     {/* ----------- LISTA ----------- */}
                     <FlatList
                         data={this.state.group}
-                        style={{bottom: 10, top: 20}}
+                        style={{bottom: 10}}
                         renderItem={({ item }) => (
 
                         <TouchableOpacity
@@ -248,6 +246,7 @@ export default class HomeScreen extends React.Component{
 
                         )}
                     />
+
                 </View> }
 
             </Animated.View>
@@ -269,7 +268,7 @@ const styles = StyleSheet.create({
     header: {
         zIndex: 1,
         width: '100%',
-        height: '26%',
+        height: height*0.26,
         alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: '#101010',
