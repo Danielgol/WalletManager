@@ -62,5 +62,17 @@ module.exports = {
             }
         }
         res.json(banco);
+    },
+
+    postCreateBag(req, res) {
+        let json = req.body;
+        console.log(json);
+        banco.push({
+            name: json.name,
+            value: json.value,
+            prefix: json.prefix,
+            key: banco.length+1,
+        });
+        res.json(banco);
     }
 }

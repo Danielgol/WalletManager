@@ -17,7 +17,7 @@ const { width, height } = Dimensions.get("screen");
 
 export default class HomeScreen extends React.Component{
 
-    constructor(props){
+    constructor(props) {
         super(props);
         this.state = {
             isLoading: true,
@@ -28,11 +28,11 @@ export default class HomeScreen extends React.Component{
         this.positionX = new Animated.Value(0);
     }
 
-    componentDidMount(){
+    componentDidMount() {
         this.refresh();
     }
 
-    getPrecision(item){
+    getPrecision(item) {
         var precision = 2;
         if(item.prefix === 'BTC' || item.prefix === 'ETH'){
             precision = 8;
@@ -48,7 +48,7 @@ export default class HomeScreen extends React.Component{
         return parseFloat(item.value).toFixed(this.getPrecision(item))
     }
 
-    convertPrefix(prefix){
+    convertPrefix(prefix) {
         if(prefix == 'BTC'){
             return 'BTC ';
         }
@@ -72,7 +72,7 @@ export default class HomeScreen extends React.Component{
         }
     }
 
-    goMoney(item){
+    goMoney(item) {
         var precision = this.getPrecision(item);
         this.setState({isLoading: true});
         this.props.navigation.navigate('Bag', {
@@ -105,11 +105,11 @@ export default class HomeScreen extends React.Component{
                     value: value.reduce((a, b) => parseFloat(a) + b.value, 0)
                 };
             });
-            this.setState({ isLoading: false })
+            this.setState({ isLoading: false})
         }).catch((error) => {});
     }
 
-    slide(){
+    slide() {
         /*
         Animated.timing(this.scaleValue, {
             toValue: this.showSideMenu ? 1 : 0.80,
@@ -128,7 +128,7 @@ export default class HomeScreen extends React.Component{
 
     _renderItem = ({item, index}) => {
         return (
-            <View style={{top: 15, alignItems: 'center', alignSelf: 'center'}}>
+            <View style={{top: 25, alignItems: 'center', alignSelf: 'center'}}>
 
                 <View style={{flexDirection: 'row', right: 10}}>
                     <View style={{justifyContent: 'flex-end', bottom: 6, right: 3}}>
@@ -190,7 +190,7 @@ export default class HomeScreen extends React.Component{
                         </TouchableOpacity>
 
                         { this.state.contadores.length > 0 ?
-                            <View style={{height: height*0.1,}}>
+                            <View style={{height: height*0.15,}}>
                                 <Carousel
                                     ref={(c) => { this._carousel = c; }}
                                     data={this.state.contadores}

@@ -17,10 +17,10 @@ const SideMenu = (props) => {
             <Image source={logo} style={styles.logo}/>
 
             <View style={{top: '35%', left: 10}}>
-                {button('Editar Perfil', editar, 'createCounter', props)}
-                {button('Criar Grupo', grupo, 'createCounter',props)}
-                {button('Criar Contador', contador, 'createCounter',props)}
-                {button('Sobre', sobre, 'createCounter', props)}
+                {button('Editar Perfil', editar, 'CreateBag', props)}
+                {button('Criar Grupo', grupo, 'CreateBag',props)}
+                {button('Criar Contador', contador, 'CreateBag',props)}
+                {button('Sobre', sobre, 'CreateBag', props)}
             </View>
 
         </View>

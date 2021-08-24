@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, StatusBar, TextInput,
         TouchableOpacity, Button, FlatList, YellowBox, BackHandler,
         KeyboardAvoidingView, Dimensions, Image, Animated } from 'react-native'
 
+
 import seta from '../images/seta3.png';
 import historico from '../images/historico.png';
 
@@ -12,9 +13,6 @@ import EditPopUp from '../components/editPopup';
 import TransferPopUp from '../components/transferPopup';
 
 const { width, height } = Dimensions.get("screen");
-
-
-
 const site = "https://api.coingecko.com/api/v3/coins/markets?vs_currency=";
 const currency = "usd";
 const settings = "&order=market_cap_desc&per_page=20&page=1&sparkline=true&price_change_percentage=";
@@ -119,8 +117,6 @@ export default class Bag extends React.Component{
         }
         return parseFloat(this.state.value).toFixed(this.state.precision)
     }
-
-
 
     postUpdate(value, prefix){
         fetch('http://192.168.0.182:3000/post', {

@@ -16,6 +16,7 @@ router.delete('/example/:index', exampleController.delete)
 router.get('/btc', mockController.getBTC)
 router.get('/data', mockController.getAllData)
 router.post('/post', mockController.postDataUpdate)
+router.post('/postCreateBag', mockController.postCreateBag)
 
 
 module.exports = router
