@@ -9,18 +9,16 @@ import contador from '../images/contador.png';
 import sobre from '../images/sobre.png';
 
 const SideMenu = (props) => {
-
-
     return(
         <View style={styles.screen}>
 
             <Image source={logo} style={styles.logo}/>
 
             <View style={{top: '35%', left: 10}}>
-                {button('Editar Perfil', editar, 'CreateBag', props)}
+                {button('Editar Perfil', editar, 'CreateCounter', props)}
                 {button('Criar Grupo', grupo, 'CreateBag',props)}
-                {button('Criar Contador', contador, 'CreateBag',props)}
-                {button('Sobre', sobre, 'CreateBag', props)}
+                {button('Criar Contador', contador, 'CreateCounter',props)}
+                {button('Sobre', sobre, 'CreateCounter', props)}
             </View>
 
         </View>

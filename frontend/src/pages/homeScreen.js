@@ -72,9 +72,10 @@ export default class HomeScreen extends React.Component{
         }
     }
 
-    goMoney(item) {
+    goBag(item) {
         var precision = this.getPrecision(item);
-        this.setState({isLoading: true});
+        this.positionX = new Animated.Value(0);
+        this.setState({isLoading: true, showSideMenu: false});
         this.props.navigation.navigate('Bag', {
             key: item.key,
             name: item.name,
@@ -105,7 +106,9 @@ export default class HomeScreen extends React.Component{
                     value: value.reduce((a, b) => parseFloat(a) + b.value, 0)
                 };
             });
-            this.setState({ isLoading: false})
+            //this.showSideMenu = false;
+            //this.positionX = new Animated.Value(0);
+            this.setState({ isLoading: false })
         }).catch((error) => {});
     }
 
@@ -220,7 +223,7 @@ export default class HomeScreen extends React.Component{
 
                         <TouchableOpacity
                             style={styles.botao}
-                            onPress={() => this.goMoney(item)}
+                            onPress={() => this.goBag(item)}
                             elevation={30}>
                             <View style={styles.row}>
                                 <Text style={styles.textoBotao}> {item.name} </Text>

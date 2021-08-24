@@ -4,6 +4,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import Login from './pages/login.js';
 import HomeScreen from './pages/homeScreen.js';
+import CreateCounter from './pages/createCounter.js';
 import CreateBag from './pages/createBag.js';
 import History from './pages/history.js';
 import Bag from './pages/bag.js';
@@ -19,6 +20,7 @@ export default function App(){
                 <Stack.Screen name="Bag" component={Bag}/>
                 <Stack.Screen name="History" component={History}/>
                 <Stack.Screen name="CreateBag" component={CreateBag}/>
+                <Stack.Screen name="CreateCounter" component={CreateCounter}/>
             </Stack.Navigator>
         </NavigationContainer>
     );

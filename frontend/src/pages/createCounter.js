@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
 import { View, Text, StyleSheet, StatusBar, TextInput,
         TouchableOpacity, Button, FlatList, YellowBox, BackHandler,
-        Dimensions, Image, Animated } from 'react-native'
-
+        Dimensions, Image, Animated } from 'react-native';
 
 import seta from '../images/seta3.png';
 import CurrencyPopup from '../components/currencyPopup.js';
@@ -11,7 +10,7 @@ const { width, height } = Dimensions.get("screen");
 
 
 
-export default class CreateBag extends React.Component{
+export default class CreateCounter extends React.Component{
 
     constructor(props){
         super(props);
@@ -21,6 +20,7 @@ export default class CreateBag extends React.Component{
             prefix: 'BRL',
             precision: 2,
             showCurrencies: false,
+            //bags: this.props.route.params.bags,
         }
         this.popUpScale = new Animated.Value(0);
     }
@@ -157,7 +157,7 @@ export default class CreateBag extends React.Component{
                     <View style={{alignItems: 'flex-start'}}>
                         <View style={{top: 10, height: 30}}>
                             <Text style={{color: 'white', fontSize: width*0.04}}>
-                                Digite o nome da Maleta:
+                                Digite o nome do Contador:
                             </Text>
                         </View>
 
@@ -175,34 +175,15 @@ export default class CreateBag extends React.Component{
 
                         <View style={{height: height*0.04}}>
                             <Text style={{color: 'white', fontSize: width*0.04}}>
-                                Selecione o tipo da Moeda/
+                                Selecione
                             </Text>
                             <Text style={{color: 'white', fontSize: width*0.04}}>
-                                Digite a Quantidade:
+                                as Maletas do Contador:
                             </Text>
                         </View>
 
                         <View style={{top: 20}}>
-                            <View style={[styles.row]}>
-                                <TouchableOpacity
-                                    style={{backgroundColor: '#bbb', borderRadius: 8, justifyContent: 'center'}}
-                                    onPress={() => this.emerge({showCurrencies: true}, this.popUpScale) }>
-                                    <Text style={{fontSize: 20}}>  {this.state.prefix}      </Text>
-                                </TouchableOpacity>
-
-                                <TextInput
-                                    left={-15}
-                                    borderRadius={8}
-                                    padding={10}
-                                    fontSize={20}
-                                    width={width*0.4}
-                                    elevation={4}
-                                    backgroundColor='#ccc'
-                                    keyboardType='numeric'
-                                    onChangeText={(text) => this.handleEditChange(text) }
-                                    value={this.state.value}
-                                />
-                            </View>
+                        
                         </View>
 
                     </View>
