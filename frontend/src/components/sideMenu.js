@@ -10,7 +10,6 @@ import sobre from '../images/sobre.png';
 
 const SideMenu = (props) => {
 
-    const [selected, setSelected] = useState("");
 
     return(
         <View style={styles.screen}>
@@ -18,33 +17,33 @@ const SideMenu = (props) => {
             <Image source={logo} style={styles.logo}/>
 
             <View style={{top: '35%', left: 10}}>
-                {button(selected, setSelected, 'Editar Perfil', editar)}
-                {button(selected, setSelected, 'Criar Grupo', grupo)}
-                {button(selected, setSelected, 'Criar Contador', contador)}
-                {button(selected, setSelected, 'Sobre', sobre)}
+                {button('Editar Perfil', editar, 'createCounter', props)}
+                {button('Criar Grupo', grupo, 'createCounter',props)}
+                {button('Criar Contador', contador, 'createCounter',props)}
+                {button('Sobre', sobre, 'createCounter', props)}
             </View>
 
         </View>
     );
 }
 
-const button = (selected, setSelected, title, image) =>{
+const button = (title, image, page, props) =>{
     return(
         <TouchableOpacity
-            onPress={() => {setSelected(title)}}>
+            onPress={() => {props.navigation.navigate(page, {refresh: props.refresh} )}}>
             <View style={{
                 flexDirection: 'row',
                 alignItems: 'center',
                 paddingVertical: 8,
-                backgroundColor: selected == title ? '#40970A': 'transparent',
+                backgroundColor: '#40970A',
                 paddingLeft: 20,
                 paddingRight: 20,
                 borderRadius: 8,
                 marginTop: 15,
-                elevation: selected == title ? 10 : 0,
+                elevation: 10,
             }}>
 
-            <Image source={image} style={{width: 30, height: 30}}/>
+                <Image source={image} style={{width: 30, height: 30}}/>
 
             <Text style={{
                 color: 'white',

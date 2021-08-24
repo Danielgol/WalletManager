@@ -3,6 +3,9 @@ import { View, Text, StyleSheet, StatusBar, Dimensions,
         TouchableOpacity, Button, FlatList, ActivityIndicator,
         SafeAreaView, Animated, Image } from 'react-native';
 
+
+import Carousel from 'react-native-snap-carousel';
+
 //import { Swipeable } from 'react-native-gesture-handler';
 
 import SideMenu from '../components/sideMenu.js';
@@ -23,13 +26,6 @@ export default class HomeScreen extends React.Component{
         }
         this.showSideMenu = false;
         this.positionX = new Animated.Value(0);
-
-
-        /*
-        * CASO QUEIRA "EXPANDIR" O HEADER
-        */
-        this.expand = false;
-        this.headerY = new Animated.Value(0);
     }
 
     componentDidMount(){
@@ -130,25 +126,33 @@ export default class HomeScreen extends React.Component{
         this.showSideMenu = !this.showSideMenu;
     }
 
+    _renderItem = ({item, index}) => {
+        return (
+            <View style={{top: 15, alignItems: 'center', alignSelf: 'center'}}>
 
+                <View style={{flexDirection: 'row', right: 10}}>
+                    <View style={{justifyContent: 'flex-end', bottom: 6, right: 3}}>
+                        <Text style={{color: 'white', fontSize: width/22}}>
+                            {this.convertPrefix(item.prefix)}
+                        </Text>
+                    </View>
 
+                    <View style={{justifyContent: 'flex-end'}}>
+                        <Text style={{ color: 'white', fontSize: width/10}}>
+                            {this.currencyFormat(item)}
+                        </Text>
+                    </View>
+                </View>
 
+                <View style={{bottom: 1}}>
+                    <Text style={{ color: '#aaa', fontSize: width/35}}>
+                        {item.name}
+                    </Text>
+                </View>
 
-
-    /*
-    * CASO QUEIRA "EXPANDIR" O HEADER
-    */
-    expandHeader(){
-        Animated.timing(this.headerY, {
-            toValue: this.expand ? 0 : height*0.3,
-            duration: 500,
-            useNativeDriver: true
-        }).start()
-
-        this.expand = !this.expand;
+            </View>
+        );
     }
-
-
 
 
 
@@ -158,7 +162,12 @@ export default class HomeScreen extends React.Component{
 
             <SafeAreaView style={[styles.container]}>
 
-            <SideMenu style={{justifyContent: 'flex-start'}}/>
+            <SideMenu
+                refresh={this.refresh.bind(this)}
+                navigation={this.props.navigation}
+                style={{justifyContent: 'flex-start'}}/>
+
+
 
             {/* ----------- TELA ----------- */}
             <Animated.View style={[styles.screen, { transform: [{translateX: this.positionX}] }]}>     
@@ -169,9 +178,10 @@ export default class HomeScreen extends React.Component{
 
                 <View style={{width: '100%', alignItems: 'center', flex: 1}}>
 
+
+
                     {/* ----------- HEADER ----------- */}
-                    <Animated.View style={ [styles.header,
-                        {transform: [{translateY: this.headerY}]} ]}>
+                    <Animated.View style={[styles.header]}>
 
                         <TouchableOpacity
                             style={{position: 'absolute', left: 15, top: '15%'}}
@@ -179,48 +189,27 @@ export default class HomeScreen extends React.Component{
                             <Image source={sidebutton} style={{height: 32, width: 32}}/>
                         </TouchableOpacity>
 
-                        
-                        <View style={{top: 10, alignItems: 'center', alignSelf: 'center'}}>
-                            <View style={{flexDirection: 'row', right: 10}}>
-
-                                <View style={{justifyContent: 'flex-end', bottom: 6, right: 3}}>
-                                    <Text style={{color: 'white', fontSize: width/22}}>
-                                        {this.convertPrefix(this.state.contadores[0].prefix)}
-                                    </Text>
-                                </View>
-
-                                <View style={{justifyContent: 'flex-end'}}>
-                                    <Text style={{ color: 'white', fontSize: width/10}}>
-                                        {this.currencyFormat(this.state.contadores[0])}
-                                    </Text>
-                                </View>
-
+                        { this.state.contadores.length > 0 ?
+                            <View style={{height: height*0.1,}}>
+                                <Carousel
+                                    ref={(c) => { this._carousel = c; }}
+                                    data={this.state.contadores}
+                                    renderItem={this._renderItem}
+                                    sliderWidth={width*0.75}
+                                    itemWidth={width*0.7}
+                                />
                             </View>
-                        </View>
-
-                        {/*
-                        <View style={{flexDirection: 'row'}}>
-                            <View style={{justifyContent: 'flex-end', marginLeft: 'auto',
-                            bottom: 2, right: 7}}>
-                                <Text style={{color: 'white', fontSize: width/27}}>
-                                    BTC
+                        :   <View style={{justifyContent: 'flex-end', bottom: 6, right: 3}}>
+                                <Text style={{color: '#bbb', fontSize: width/22}}>
+                                    Ainda não há contadores!
                                 </Text>
                             </View>
-                            <Text style={{color: 'white', fontSize: width/20}}>
-                                {parseFloat(this.state.bitcoins).toFixed(8)}
-                            </Text>
-                        </View>
-                        */}
-
-                        {/* CASO QUEIRA "EXPANDIR" O HEADER
-                        <TouchableOpacity
-                            style={{top: 20}}
-                            onPress={() => this.expandHeader()}>
-                            <Image source={sidebutton} style={{height: 32, width: 32}}/>
-                        </TouchableOpacity>
-                        */}
+                        }
 
                     </Animated.View>
+
+                    <View style={{height: 10}}></View>
+
 
 
                     {/* ----------- LISTA ----------- */}
@@ -260,7 +249,7 @@ export default class HomeScreen extends React.Component{
 const styles = StyleSheet.create({
     container :{
         flex: 1,
-        backgroundColor: '#494949',
+        backgroundColor: '#404040',
         alignItems: 'flex-start',
         justifyContent: 'flex-start',
         elevation: 10,

@@ -13,9 +13,9 @@ const banco = [
 ];
 
 const contadores = [
-    {name: 'FIRST', prefix: 'BRL', bags: ['1','2','3','4']},
-    {name: 'SECOND', prefix: 'BTC', bags: ['6','7']},
-    {name: 'THIRD', prefix: 'ETH', bags: ['8']},
+    {name: 'Total', prefix: 'BRL', bags: ['1','2','3','4']},
+    {name: 'Bitcoin', prefix: 'BTC', bags: ['6','7']},
+    {name: 'Etherium', prefix: 'ETH', bags: ['8']},
 ];
 
 
