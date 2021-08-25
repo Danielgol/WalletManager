@@ -21,7 +21,7 @@ export default class HomeScreen extends React.Component{
         super(props);
         this.state = {
             isLoading: true,
-            group: [],
+            bags: [],
             contadores: [],
         }
         this.showSideMenu = false;
@@ -88,7 +88,7 @@ export default class HomeScreen extends React.Component{
 
     refresh() {
         fetch(url).then(response => response.json()).then((responseJson) => {
-            this.state.group = responseJson.banco;
+            this.state.bags = responseJson.banco;
             this.state.contadores = responseJson.contadores.map( function(item){
                 const value = responseJson.banco.filter((bag) => {
                     if(item.bags.includes(bag.key)){
@@ -166,10 +166,10 @@ export default class HomeScreen extends React.Component{
             <SafeAreaView style={[styles.container]}>
 
             <SideMenu
+                bags={this.state.bags}
                 refresh={this.refresh.bind(this)}
                 navigation={this.props.navigation}
                 style={{justifyContent: 'flex-start'}}/>
-
 
 
             {/* ----------- TELA ----------- */}
@@ -180,7 +180,6 @@ export default class HomeScreen extends React.Component{
                 { this.state.isLoading ? <ActivityIndicator style={{position: 'absolute', top: 30}}/> :
 
                 <View style={{width: '100%', alignItems: 'center', flex: 1}}>
-
 
 
                     {/* ----------- HEADER ----------- */}
@@ -217,7 +216,7 @@ export default class HomeScreen extends React.Component{
 
                     {/* ----------- LISTA ----------- */}
                     <FlatList
-                        data={this.state.group}
+                        data={this.state.bags}
                         style={{bottom: 10}}
                         renderItem={({ item }) => (
 

@@ -20,7 +20,7 @@ export default class CreateCounter extends React.Component{
             prefix: 'BRL',
             precision: 2,
             showCurrencies: false,
-            //bags: this.props.route.params.bags,
+            bags: this.props.route.params.bags,
         }
         this.popUpScale = new Animated.Value(0);
     }
@@ -74,6 +74,22 @@ export default class CreateCounter extends React.Component{
         if(prefix == 'JPY'){
             return '¥';
         }
+    }
+
+    getPrecision(item) {
+        var precision = 2;
+        if(item.prefix === 'BTC' || item.prefix === 'ETH'){
+            precision = 8;
+        }
+        return precision;
+    }
+
+    currencyFormat(item) {
+        if(item.prefix != 'BTC' && item.prefix != 'ETH'){
+            return parseFloat(item.value).toFixed(this.getPrecision(item))
+            .replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
+        }
+        return parseFloat(item.value).toFixed(this.getPrecision(item))
     }
 
     postUpdate(name, value, prefix){
@@ -154,7 +170,7 @@ export default class CreateCounter extends React.Component{
 
                 {/* ----------- BODY ----------- */}
                 <View style={{alignItems: 'center', height: height}}>
-                    <View style={{alignItems: 'flex-start'}}>
+                    <View style={{alignItems: 'flex-start', backgroundColor: 'blue'}}>
                         <View style={{top: 10, height: 30}}>
                             <Text style={{color: 'white', fontSize: width*0.04}}>
                                 Digite o nome do Contador:
@@ -182,8 +198,36 @@ export default class CreateCounter extends React.Component{
                             </Text>
                         </View>
 
-                        <View style={{top: 20}}>
-                        
+                        <View style={{top: 30, height: '50%'}}>
+                            <FlatList
+                                data={this.state.bags}
+                                renderItem={({ item }) => (
+                                <TouchableOpacity
+                                    style={styles.botao}
+                                    onPress={() => this.goBag(item)}
+                                    elevation={30}>
+                                    <View>
+                                        <Text style={styles.textoBotao}> {item.name} </Text>
+                                    </View>
+                                </TouchableOpacity>
+                                )}
+                            />
+                        </View>
+
+                        <View style={{top: 10, alignItems: 'center'}}>
+                            <TouchableOpacity 
+                                onPress={() => this.pressCreate() }
+                                style={{
+                                    width: width*0.5,
+                                    backgroundColor: 'white',
+                                    height: height*0.08,
+                                    borderRadius: 35,
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    elevation: 10,
+                                }}>
+                                <Text style={{fontSize: 20, fontWeight: 'bold'}}>CRIAR</Text>
+                            </TouchableOpacity>
                         </View>
 
                     </View>
@@ -197,21 +241,7 @@ export default class CreateCounter extends React.Component{
                     : null
                     }
 
-                    <View style={{top: '35%'}}>
-                        <TouchableOpacity 
-                            onPress={() => this.pressCreate() }
-                            style={{
-                                width: width*0.5,
-                                backgroundColor: 'white',
-                                height: height*0.08,
-                                borderRadius: 35,
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                elevation: 10,
-                            }}>
-                            <Text style={{fontSize: 20, fontWeight: 'bold'}}>CRIAR</Text>
-                        </TouchableOpacity>
-                    </View>
+                    
 
                 </View>
 
@@ -250,6 +280,20 @@ const styles = StyleSheet.create({
     },row: {
         width: '100%',
         flexDirection: 'row',
+    },
+    botao: {
+        width: width*0.7,
+        height: height*0.05,
+        marginTop: 8,
+        backgroundColor: '#272727',
+        justifyContent: 'center',
+        borderRadius: 4,
+        elevation: 5,
+    },
+    textoBotao: {
+        color: 'white',
+        fontSize: width/22,
+        paddingLeft: 20,
     },
 });
 

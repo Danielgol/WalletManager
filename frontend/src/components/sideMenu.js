@@ -16,8 +16,8 @@ const SideMenu = (props) => {
 
             <View style={{top: '35%', left: 10}}>
                 {button('Editar Perfil', editar, 'CreateCounter', props)}
-                {button('Criar Grupo', grupo, 'CreateBag',props)}
-                {button('Criar Contador', contador, 'CreateCounter',props)}
+                {button('Criar Grupo', grupo, 'CreateBag', props)}
+                {button('Criar Contador', contador, 'CreateCounter', props)}
                 {button('Sobre', sobre, 'CreateCounter', props)}
             </View>
 
@@ -26,9 +26,16 @@ const SideMenu = (props) => {
 }
 
 const button = (title, image, page, props) =>{
+
     return(
         <TouchableOpacity
-            onPress={() => {props.navigation.navigate(page, {refresh: props.refresh} )}}>
+            onPress={() => page === 'CreateCounter'
+                ? props.navigation.navigate(page, {
+                    refresh: props.refresh, 
+                    bags: props.bags
+                })
+                : props.navigation.navigate(page, {refresh: props.refresh})
+            }>
             <View style={{
                 flexDirection: 'row',
                 alignItems: 'center',

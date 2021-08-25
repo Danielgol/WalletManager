@@ -2,14 +2,14 @@ const https = require('https');
 
 
 const banco = [
-    {name: 'B-BRA', value: 1285.00, prefix: 'BRL', key: '1'},
-    {name: 'CCTRF', value: 640.00, prefix: 'BRL', key: '2'},
-    {name: 'CAIXA', value: 260.00, prefix: 'BRL', key: '3'},
-    {name: 'NUBANK', value: 4500.00,  prefix: 'BRL', key: '4'},
-    {name: 'CASA', value: 300.00,  prefix: 'USD', key: '5'},
-    {name: 'BTC', value: 0.00502102, prefix: 'BTC', key: '6'},
-    {name: 'BTC-RIPIO', value: 0.00115792, prefix: 'BTC', key: '7'},
-    {name: 'ETH-RIPIO', value: 0.00312455, prefix: 'ETH', key: '8'},
+    {name: 'B-BRA', value: 1000.00, prefix: 'BRL', key: '1'},
+    {name: 'ITAU', value: 900.00, prefix: 'BRL', key: '2'},
+    {name: 'CAIXA', value: 800.00, prefix: 'BRL', key: '3'},
+    {name: 'NUBANK', value: 700.00,  prefix: 'BRL', key: '4'},
+    {name: 'CASA', value: 600.00,  prefix: 'USD', key: '5'},
+    {name: 'BTC', value: 0.00555555, prefix: 'BTC', key: '6'},
+    {name: 'CONTA-ALT', value: 0.00222222, prefix: 'BTC', key: '7'},
+    {name: 'ETHERBANK', value: 0.00333333, prefix: 'ETH', key: '8'},
 ];
 
 const contadores = [
