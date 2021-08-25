@@ -13,8 +13,8 @@ const banco = [
 ];
 
 const contadores = [
-    {name: 'Total', prefix: 'BRL', bags: ['1','2','3','4']},
-    {name: 'Bitcoin', prefix: 'BTC', bags: ['6','7']},
+    {name: 'Total', prefix: 'BRL', bags: ['1', '2', '3', '4']},
+    {name: 'Bitcoin', prefix: 'BTC', bags: ['6', '7']},
     {name: 'Etherium', prefix: 'ETH', bags: ['8']},
 ];
 
@@ -71,7 +71,7 @@ module.exports = {
             name: json.name,
             value: json.value,
             prefix: json.prefix,
-            key: banco.length+1,
+            key: ''+ (banco.length+1),
         });
         res.json(banco);
     },
