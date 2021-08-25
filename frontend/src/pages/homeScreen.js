@@ -17,6 +17,8 @@ const { width, height } = Dimensions.get("screen");
 
 export default class HomeScreen extends React.Component{
 
+    _isMounted = false;
+
     constructor(props) {
         super(props);
         this.state = {
@@ -29,7 +31,12 @@ export default class HomeScreen extends React.Component{
     }
 
     componentDidMount() {
+        this._isMounted = true;
         this.refresh();
+    }
+    
+    componentWillUnmount() {
+        this._isMounted = false;
     }
 
     getPrecision(item) {

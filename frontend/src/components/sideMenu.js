@@ -4,7 +4,7 @@ import { View, Text, StyleSheet, TouchableOpacity,
 
 import logo from '../images/logo.png';
 import editar from '../images/editar.png';
-import grupo from '../images/grupo.png';
+import mala from '../images/mala.png';
 import contador from '../images/contador.png';
 import sobre from '../images/sobre.png';
 
@@ -15,27 +15,31 @@ const SideMenu = (props) => {
             <Image source={logo} style={styles.logo}/>
 
             <View style={{top: '35%', left: 10}}>
-                {button('Editar Perfil', editar, 'CreateCounter', props)}
-                {button('Criar Grupo', grupo, 'CreateBag', props)}
+                {button('Editar Perfil', editar, 'EditPerfil', props)}
                 {button('Criar Contador', contador, 'CreateCounter', props)}
-                {button('Sobre', sobre, 'CreateCounter', props)}
+                {button('Criar Maleta', mala, 'CreateBag', props)}
+                {button('Sobre', sobre, 'About', props)}
             </View>
 
         </View>
     );
 }
 
+function action(page, props) {
+    if(page === 'CreateCounter') {
+        props.navigation.navigate(page, {refresh: props.refresh, bags: props.bags});
+    }else if(page === 'CreateBag') {
+        props.navigation.navigate(page, {refresh: props.refresh});
+    }else{
+        alert('there is nothing here by now!');
+    }
+}
+
 const button = (title, image, page, props) =>{
 
     return(
         <TouchableOpacity
-            onPress={() => page === 'CreateCounter'
-                ? props.navigation.navigate(page, {
-                    refresh: props.refresh, 
-                    bags: props.bags
-                })
-                : props.navigation.navigate(page, {refresh: props.refresh})
-            }>
+            onPress={() => action(page, props)}>
             <View style={{
                 flexDirection: 'row',
                 alignItems: 'center',
