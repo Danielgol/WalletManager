@@ -103,7 +103,7 @@ export default class HomeScreen extends React.Component{
                 return {
                     name: item.name,
                     prefix: item.prefix,
-                    value: value.reduce((a, b) => parseFloat(a) + b.value, 0)
+                    value: value.reduce((a, b) => parseFloat(a) + parseFloat(b.value), 0)
                 };
             });
             //this.showSideMenu = false;

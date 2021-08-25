@@ -21,6 +21,7 @@ export default class CreateCounter extends React.Component{
             precision: 2,
             showCurrencies: false,
             bags: this.props.route.params.bags,
+            selecteds: [],
         }
         this.popUpScale = new Animated.Value(0);
     }
@@ -92,8 +93,8 @@ export default class CreateCounter extends React.Component{
         return parseFloat(item.value).toFixed(this.getPrecision(item))
     }
 
-    postUpdate(name, value, prefix){
-        fetch('http://192.168.0.182:3000/postCreateBag', {
+    postUpdate(name, prefix, bags){
+        fetch('http://192.168.0.182:3000/postCreateCounter', {
             method: 'POST',
             headers: {
                 Accept: 'application/json',
@@ -101,8 +102,8 @@ export default class CreateCounter extends React.Component{
             },
             body: JSON.stringify({
                 name: name,
-                value: value,
                 prefix: prefix,
+                bags: bags,
             })
         }).then(response => {
         }).catch(error => {
@@ -111,11 +112,8 @@ export default class CreateCounter extends React.Component{
     }
 
     pressCreate(){
-        if(this.state.value != ''
-            && this.state.value != '.'
-            && this.state.value != null
-            && this.state.name != ''){
-            this.postUpdate(this.state.name, this.state.value, this.state.prefix);
+        if(this.state.selecteds.length > 0 && this.state.name != '') {
+            this.postUpdate(this.state.name, this.state.prefix, this.state.selecteds);
             this.props.navigation.navigate('HomeScreen');
         }
     }
@@ -137,6 +135,19 @@ export default class CreateCounter extends React.Component{
             this.setState({value: amount.replace(',','') });
         }
     }
+
+    handleCheckBox(item){
+        var list = this.state.selecteds;
+
+        if(list.includes(item.key)) {
+            this.state.selecteds = list.filter(elem => elem !== item.key);
+        }else{
+            list = list.push(item.key);
+        }
+        this.setState({});
+    }
+
+
 
 
     render(){
@@ -170,26 +181,34 @@ export default class CreateCounter extends React.Component{
 
                 {/* ----------- BODY ----------- */}
                 <View style={{alignItems: 'center', height: height}}>
-                    <View style={{alignItems: 'flex-start', backgroundColor: 'blue'}}>
+                    <View style={{alignItems: 'flex-start'}}>
+
                         <View style={{top: 10, height: 30}}>
                             <Text style={{color: 'white', fontSize: width*0.04}}>
                                 Digite o nome do Contador:
                             </Text>
                         </View>
 
-                        <View style={{top: 10, height: 80}}>
+                        <View style={[styles.row, {top: 10, height: width*0.12}]}>
+                            <TouchableOpacity
+                                style={{backgroundColor: '#bbb', borderRadius: 8, justifyContent: 'center'}}
+                                onPress={() => this.emerge({showCurrencies: true}, this.popUpScale) }>
+                                <Text style={{fontSize: 20}}>  {this.state.prefix}      </Text>
+                            </TouchableOpacity>
+
                             <TextInput
+                                left={-18}
                                 borderRadius={8}
                                 padding={10}
                                 fontSize={20}
-                                width={width*0.7}
+                                width={width*0.6}
                                 elevation={4}
                                 backgroundColor='#ccc'
                                 onChangeText={(text) => this.setState({name: text}) }
                             />
                         </View>
 
-                        <View style={{height: height*0.04}}>
+                        <View style={{top: 30, height: height*0.04}}>
                             <Text style={{color: 'white', fontSize: width*0.04}}>
                                 Selecione
                             </Text>
@@ -198,13 +217,16 @@ export default class CreateCounter extends React.Component{
                             </Text>
                         </View>
 
-                        <View style={{top: 30, height: '50%'}}>
+                        <View style={{top: 55, height: '55%'}}>
                             <FlatList
                                 data={this.state.bags}
                                 renderItem={({ item }) => (
                                 <TouchableOpacity
-                                    style={styles.botao}
-                                    onPress={() => this.goBag(item)}
+                                    style={[styles.botao, {
+                                        backgroundColor: this.state.selecteds.includes(item.key) ? 
+                                        '#40970A' : '#909090'
+                                    }]}
+                                    onPress={() => this.handleCheckBox(item)}
                                     elevation={30}>
                                     <View>
                                         <Text style={styles.textoBotao}> {item.name} </Text>
@@ -212,22 +234,6 @@ export default class CreateCounter extends React.Component{
                                 </TouchableOpacity>
                                 )}
                             />
-                        </View>
-
-                        <View style={{top: 10, alignItems: 'center'}}>
-                            <TouchableOpacity 
-                                onPress={() => this.pressCreate() }
-                                style={{
-                                    width: width*0.5,
-                                    backgroundColor: 'white',
-                                    height: height*0.08,
-                                    borderRadius: 35,
-                                    alignItems: 'center',
-                                    justifyContent: 'center',
-                                    elevation: 10,
-                                }}>
-                                <Text style={{fontSize: 20, fontWeight: 'bold'}}>CRIAR</Text>
-                            </TouchableOpacity>
                         </View>
 
                     </View>
@@ -241,7 +247,21 @@ export default class CreateCounter extends React.Component{
                     : null
                     }
 
-                    
+                    <View style={{top: 0, alignItems: 'center'}}>
+                        <TouchableOpacity 
+                            onPress={() => this.pressCreate() }
+                            style={{
+                                width: width*0.5,
+                                backgroundColor: 'white',
+                                height: height*0.08,
+                                borderRadius: 35,
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                elevation: 10,
+                            }}>
+                            <Text style={{fontSize: 20, fontWeight: 'bold'}}>CRIAR</Text>
+                        </TouchableOpacity>
+                    </View>
 
                 </View>
 
@@ -282,10 +302,10 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
     },
     botao: {
-        width: width*0.7,
-        height: height*0.05,
+        width: width*0.8,
+        height: height*0.06,
         marginTop: 8,
-        backgroundColor: '#272727',
+        backgroundColor: '#909090',
         justifyContent: 'center',
         borderRadius: 4,
         elevation: 5,

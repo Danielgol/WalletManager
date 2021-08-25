@@ -17,6 +17,7 @@ router.get('/btc', mockController.getBTC)
 router.get('/data', mockController.getAllData)
 router.post('/post', mockController.postDataUpdate)
 router.post('/postCreateBag', mockController.postCreateBag)
+router.post('/postCreateCounter', mockController.postCreateCounter)
 
 
 module.exports = router

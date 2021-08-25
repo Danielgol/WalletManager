@@ -74,5 +74,16 @@ module.exports = {
             key: banco.length+1,
         });
         res.json(banco);
+    },
+
+    postCreateCounter(req, res) {
+        let json = req.body;
+        console.log(json);
+        contadores.push({
+            name: json.name,
+            prefix: json.prefix,
+            bags: json.bags,
+        });
+        res.json(contadores);
     }
 }
