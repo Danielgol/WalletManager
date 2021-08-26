@@ -217,7 +217,7 @@ export default class CreateCounter extends React.Component{
                             </Text>
                         </View>
 
-                        <View style={{top: 55, height: height*0.4}}>
+                        <View style={{top: 45, height: '55%'}}>
                             <FlatList
                                 data={this.state.bags}
                                 renderItem={({ item }) => (
@@ -247,7 +247,7 @@ export default class CreateCounter extends React.Component{
                     : null
                     }
 
-                    <View style={{top: 80, alignItems: 'center'}}>
+                    <View style={{top: 0, alignItems: 'center'}}>
                         <TouchableOpacity 
                             onPress={() => this.pressCreate() }
                             style={{
@@ -303,7 +303,7 @@ const styles = StyleSheet.create({
     },
     botao: {
         width: width*0.8,
-        height: height*0.06,
+        height: height*0.05,
         marginTop: 8,
         backgroundColor: '#909090',
         justifyContent: 'center',
