@@ -217,7 +217,7 @@ export default class CreateCounter extends React.Component{
                             </Text>
                         </View>
 
-                        <View style={{top: 45, height: '55%'}}>
+                        <View style={{top: 50, height: '55%'}}>
                             <FlatList
                                 data={this.state.bags}
                                 renderItem={({ item }) => (
@@ -247,7 +247,7 @@ export default class CreateCounter extends React.Component{
                     : null
                     }
 
-                    <View style={{top: 0, alignItems: 'center'}}>
+                    <View style={{bottom: 25, alignItems: 'center'}}>
                         <TouchableOpacity 
                             onPress={() => this.pressCreate() }
                             style={{

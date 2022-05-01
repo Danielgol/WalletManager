@@ -10,10 +10,6 @@ const banco = [
     {name: 'BTC', value: 0.00555555, prefix: 'BTC', key: '6'},
     {name: 'CONTA-ALT', value: 0.00222222, prefix: 'BTC', key: '7'},
     {name: 'ETHERBANK', value: 0.00333333, prefix: 'ETH', key: '8'},
-    {name: 'ETHERBANK', value: 0.00333333, prefix: 'ETH', key: '9'},
-    {name: 'CONTA-ALT', value: 0.00222222, prefix: 'BTC', key: '10'},
-    {name: 'ETHERBANK', value: 0.00333333, prefix: 'ETH', key: '11'},
-    {name: 'ETHERBANK', value: 0.00333333, prefix: 'ETH', key: '12'},
 ];
 
 const contadores = [
