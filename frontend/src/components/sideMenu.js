@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity,
         Button, FlatList, Image } from 'react-native'
 
-import logo from '../images/logo.png';
+import logo from '../images/logo-simbolo.png';
 import editar from '../images/editar.png';
 import mala from '../images/mala.png';
-import contador from '../images/contador.png';
+import grupo from '../images/contador.png';
 import sobre from '../images/sobre.png';
 
 const SideMenu = (props) => {
@@ -15,9 +15,9 @@ const SideMenu = (props) => {
             <Image source={logo} style={styles.logo}/>
 
             <View style={{top: '35%', left: 10}}>
-                {button('Editar Perfil', editar, 'EditPerfil', props)}
-                {button('Criar Contador', contador, 'CreateCounter', props)}
-                {button('Criar Maleta', mala, 'CreateBag', props)}
+                {/*{button('Apagar', editar, 'EditPerfil', props)}*/}
+                {button('Criar Grupo', grupo, 'CreateGrupo', props)}
+                {button('Criar Maleta', mala, 'CreateMaleta', props)}
                 {button('Sobre', sobre, 'About', props)}
             </View>
 
@@ -26,10 +26,10 @@ const SideMenu = (props) => {
 }
 
 function action(page, props) {
-    if(page === 'CreateCounter') {
-        props.navigation.navigate(page, {refresh: props.refresh, bags: props.bags});
-    }else if(page === 'CreateBag') {
-        props.navigation.navigate(page, {refresh: props.refresh});
+    if(page === 'CreateGrupo') {
+        alert('there is nothing here by now!');
+    }else if(page === 'CreateMaleta') {
+        alert('there is nothing here by now!');
     }else{
         alert('there is nothing here by now!');
     }

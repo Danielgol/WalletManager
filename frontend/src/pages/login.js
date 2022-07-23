@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import {View, Text, StyleSheet, TextInput, StatusBar, Dimensions,
         Image , TouchableOpacity, Button, KeyboardAvoidingView} from 'react-native'
 
-import logo from '../images/logo.png';
+import logo from '../images/Logo-completa.png';
 
 const { width, height } = Dimensions.get("screen");
 
@@ -15,6 +15,7 @@ export default class Login extends React.Component{
 
     render(){
         return(
+
             <View style={styles.screen}>
 
                 <StatusBar hidden={true}/>
@@ -22,7 +23,7 @@ export default class Login extends React.Component{
                 <KeyboardAvoidingView behavior="position" style={{top: '22%'}}>
                     <View style={styles.container}>
                         
-                        <Image source={logo} style={{top: -20, height: 100, width: 100}}/>
+                        <Image source={logo} style={{top: -20, height: 100, width: width*0.65}}/>
 
                         <TextInput
                             placeholder = "Digite seu email."
@@ -42,7 +43,7 @@ export default class Login extends React.Component{
                             style={{
                                 marginTop: 20,
                                 width: width*0.5,
-                                backgroundColor: 'white',
+                                backgroundColor: '#AEE637',
                                 height: height*0.08,
                                 borderRadius: 35,
                                 alignItems: 'center',
@@ -62,7 +63,7 @@ export default class Login extends React.Component{
                         style={{
                             marginTop: 20,
                             width: width*0.5,
-                            backgroundColor: '#ccaa44',
+                            backgroundColor: 'white',
                             height: height*0.08,
                             borderRadius: 35,
                             alignItems: 'center',
@@ -75,6 +76,7 @@ export default class Login extends React.Component{
                 </View>
 
             </View>
+
         );
     }
 }

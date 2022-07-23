@@ -11,7 +11,7 @@ import Carousel from 'react-native-snap-carousel';
 import SideMenu from '../components/sideMenu.js';
 import sidebutton from '../images/sidemenu.png'
 
-const url = "http://192.168.0.182:3000/data";
+const url = "http://10.0.0.182:3000/data";
 const { width, height } = Dimensions.get("screen");
 
 
@@ -74,23 +74,10 @@ export default class HomeScreen extends React.Component{
         if(prefix == 'GBP'){
             return '£';
         }
-        if(prefix == 'JPY'){
-            return '¥';
-        }
     }
 
     goBag(item) {
-        var precision = this.getPrecision(item);
-        this.positionX = new Animated.Value(0);
-        this.setState({isLoading: true, showSideMenu: false});
-        this.props.navigation.navigate('Bag', {
-            key: item.key,
-            name: item.name,
-            value: item.value,
-            prefix: item.prefix,
-            precision: precision,
-            refresh: this.refresh.bind(this)
-        });
+        alert('there is nothing here by now!');
     }
 
     refresh() {
@@ -142,13 +129,13 @@ export default class HomeScreen extends React.Component{
 
                 <View style={{flexDirection: 'row', right: 10}}>
                     <View style={{justifyContent: 'flex-end', bottom: 6, right: 3}}>
-                        <Text style={{color: 'white', fontSize: width/22}}>
+                        <Text style={{color: '#AEE637', fontSize: width/22}}>
                             {this.convertPrefix(item.prefix)}
                         </Text>
                     </View>
 
                     <View style={{justifyContent: 'flex-end'}}>
-                        <Text style={{ color: 'white', fontSize: width/10}}>
+                        <Text style={{ color: '#AEE637', fontSize: width/10}}>
                             {this.currencyFormat(item)}
                         </Text>
                     </View>
@@ -210,7 +197,7 @@ export default class HomeScreen extends React.Component{
                             </View>
                         :   <View style={{justifyContent: 'flex-end', bottom: 6, right: 3}}>
                                 <Text style={{color: '#bbb', fontSize: width/22}}>
-                                    Ainda não há contadores!
+                                    Ainda não há grupos!
                                 </Text>
                             </View>
                         }
@@ -232,9 +219,9 @@ export default class HomeScreen extends React.Component{
                             onPress={() => this.goBag(item)}
                             elevation={30}>
                             <View style={styles.row}>
-                                <Text style={styles.textoBotao}> {item.name} </Text>
+                                <Text style={[styles.textoBotao, {color: '#AEE637'}]}> {item.name} </Text>
                                 <Text style={[styles.textoBotao, {
-                                    color: ((item.prefix == 'BTC' || item.prefix == 'ETH') ? 'orange' : 'white'),
+                                    color: ((item.prefix == 'BTC' || item.prefix == 'ETH') ? '#BFF111' : '#AEE637'),
                                     fontWeight: ((item.prefix == 'BTC' || item.prefix == 'ETH') ? 'bold' : 'normal'),
                                 }]}>
                                 {this.convertPrefix(item.prefix)} {this.currencyFormat(item)}
