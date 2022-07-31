@@ -4,9 +4,10 @@ import { View, Text, StyleSheet, TouchableOpacity,
 
 import logo from '../images/logo-simbolo.png';
 import editar from '../images/editar.png';
-import mala from '../images/mala.png';
-import grupo from '../images/contador.png';
-import sobre from '../images/sobre.png';
+import mala from '../images/mala-preta.png';
+import grupo from '../images/grupo-preto.png';
+import sobre from '../images/sobre-preto.png';
+import sair from '../images/sair.png';
 
 const SideMenu = (props) => {
     return(
@@ -18,9 +19,10 @@ const SideMenu = (props) => {
                 {/*{button('Apagar', editar, 'EditPerfil', props)}*/}
                 {button('Criar Grupo', grupo, 'CreateGrupo', props)}
                 {button('Criar Maleta', mala, 'CreateMaleta', props)}
-                {button('Sobre', sobre, 'About', props)}
+                {button('Sobre', sobre, 'SobreNos', props)}
+                {button('Sair', sair, 'Login', props)}  
+                
             </View>
-
         </View>
     );
 }
@@ -30,8 +32,10 @@ function action(page, props) {
         alert('there is nothing here by now!');
     }else if(page === 'CreateMaleta') {
         alert('there is nothing here by now!');
+    }else if(page === 'SobreNos'){
+       props.navigation.navigate('SobreNos')
     }else{
-        alert('there is nothing here by now!');
+        props.navigation.navigate('Login')
     }
 }
 
@@ -44,7 +48,7 @@ const button = (title, image, page, props) =>{
                 flexDirection: 'row',
                 alignItems: 'center',
                 paddingVertical: 8,
-                backgroundColor: '#40970A',
+                backgroundColor: '#AEE637',
                 paddingLeft: 20,
                 paddingRight: 20,
                 borderRadius: 8,
@@ -55,7 +59,7 @@ const button = (title, image, page, props) =>{
                 <Image source={image} style={{width: 30, height: 30}}/>
 
             <Text style={{
-                color: 'white',
+                color: '#47525e',
                 fontSize: 15,
                 paddingLeft: 15,
             }}> {title} </Text>
