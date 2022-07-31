@@ -11,7 +11,7 @@ import Carousel from 'react-native-snap-carousel';
 import SideMenu from '../components/sideMenu.js';
 import sidebutton from '../images/sidemenu.png'
 
-const url = "http://10.0.0.182:3000/data";
+const url = "http://192.168.0.60:3000/data";
 const { width, height } = Dimensions.get("screen");
 
 
