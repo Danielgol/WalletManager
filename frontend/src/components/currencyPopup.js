@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity,
-        Button, FlatList, Dimensions } from 'react-native'
-
+        Button, FlatList, Dimensions, Image} from 'react-native'
+import fechar from '../images/X-laranja.png';
 
 const { width, height } = Dimensions.get("screen");
 
@@ -28,6 +28,13 @@ const group = [
 const CurrencyPopup = (props) => {
     return(
         <View style={styles.screen} >
+            <TouchableOpacity onPress={() => props.navigation.goBack()}
+                        style={{
+                            top: 33,
+                            left: 130,
+                        }}>
+                        <Image source={fechar} style={{height: 20, width: 20}}/>
+            </TouchableOpacity>
             <Text style={styles.text}> Selecione a Moeda </Text>
             <FlatList 
                 data={group}
@@ -52,7 +59,7 @@ const styles = StyleSheet.create({
         width: width*0.9,
         height: height*0.5,
         alignItems: 'center',
-        backgroundColor: '#303030',
+        backgroundColor: '#444646',
         borderRadius: 20,
         elevation: 10,
     },
@@ -71,7 +78,7 @@ const styles = StyleSheet.create({
     text: {
         top: 10,
         fontSize: 18, 
-        color: 'white'
+        color: '#AEE637'
     },
     botao: {
         width: 300,
@@ -83,7 +90,7 @@ const styles = StyleSheet.create({
         borderRadius: 4
     },
     textoBotao: {
-        color: 'white',
+        color: '#AEE637',
         fontSize: 18,
     },
 });

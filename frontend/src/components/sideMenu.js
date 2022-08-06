@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity,
         Button, FlatList, Image } from 'react-native'
 
-import logo from '../images/logo-simbolo.png';
+import logo from '../images/FinTrack-android-icon.png';
 import editar from '../images/editar.png';
 import mala from '../images/mala-preta.png';
 import grupo from '../images/grupo-preto.png';
@@ -15,7 +15,7 @@ const SideMenu = (props) => {
 
             <Image source={logo} style={styles.logo}/>
 
-            <View style={{top: '35%', left: 10}}>
+            <View style={{top: '20%', left: 10}}>
                 {/*{button('Apagar', editar, 'EditPerfil', props)}*/}
                 {button('Criar Grupo', grupo, 'CreateGrupo', props)}
                 {button('Criar Maleta', mala, 'CreateMaleta', props)}
@@ -29,13 +29,13 @@ const SideMenu = (props) => {
 
 function action(page, props) {
     if(page === 'CreateGrupo') {
-        alert('there is nothing here by now!');
+        props.navigation.navigate(page,{refresh: props.refresh, bags: props.bags})
     }else if(page === 'CreateMaleta') {
-        alert('there is nothing here by now!');
+        props.navigation.navigate(page,{refresh: props.refresh});
     }else if(page === 'SobreNos'){
-       props.navigation.navigate('SobreNos')
+       props.navigation.navigate(page)
     }else{
-        props.navigation.navigate('Login')
+        props.navigation.navigate(page)
     }
 }
 
@@ -83,8 +83,8 @@ const styles = StyleSheet.create({
     logo: {
         top: 30,
         left: 25,
-        width: 60,
-        height: 60,
+        width: 85,
+        height: 85,
     }
 });
 

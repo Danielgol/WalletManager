@@ -4,7 +4,7 @@ import { View, Text, StyleSheet, StatusBar, TextInput,
         Dimensions, Image, Animated } from 'react-native'
 
 
-import seta from '../images/seta3.png';
+import seta from '../images/seta3-verde.png';
 import CurrencyPopup from '../components/currencyPopup.js';
 
 const { width, height } = Dimensions.get("screen");
@@ -153,7 +153,7 @@ export default class CreateMaleta extends React.Component{
                 <View style={{alignItems: 'center', height: height}}>
                     <View style={{alignItems: 'flex-start'}}>
                         <View style={{top: 10, height: 30}}>
-                            <Text style={{color: 'white', fontSize: width*0.04}}>
+                            <Text style={{color: '#AEE637', fontSize: width*0.04}}>
                                 Digite o nome da Maleta:
                             </Text>
                         </View>
@@ -165,16 +165,16 @@ export default class CreateMaleta extends React.Component{
                                 fontSize={20}
                                 width={width*0.7}
                                 elevation={4}
-                                backgroundColor='#ccc'
+                                backgroundColor='#808080'
                                 onChangeText={(text) => this.setState({name: text}) }
                             />
                         </View>
 
                         <View style={{height: height*0.04}}>
-                            <Text style={{color: 'white', fontSize: width*0.04}}>
+                            <Text style={{color: '#AEE637', fontSize: width*0.04}}>
                                 Selecione o tipo da Moeda/
                             </Text>
-                            <Text style={{color: 'white', fontSize: width*0.04}}>
+                            <Text style={{color: '#AEE637', fontSize: width*0.04}}>
                                 Digite a Quantidade:
                             </Text>
                         </View>
@@ -182,9 +182,9 @@ export default class CreateMaleta extends React.Component{
                         <View style={{top: 20}}>
                             <View style={[styles.row]}>
                                 <TouchableOpacity
-                                    style={{backgroundColor: '#bbb', borderRadius: 8, justifyContent: 'center'}}
+                                    style={{backgroundColor: '#606060', borderRadius: 8, justifyContent: 'center'}}
                                     onPress={() => this.emerge({showCurrencies: true}, this.popUpScale) }>
-                                    <Text style={{fontSize: 20}}>  {this.state.prefix}      </Text>
+                                    <Text style={{fontSize: 20, color: '#AEE637', fontWeight: 'bold'}}>  {this.state.prefix}      </Text>
                                 </TouchableOpacity>
 
                                 <TextInput
@@ -194,7 +194,7 @@ export default class CreateMaleta extends React.Component{
                                     fontSize={20}
                                     width={width*0.4}
                                     elevation={4}
-                                    backgroundColor='#ccc'
+                                    backgroundColor='#808080'
                                     keyboardType='numeric'
                                     onChangeText={(text) => this.handleEditChange(text) }
                                     value={this.state.value}
@@ -218,7 +218,7 @@ export default class CreateMaleta extends React.Component{
                             onPress={() => this.pressCreate() }
                             style={{
                                 width: width*0.5,
-                                backgroundColor: 'white',
+                                backgroundColor: '#AEE637',
                                 height: height*0.08,
                                 borderRadius: 35,
                                 alignItems: 'center',
