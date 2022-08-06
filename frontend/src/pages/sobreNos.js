@@ -6,7 +6,7 @@ import logo from '../images/Logo-completa.png';
 import daniel from '../images/daniel.png';
 import diego from '../images/diego.jpg';
 import joao from '../images/joao.jpg';
-import seta from '../images/seta1-verde.png';
+import seta from '../images/seta3-verde.png';
 import linha from '../images/linha.png';
 const { width, height } = Dimensions.get("screen");
 

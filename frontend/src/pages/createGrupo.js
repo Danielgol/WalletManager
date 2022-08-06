@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, StatusBar, TextInput,
         TouchableOpacity, Button, FlatList, YellowBox, BackHandler,
         Dimensions, Image, Animated } from 'react-native';
 
-import seta from '../images/seta3.png';
+import seta from '../images/seta3-verde.png';
 import CurrencyPopup from '../components/currencyPopup.js';
 
 const { width, height } = Dimensions.get("screen");
@@ -184,16 +184,16 @@ export default class CreateGrupo extends React.Component{
                     <View style={{alignItems: 'flex-start'}}>
 
                         <View style={{top: 10, height: 30}}>
-                            <Text style={{color: 'white', fontSize: width*0.04}}>
+                            <Text style={{color: '#AEE637', fontSize: width*0.04}}>
                                 Digite o nome do Contador:
                             </Text>
                         </View>
 
                         <View style={[styles.row, {top: 10, height: width*0.12}]}>
                             <TouchableOpacity
-                                style={{backgroundColor: '#bbb', borderRadius: 8, justifyContent: 'center'}}
+                                style={{backgroundColor: '#606060', borderRadius: 8, justifyContent: 'center'}}
                                 onPress={() => this.emerge({showCurrencies: true}, this.popUpScale) }>
-                                <Text style={{fontSize: 20}}>  {this.state.prefix}      </Text>
+                                <Text style={{fontSize: 20, color: '#AEE637', fontWeight: 'bold'}}>  {this.state.prefix}      </Text>
                             </TouchableOpacity>
 
                             <TextInput
@@ -203,16 +203,16 @@ export default class CreateGrupo extends React.Component{
                                 fontSize={20}
                                 width={width*0.6}
                                 elevation={4}
-                                backgroundColor='#ccc'
+                                backgroundColor='#808080'
                                 onChangeText={(text) => this.setState({name: text}) }
                             />
                         </View>
 
                         <View style={{top: 30, height: height*0.04}}>
-                            <Text style={{color: 'white', fontSize: width*0.04}}>
+                            <Text style={{color: '#AEE637', fontSize: width*0.04}}>
                                 Selecione
                             </Text>
-                            <Text style={{color: 'white', fontSize: width*0.04}}>
+                            <Text style={{color: '#AEE637', fontSize: width*0.04}}>
                                 as Maletas do Contador:
                             </Text>
                         </View>
@@ -224,7 +224,7 @@ export default class CreateGrupo extends React.Component{
                                 <TouchableOpacity
                                     style={[styles.botao, {
                                         backgroundColor: this.state.selecteds.includes(item.key) ? 
-                                        '#40970A' : '#909090'
+                                        '#40970A' : '#606060'
                                     }]}
                                     onPress={() => this.handleCheckBox(item)}
                                     elevation={30}>
@@ -242,7 +242,12 @@ export default class CreateGrupo extends React.Component{
                     <Animated.View style={{position: 'absolute', width: width, height: height*0.8,
                     elevation: 11, zIndex: 2, alignItems: 'center', justifyContent: 'center',
                     transform: [{scale: this.popUpScale}]}}>
-                        <CurrencyPopup onChoose={(item) => this.setState({showCurrencies: false, prefix: item})}/>
+                        <CurrencyPopup 
+                            cancel={() => this.setState({
+                                showCurrencies: false,
+                                auxPrefix: this.state.prefix,
+                                auxValue: this.state.value})}
+                            onChoose={(item) => this.setState({showCurrencies: false, prefix: item})}/>
                     </Animated.View>
                     : null
                     }
@@ -252,7 +257,7 @@ export default class CreateGrupo extends React.Component{
                             onPress={() => this.pressCreate() }
                             style={{
                                 width: width*0.5,
-                                backgroundColor: 'white',
+                                backgroundColor: '#AEE637',
                                 height: height*0.08,
                                 borderRadius: 35,
                                 alignItems: 'center',
@@ -311,7 +316,7 @@ const styles = StyleSheet.create({
         elevation: 5,
     },
     textoBotao: {
-        color: 'white',
+        color: '#AEE637',
         fontSize: width/22,
         paddingLeft: 20,
     },

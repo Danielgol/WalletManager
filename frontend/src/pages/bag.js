@@ -4,7 +4,7 @@ import { View, Text, StyleSheet, StatusBar, TextInput,
         KeyboardAvoidingView, Dimensions, Image, Animated } from 'react-native'
 
 
-import seta from '../images/seta3.png';
+import seta from '../images/seta3-verde.png';
 import historico from '../images/historico.png';
 
 import CurrencyChart from '../components/currencyChart.js';
@@ -265,7 +265,13 @@ export default class Bag extends React.Component{
                 <KeyboardAvoidingView behavior="position" style={[styles.middle, {zIndex: 2}]}>
                     { this.state.showCurrencies ?
                         <Animated.View style={[styles.middle, {top: 10, elevation: 10, transform: [{scale: this.popUpScale}]}]}>
-                            <CurrencyPopup onChoose={(curr) => this.setState({
+                            <CurrencyPopup 
+                            cancel={() => this.setState({
+                                showCurrencies: false,
+                                showEdit: true,
+                                auxPrefix: this.state.prefix,
+                                auxValue: this.state.value})}
+                            onChoose={(curr) => this.setState({
                                 auxPrefix: curr,
                                 showCurrencies: false,
                                 showEdit: true})}/>

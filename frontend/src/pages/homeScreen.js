@@ -14,10 +14,11 @@ import sidebutton from '../images/sidemenu-verde.png'
 //const url = "http://192.168.15.165:3000/data";
 
 //Daniel
-const url = "http://10.0.0.182:3000/data";
+//const url = "http://10.0.0.182:3000/data";
 
 //Joao
-//const url = "http://192.168.0.60:3000/data";
+const url = "http://192.168.0.60:3000/data";
+
 const { width, height } = Dimensions.get("screen");
 
 
@@ -83,7 +84,19 @@ export default class HomeScreen extends React.Component{
     }
 
     goBag(item) {
-        alert('there is nothing here by now!');
+     
+        var precision = this.getPrecision(item);         
+        this.positionX = new Animated.Value(0);         
+        this.setState({isLoading: true, showSideMenu: false});         
+        this.props.navigation.navigate('Bag', {             
+            key: item.key,             
+            name: item.name,             
+            value: item.value,             
+            prefix: item.prefix,             
+            precision: precision,             
+            refresh: this.refresh.bind(this)         
+        });     
+
     }
 
     refresh() {

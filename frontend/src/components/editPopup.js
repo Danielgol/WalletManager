@@ -23,9 +23,9 @@ const EditPopUp = (props) => {
             <View style={[styles.row]}>
 
                 <TouchableOpacity
-                    style={{backgroundColor: '#bbb', borderRadius: 8, justifyContent: 'center'}}
+                    style={{backgroundColor: '#606060', borderRadius: 8, justifyContent: 'center'}}
                     onPress={() => props.pressCurr() }>
-                    <Text style={{fontSize: 20}}>  {props.auxPrefix}      </Text>
+                    <Text style={{fontSize: 20, color: '#AEE637', fontWeight: 'bold'}}>  {props.auxPrefix}      </Text>
                 </TouchableOpacity>
 
                 <TextInput
@@ -36,7 +36,7 @@ const EditPopUp = (props) => {
                     fontSize={20}
                     width={210}
                     elevation={4}
-                    backgroundColor='#ccc'
+                    backgroundColor='#808080'
                     keyboardType='numeric'
                     onChangeText={(text) => handleEditChange(text, props) }
                     value={String(props.auxValue)}
@@ -50,7 +50,7 @@ const EditPopUp = (props) => {
                     <Button
                         onPress={() => props.cancel() }
                         title="Cancelar"
-                        color="#40970A"
+                        color="#FF8C00"
                     />
                 </View>
 

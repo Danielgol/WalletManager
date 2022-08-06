@@ -42,7 +42,7 @@ const TransferPopUp = (props) => {
                     fontSize={20}
                     width={200}
                     elevation={4}
-                    backgroundColor='#ccc'
+                    backgroundColor='#808080'
                     keyboardType='numeric'
                     onChangeText={ (text) => handleTransferChange(text, props) }
                     value={ props.value }
@@ -54,7 +54,7 @@ const TransferPopUp = (props) => {
                     <Button
                         onPress={() => props.cancel() }
                         title="Cancelar"
-                        color="#40970A"
+                        color="#FF8C00"
                     />
                 </View>
                 <View style={{width: width/2.8}}>

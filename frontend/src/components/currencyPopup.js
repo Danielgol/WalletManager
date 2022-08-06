@@ -17,7 +17,7 @@ const group = [
 const CurrencyPopup = (props) => {
     return(
         <View style={styles.screen} >
-            <TouchableOpacity onPress={() => props.onChoose(props.prefix)}
+            <TouchableOpacity onPress={() => props.cancel()}
                         style={{
                             top: 33,
                             left: 130,

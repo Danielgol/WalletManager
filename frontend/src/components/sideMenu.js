@@ -6,7 +6,7 @@ import logo from '../images/FinTrack-android-icon.png';
 import editar from '../images/editar.png';
 import mala from '../images/mala-preta.png';
 import grupo from '../images/grupo-preto.png';
-import sobre from '../images/sobre-preto.png';
+import sobre from '../images/info.png';
 import sair from '../images/sair.png';
 
 const SideMenu = (props) => {
