@@ -11,10 +11,10 @@ import Carousel from 'react-native-snap-carousel';
 import SideMenu from '../components/sideMenu.js';
 import sidebutton from '../images/sidemenu-verde.png'
 //Diego
-const url = "http://192.168.15.165:3000/data";
+//const url = "http://192.168.15.165:3000/data";
 
 //Daniel
-//const url = "http://10.0.0.182:3000/data";
+const url = "http://10.0.0.182:3000/data";
 
 //Joao
 //const url = "http://192.168.0.60:3000/data";

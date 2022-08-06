@@ -5,30 +5,19 @@ import fechar from '../images/X-laranja.png';
 
 const { width, height } = Dimensions.get("screen");
 
-
 const group = [
-    {value: 'Bitcoin', key: 'BTC'},
-    {value: 'Dólar Americano', key: 'USD'},
-    {value: 'Dólar Australiano', key: 'AUD'},
-    {value: 'Dólar Canadense', key: 'CAD'},
-    {value: 'Euro', key: 'EUR'},
-    {value: 'Iene Japonês', key: 'JPY'},
-    {value: 'Libra Esterlina', key: 'GBP'},
-    {value: 'Peso Argentino', key: 'ARS'},
-    {value: 'Peso Chileno', key: 'CLP'},
-    {value: 'Rand Sul-Africano', key: 'ZAR'},
     {value: 'Real Brasileiro', key: 'BRL'},
-    {value: 'Renminbi Chinês', key: 'CNY'},
-    {value: 'Rublo Russo', key: 'RUB'},
-    {value: 'Rupia Indiana', key: 'INR'},
-    {value: 'Won Sul-Coreano', key: 'KRW'},
+    {value: 'Dólar Americano', key: 'USD'},
+    {value: 'Euro', key: 'EUR'},
+    {value: 'Libra Esterlina', key: 'GBP'},
+    {value: 'Bitcoin', key: 'BTC'},
+    {value: 'Etherium', key: 'ETH'},
 ];
-
 
 const CurrencyPopup = (props) => {
     return(
         <View style={styles.screen} >
-            <TouchableOpacity onPress={() => props.navigation.goBack()}
+            <TouchableOpacity onPress={() => props.onChoose(props.prefix)}
                         style={{
                             top: 33,
                             left: 130,

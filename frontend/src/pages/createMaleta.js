@@ -208,7 +208,7 @@ export default class CreateMaleta extends React.Component{
                     <Animated.View style={{position: 'absolute', width: width, height: height*0.8,
                     elevation: 11, zIndex: 2, alignItems: 'center', justifyContent: 'center',
                     transform: [{scale: this.popUpScale}]}}>
-                        <CurrencyPopup onChoose={(item) => this.setState({showCurrencies: false, prefix: item})}/>
+                        <CurrencyPopup prefix={this.state.prefix} onChoose={(item) => this.setState({showCurrencies: false, prefix: item})}/>
                     </Animated.View>
                     : null
                     }
