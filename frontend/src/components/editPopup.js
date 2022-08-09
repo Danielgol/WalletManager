@@ -20,6 +20,13 @@ function handleEditChange(amount, props){
 const EditPopUp = (props) => {
     return(
         <View style={styles.screen}>
+            
+            <View style={[styles.row, {top: -40}]}>
+                <Text style={{color: '#AEE637', fontSize: width/22}}>
+                    Editar Valor na maleta
+                </Text>
+            </View>
+
             <View style={[styles.row]}>
 
                 <TouchableOpacity
@@ -43,6 +50,8 @@ const EditPopUp = (props) => {
                 />
 
             </View>
+
+            
 
             <View style={[styles.row, {top: 40}]}>
 

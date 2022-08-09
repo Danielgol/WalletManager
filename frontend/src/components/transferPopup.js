@@ -27,7 +27,16 @@ function changeSign(props){
 const TransferPopUp = (props) => {
 
     return(
+        
+
         <View style={styles.screen}>
+            <View style={[styles.row, {top: -40}]}>
+                <Text style={{color: '#AEE637', fontSize: width/22}}>
+                    Movimentação Financeira
+                </Text>
+            </View>
+
+
             <View style={styles.row}>
                 <TouchableOpacity
                     style={[styles.signButtom,{backgroundColor: props.color}]}
@@ -60,7 +69,7 @@ const TransferPopUp = (props) => {
                 <View style={{width: width/2.8}}>
                     <Button
                         onPress={() => props.pressTransfer() }
-                        title="Realizar"
+                        title="Salvar"
                         color="#40970A"
                     />
                 </View>

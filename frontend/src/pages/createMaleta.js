@@ -5,6 +5,7 @@ import { View, Text, StyleSheet, StatusBar, TextInput,
 
 
 import seta from '../images/seta3-verde.png';
+import maleta from '../images/mala-verde.png';
 import CurrencyPopup from '../components/currencyPopup.js';
 
 const { width, height } = Dimensions.get("screen");
@@ -146,11 +147,19 @@ export default class CreateMaleta extends React.Component{
                         }}>
                         <Image source={seta} style={{height: 30, width: 30}}/>
                     </TouchableOpacity>
+
+                    <View style={[styles.middle, {fontWeight: 'bold'}]}>
+                        <Image source={maleta} style={{height: 40, width: 40}}/>
+                        <Text style={{color: '#AEE637', fontSize: width/22}}>
+                            Criação de Maleta
+                        </Text>
+                    </View>
                 </View>
 
 
                 {/* ----------- BODY ----------- */}
                 <View style={{alignItems: 'center', height: height}}>
+                    
                     <View style={{alignItems: 'flex-start'}}>
                         <View style={{top: 10, height: 30}}>
                             <Text style={{color: '#AEE637', fontSize: width*0.04}}>

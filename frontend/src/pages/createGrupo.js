@@ -4,6 +4,7 @@ import { View, Text, StyleSheet, StatusBar, TextInput,
         Dimensions, Image, Animated } from 'react-native';
 
 import seta from '../images/seta3-verde.png';
+import grupo from '../images/grupo-verde.png';
 import CurrencyPopup from '../components/currencyPopup.js';
 
 const { width, height } = Dimensions.get("screen");
@@ -176,6 +177,14 @@ export default class CreateGrupo extends React.Component{
                         }}>
                         <Image source={seta} style={{height: 30, width: 30}}/>
                     </TouchableOpacity>
+
+                    <View style={[styles.middle, {fontWeight: 'bold'}]}>
+                        <Image source={grupo} style={{height: 40, width: 40}}/>
+                        <Text style={{color: '#AEE637', fontSize: width/22}}>
+                            Criação de Grupo
+                        </Text>
+                    </View>
+
                 </View>
 
 
