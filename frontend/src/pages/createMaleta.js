@@ -147,13 +147,14 @@ export default class CreateMaleta extends React.Component{
                         }}>
                         <Image source={seta} style={{height: 30, width: 30}}/>
                     </TouchableOpacity>
-
+                        {/*
                     <View style={[styles.middle, {fontWeight: 'bold'}]}>
                         <Image source={maleta} style={{height: 40, width: 40}}/>
                         <Text style={{color: '#AEE637', fontSize: width/22}}>
                             Criação de Maleta
                         </Text>
                     </View>
+                    */}
                 </View>
 
 

@@ -17,8 +17,10 @@ import sidebutton from '../images/sidemenu-verde.png'
 //const url = "http://10.0.0.182:3000/data";
 
 //Joao
-const url = "http://192.168.0.60:3000/data";
+//const url = "http://192.168.0.60:3000/data";
 
+//UFRPE
+const url = "http://10.34.136.174:3000/data";
 const { width, height } = Dimensions.get("screen");
 
 
