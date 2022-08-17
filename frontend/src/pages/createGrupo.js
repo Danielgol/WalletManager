@@ -177,24 +177,25 @@ export default class CreateGrupo extends React.Component{
                         }}>
                         <Image source={seta} style={{height: 30, width: 30}}/>
                     </TouchableOpacity>
-                    {/*
+                    
+                    
+                    
+                </View>
+
+
+                {/* ----------- BODY ----------- */}
+                <View style={{alignItems: 'center', height: height}}>
                     <View style={[styles.middle, {fontWeight: 'bold'}]}>
                         <Image source={grupo} style={{height: 40, width: 40}}/>
                         <Text style={{color: '#AEE637', fontSize: width/22}}>
                             Criação de Grupo
                         </Text>
                     </View>
-                    */}
-                </View>
-
-
-                {/* ----------- BODY ----------- */}
-                <View style={{alignItems: 'center', height: height}}>
                     <View style={{alignItems: 'flex-start'}}>
 
                         <View style={{top: 10, height: 30}}>
                             <Text style={{color: '#AEE637', fontSize: width*0.04}}>
-                                Digite o nome do Contador:
+                                Digite o nome do Grupo:
                             </Text>
                         </View>
 
@@ -222,7 +223,7 @@ export default class CreateGrupo extends React.Component{
                                 Selecione
                             </Text>
                             <Text style={{color: '#AEE637', fontSize: width*0.04}}>
-                                as Maletas do Contador:
+                                as Maletas do Grupo:
                             </Text>
                         </View>
 
@@ -261,7 +262,7 @@ export default class CreateGrupo extends React.Component{
                     : null
                     }
 
-                    <View style={{bottom: 25, alignItems: 'center'}}>
+                    <View style={{bottom: 75, alignItems: 'center'}}>
                         <TouchableOpacity 
                             onPress={() => this.pressCreate() }
                             style={{
@@ -299,9 +300,9 @@ const styles = StyleSheet.create({
         borderBottomLeftRadius: 22,
     },
     middle: {
-        height: height/2,
+        top: -50,
         alignItems: 'center',
-        elevation: 10,
+      
     },
     roundButton: {
         width: width/5,

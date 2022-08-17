@@ -147,20 +147,18 @@ export default class CreateMaleta extends React.Component{
                         }}>
                         <Image source={seta} style={{height: 30, width: 30}}/>
                     </TouchableOpacity>
-                        {/*
+                      
+                </View>
+
+
+                {/* ----------- BODY ----------- */}
+                <View style={{alignItems: 'center', height: height}}>
                     <View style={[styles.middle, {fontWeight: 'bold'}]}>
                         <Image source={maleta} style={{height: 40, width: 40}}/>
                         <Text style={{color: '#AEE637', fontSize: width/22}}>
                             Criação de Maleta
                         </Text>
                     </View>
-                    */}
-                </View>
-
-
-                {/* ----------- BODY ----------- */}
-                <View style={{alignItems: 'center', height: height}}>
-                    
                     <View style={{alignItems: 'flex-start'}}>
                         <View style={{top: 10, height: 30}}>
                             <Text style={{color: '#AEE637', fontSize: width*0.04}}>
@@ -228,7 +226,7 @@ export default class CreateMaleta extends React.Component{
                     : null
                     }
 
-                    <View style={{top: '35%'}}>
+                    <View style={{top: '30%'}}>
                         <TouchableOpacity 
                             onPress={() => this.pressCreate() }
                             style={{
@@ -266,9 +264,8 @@ const styles = StyleSheet.create({
         borderBottomLeftRadius: 22,
     },
     middle: {
-        height: height/2,
         alignItems: 'center',
-        elevation: 10,
+        top: -50,
     },
     roundButton: {
         width: width/5,

@@ -1,7 +1,8 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity,
         Button, FlatList, TextInput, Dimensions } from 'react-native';
-
+import mais from '../images/mais-verde.png';
+import menos from '../images/menos.png';
 
 const { width, height } = Dimensions.get("screen");
 

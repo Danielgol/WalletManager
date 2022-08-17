@@ -6,7 +6,6 @@ import { View, Text, StyleSheet, StatusBar, TextInput,
 
 import seta from '../images/seta3-verde.png';
 import historico from '../images/historico.png';
-import maisPadrao from '../images/mais-padrao.png';
 
 import CurrencyChart from '../components/currencyChart.js';
 import CurrencyPopup from '../components/currencyPopup.js';
@@ -23,7 +22,7 @@ const url = site + currency + settings + price_change_percentage;
 
 
 
-export default class Bag extends React.Component{
+export default class Grupo extends React.Component{
 
     constructor(props){
         super(props);
@@ -317,12 +316,12 @@ export default class Bag extends React.Component{
                     alignItems: 'flex-end',
                     justifyContent: 'flex-end',}}>
                     <TouchableOpacity
-                        
+                        style={[styles.roundButton]}
                         onPress={() => this.emerge( this.state.showCurrencies
                             ? {showTransfer: true, showCurrencies: false}
                             : {showTransfer: true, showEdit: false}
                             , this.popUpScale)}>
-                        <Image source={maisPadrao} style={{width: 90, height: 90}}/>
+                        <Text style={{fontWeight: 'bold', fontSize: 65}}>+</Text>
                     </TouchableOpacity>
                 </View>
                 

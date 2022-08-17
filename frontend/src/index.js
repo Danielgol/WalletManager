@@ -10,6 +10,7 @@ import History from './pages/history.js';
 import Bag from './pages/bag.js';
 import Register from './pages/register.js';
 import SobreNos from './pages/sobreNos.js';
+import Grupo from './pages/grupo.js';
 
 const Stack = createStackNavigator();
 
@@ -25,6 +26,7 @@ export default function App(){
                 <Stack.Screen name="CreateGrupo" component={CreateGrupo}/>
                 <Stack.Screen name="Register" component={Register}/>
                 <Stack.Screen name="SobreNos" component={SobreNos}/>
+                <Stack.Screen name="Grupo" component={Grupo}/>
             </Stack.Navigator>
         </NavigationContainer>
     );
