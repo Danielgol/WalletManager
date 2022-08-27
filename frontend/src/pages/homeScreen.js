@@ -1,51 +1,65 @@
 import React, { useState , NavigationEvents } from 'react';
 import { View, Text, StyleSheet, StatusBar, Dimensions,
         TouchableOpacity, Button, FlatList, ActivityIndicator,
-        SafeAreaView, Animated, Image } from 'react-native';
-
-
+        SafeAreaView, Animated, Image, BackHandler, Alert } from 'react-native';
+import { withNavigationFocus } from 'react-navigation';
 import Carousel from 'react-native-snap-carousel';
+
+import TokenManager from './tokenManager';
 
 //import { Swipeable } from 'react-native-gesture-handler';
 
 import SideMenu from '../components/sideMenu.js';
 import sidebutton from '../images/sidemenu-verde.png'
-//Diego
-//const url = "http://192.168.15.165:3000/data";
 
-//Daniel
-//const url = "http://10.0.0.182:3000/data";
-
-//Joao
-const url = "http://192.168.0.60:3000/data";
-
-//UFRPE
-//const url = "http://10.34.136.174:3000/data";
 const { width, height } = Dimensions.get("screen");
+
 
 
 export default class HomeScreen extends React.Component{
 
-    _isMounted = false;
+    //_isMounted = false;
 
     constructor(props) {
         super(props);
         this.state = {
             isLoading: true,
-            bags: [],
-            contadores: [],
+            name: '',
+            maletas: [],
+            grupos: [],
         }
         this.showSideMenu = false;
         this.positionX = new Animated.Value(0);
     }
 
     componentDidMount() {
-        this._isMounted = true;
         this.refresh();
+        BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
     }
     
     componentWillUnmount() {
-        this._isMounted = false;
+        //this._isMounted = false;
+        BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
+    }
+
+    handleBackButton = () => {
+        if (this.props.navigation.isFocused()) {
+            /*
+            Alert.alert(
+                'Exit App',
+                'Deseja sair do Aplicativo?', [{
+                    text: 'Cancelar',
+                    style: 'cancel'
+                }, {
+                    text: 'Sim',
+                    onPress: () => {BackHandler.exitApp()}
+                },]
+            )
+            */
+            //return true;
+            BackHandler.exitApp()
+            return true
+        }
     }
 
     getPrecision(item) {
@@ -85,46 +99,92 @@ export default class HomeScreen extends React.Component{
         }
     }
 
-    goBag(item) {
-     
+    abrirMaleta(item) {
         var precision = this.getPrecision(item);         
         this.positionX = new Animated.Value(0);         
-        this.setState({isLoading: true, showSideMenu: false});         
-        this.props.navigation.navigate('Bag', {             
-            key: item.key,             
-            name: item.name,             
-            value: item.value,             
-            prefix: item.prefix,             
-            precision: precision,             
-            refresh: this.refresh.bind(this)         
-        });     
-
+        this.setState({isLoading: true, showSideMenu: false});
+        this.props.navigation.navigate('Maleta', {
+            _id: item._id,
+            name: item.name,
+            value: item.value,
+            prefix: item.prefix,
+            precision: precision,
+            refresh: this.refresh.bind(this)
+        });
     }
 
-    refresh() {
-        fetch(url).then(response => response.json()).then((responseJson) => {
-            this.state.bags = responseJson.banco;
-            this.state.contadores = responseJson.contadores.map( function(item){
-                const value = responseJson.banco.filter((bag) => {
-                    if(item.bags.includes(bag.key)){
+    /*
+    abrirGrupo(item) {
+        var precision = this.getPrecision(item);         
+        this.positionX = new Animated.Value(0);         
+        this.setState({isLoading: true, showSideMenu: false});
+        this.props.navigation.navigate('Maleta', {
+            key: item.key,
+            name: item.name,
+            value: item.value,
+            prefix: item.prefix,
+            precision: precision,
+            refresh: this.refresh.bind(this)
+        });
+    }
+    */
 
-                        /*
-                        * CONVERTER VALOR PARA O PREFIXO EM ITEM;
-                        */
+    async refresh() {
+        this.positionX = new Animated.Value(0);
+        this.setState({isLoading: true, showSideMenu: false});
 
-                        return bag.value;
-                    }
+        try{
+            const token = await TokenManager.getToken();
+            if(!token){
+                this.props.navigation.navigate('Login')
+            }
+
+            await fetch("https://fintrack-express.herokuapp.com/getUserInfo", { 
+                method: 'get', 
+                headers: new Headers({
+                    'Authorization': `Bearer ${token}`, 
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                })
+            }).then(response => response.json()).then((responseJson) => {
+                this.state.name = responseJson.name;
+            }).catch((error) => {});
+
+            await fetch("https://fintrack-express.herokuapp.com/getMaletas", { 
+                method: 'get', 
+                headers: new Headers({
+                    'Authorization': `Bearer ${token}`, 
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                })
+            }).then(response => response.json()).then((responseJson) => {
+                this.state.maletas = responseJson;
+            }).catch((error) => {});
+
+            await fetch("https://fintrack-express.herokuapp.com/getGrupos", { 
+                method: 'get', 
+                headers: new Headers({
+                    'Authorization': `Bearer ${token}`, 
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                })
+            }).then(response => response.json()).then((responseJson) => {
+                this.state.grupos = responseJson.map( function(item) {
+                    /*
+                    const value = responseJson.banco.filter((bag) => {
+                        if(item.bags.includes(bag.key)){
+                            //CONVERTER VALOR PARA O PREFIXO EM ITEM;
+                            return bag.value;
+                        }
+                    });
+                    */
+                    return {
+                        name: item.name,
+                        prefix: item.prefix,
+                        value: 0
+                        //value: value.reduce((a, b) => parseFloat(a) + parseFloat(b.value), 0)
+                    };
                 });
-                return {
-                    name: item.name,
-                    prefix: item.prefix,
-                    value: value.reduce((a, b) => parseFloat(a) + parseFloat(b.value), 0)
-                };
-            });
-            //this.showSideMenu = false;
-            //this.positionX = new Animated.Value(0);
+            }).catch((error) => {});
             this.setState({ isLoading: false })
-        }).catch((error) => {});
+        }catch(error){}
     }
 
     slide() {
@@ -140,34 +200,29 @@ export default class HomeScreen extends React.Component{
             duration: 300,
             useNativeDriver: true
         }).start()
-
         this.showSideMenu = !this.showSideMenu;
     }
 
-    _renderItem = ({item, index}) => {
+    _renderGrupoButton = ({item, index}) => {
         return (
             <View style={{top: 25, alignItems: 'center', alignSelf: 'center'}}>
-
                 <View style={{flexDirection: 'row', right: 10}}>
                     <View style={{justifyContent: 'flex-end', bottom: 6, right: 3}}>
                         <Text style={{color: '#AEE637', fontSize: width/22}}>
                             {this.convertPrefix(item.prefix)}
                         </Text>
                     </View>
-
                     <View style={{justifyContent: 'flex-end'}}>
                         <Text style={{ color: '#AEE637', fontSize: width/10}}>
                             {this.currencyFormat(item)}
                         </Text>
                     </View>
                 </View>
-
                 <View style={{bottom: 1}}>
                     <Text style={{ color: '#aaa', fontSize: width/35}}>
                         {item.name}
                     </Text>
                 </View>
-
             </View>
         );
     }
@@ -181,7 +236,7 @@ export default class HomeScreen extends React.Component{
             <SafeAreaView style={[styles.container]}>
 
             <SideMenu
-                bags={this.state.bags}
+                maletas={this.state.maletas}
                 refresh={this.refresh.bind(this)}
                 navigation={this.props.navigation}
                 style={{justifyContent: 'flex-start'}}/>
@@ -192,6 +247,7 @@ export default class HomeScreen extends React.Component{
 
                 <StatusBar hidden={true}/>
 
+
                 { this.state.isLoading ? <ActivityIndicator style={{position: 'absolute', top: 30}}/> :
 
                 <View style={{width: '100%', alignItems: 'center', flex: 1}}>
@@ -199,19 +255,24 @@ export default class HomeScreen extends React.Component{
 
                     {/* ----------- HEADER ----------- */}
                     <Animated.View style={[styles.header]}>
-
                         <TouchableOpacity
                             style={{position: 'absolute', left: 15, top: '15%'}}
                             onPress={() => this.slide()}>
                             <Image source={sidebutton} style={{height: 32, width: 32}}/>
                         </TouchableOpacity>
 
-                        { this.state.contadores.length > 0 ?
+                        <View>
+                            <Text style={{color: '#bbb', fontSize: width/22}}>
+                                {this.state.name}
+                            </Text>
+                        </View>
+
+                        { this.state.grupos.length > 0 ?
                             <View style={{height: height*0.15,}}>
                                 <Carousel
                                     ref={(c) => { this._carousel = c; }}
-                                    data={this.state.contadores}
-                                    renderItem={this._renderItem}
+                                    data={this.state.grupos}
+                                    renderItem={this._renderGrupoButton}
                                     sliderWidth={width*0.75}
                                     itemWidth={width*0.7}
                                 />
@@ -222,22 +283,18 @@ export default class HomeScreen extends React.Component{
                                 </Text>
                             </View>
                         }
-
                     </Animated.View>
 
                     <View style={{height: 10}}></View>
 
-
-
                     {/* ----------- LISTA ----------- */}
                     <FlatList
-                        data={this.state.bags}
+                        data={this.state.maletas}
                         style={{bottom: 10}}
                         renderItem={({ item }) => (
-
                         <TouchableOpacity
                             style={styles.botao}
-                            onPress={() => this.goBag(item)}
+                            onPress={() => this.abrirMaleta(item)}
                             elevation={30}>
                             <View style={styles.row}>
                                 <Text style={[styles.textoBotao, {color: '#AEE637'}]}> {item.name} </Text>
@@ -249,8 +306,8 @@ export default class HomeScreen extends React.Component{
                                 </Text>
                             </View>
                         </TouchableOpacity>
-
                         )}
+                        keyExtractor={(item, index) => index.toString()}
                     />
 
                 </View> }

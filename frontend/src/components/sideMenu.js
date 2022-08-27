@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity,
-        Button, FlatList, Image } from 'react-native'
+        Button, FlatList, Image, AsyncStorage } from 'react-native';
+
+import TokenManager from '../pages/tokenManager';
 
 import logo from '../images/FinTrack-android-icon.png';
 import editar from '../images/editar.png';
@@ -20,8 +22,7 @@ const SideMenu = (props) => {
                 {button('Criar Grupo', grupo, 'CreateGrupo', props)}
                 {button('Criar Maleta', mala, 'CreateMaleta', props)}
                 {button('Sobre', sobre, 'SobreNos', props)}
-                {button('Sair', sair, 'Login', props)}  
-                
+                {button('Sair', sair, 'Login', props)}
             </View>
         </View>
     );
@@ -29,18 +30,20 @@ const SideMenu = (props) => {
 
 function action(page, props) {
     if(page === 'CreateGrupo') {
-        props.navigation.navigate(page,{refresh: props.refresh, bags: props.bags})
+        props.navigation.navigate(page,{refresh: props.refresh, maletas: props.maletas})
     }else if(page === 'CreateMaleta') {
         props.navigation.navigate(page,{refresh: props.refresh});
     }else if(page === 'SobreNos'){
        props.navigation.navigate(page)
     }else{
-        props.navigation.navigate(page)
+        try {
+            TokenManager.removeToken();
+            props.navigation.navigate(page);
+        }catch(exception) {}
     }
 }
 
 const button = (title, image, page, props) =>{
-
     return(
         <TouchableOpacity
             onPress={() => action(page, props)}>

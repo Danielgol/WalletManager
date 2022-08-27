@@ -3,10 +3,8 @@ import { View, Text, StyleSheet, StatusBar, TextInput,
         TouchableOpacity, Button, FlatList, YellowBox, BackHandler,
         KeyboardAvoidingView, Dimensions, Image, Animated } from 'react-native'
 
-
 import seta from '../images/seta3-verde.png';
 import historico from '../images/historico.png';
-import maisPadrao from '../images/mais-padrao.png';
 
 import CurrencyChart from '../components/currencyChart.js';
 import CurrencyPopup from '../components/currencyPopup.js';
@@ -20,18 +18,20 @@ const settings = "&order=market_cap_desc&per_page=20&page=1&sparkline=true&price
 const price_change_percentage = "7d";
 const url = site + currency + settings + price_change_percentage;
 
+import TokenManager from './tokenManager';
 
 
 
-export default class Bag extends React.Component{
+export default class Maleta extends React.Component{
 
     constructor(props){
         super(props);
         this.state = {
-            key: this.props.route.params.key,
+            _id: this.props.route.params._id,
             name: this.props.route.params.name,
             value: this.props.route.params.value,
             prefix: this.props.route.params.prefix,
+
             precision: this.props.route.params.precision,
             
             showEdit: false,
@@ -54,14 +54,12 @@ export default class Bag extends React.Component{
             this.state.points = responseJson;
             this.setState({ isLoadingChart: false })
         }).catch((error) => {});
-
         BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
     }
 
     componentWillUnmount(){
         const params = this.props.route.params;
         params.refresh();
-
         BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
     }
 
@@ -116,6 +114,40 @@ export default class Bag extends React.Component{
         return parseFloat(this.state.value).toFixed(this.state.precision)
     }
 
+    async postUpdate(value, prefix){
+        try{
+            const token = await TokenManager.getToken();
+            if(!token){
+                this.props.navigation.navigate('Login')
+            }
+
+            await fetch('https://fintrack-express.herokuapp.com/createRegistro', {
+                method: 'POST',
+                headers: new Headers({
+                    Accept: 'application/json',
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                }),
+                body: JSON.stringify({
+                    id_maleta: this.state._id,
+                    descricao: 'Enviado pelo aplicativo mobile!',
+                    prefix: prefix,
+                    value: value,
+                })
+            }).then(response => {
+                if(response.status === 201){
+                    const atual = this.state.value;
+                    this.setState({value: value+atual, prefix: prefix});
+                }else{
+                    return response.json();
+                }
+            }).then(response => {
+                //alert(response.message)
+            })
+        }catch(error){}
+    }
+
+    /*
     postUpdate(value, prefix){
         fetch('http://192.168.0.182:3000/post', {
             method: 'POST',
@@ -134,18 +166,25 @@ export default class Bag extends React.Component{
             console.error(error);
         });
     }
+    */
 
-    pressTransfer(){
-        var valor = this.state.text;
-        if(valor != null && valor != '' && valor != '.'){
-            var novo = 0;
+    async pressTransfer(){
+        var value = this.state.text;
+        if(value != null && value != '' && value != '.'){
+            //var novo = 0;
             if(this.state.signal === '+'){
-                novo = parseFloat(this.state.value) + parseFloat(valor);
+                //novo = parseFloat(this.state.value) + parseFloat(value);
+                value = parseFloat(value)
             }else{
-                novo = parseFloat(this.state.value) - parseFloat(valor);
+                //novo = parseFloat(this.state.value) - parseFloat(value);
+                value = - parseFloat(value)
             }
+
+            try{
+                await this.postUpdate(value, this.state.prefix);
+            }catch(error){}
+            
             this.setState({showTransfer: false});
-            this.postUpdate(novo, this.state.prefix);
         }
     }
 
@@ -190,8 +229,6 @@ export default class Bag extends React.Component{
                 backgroundColor: 'black', elevation: 10, opacity: 0.5, zIndex: 1}}></View>
                 : null
                 }
-
-
 
                 {/* ----------- HEADER ----------- */}
                 <View style={styles.header}>
@@ -317,12 +354,12 @@ export default class Bag extends React.Component{
                     alignItems: 'flex-end',
                     justifyContent: 'flex-end',}}>
                     <TouchableOpacity
-                        
+                        style={[styles.roundButton]}
                         onPress={() => this.emerge( this.state.showCurrencies
                             ? {showTransfer: true, showCurrencies: false}
                             : {showTransfer: true, showEdit: false}
                             , this.popUpScale)}>
-                        <Image source={maisPadrao} style={{width: 90, height: 90}}/>
+                        <Text style={{fontWeight: 'bold', fontSize: 65}}>+</Text>
                     </TouchableOpacity>
                 </View>
                 
