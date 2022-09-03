@@ -1,7 +1,7 @@
 import React, { useState , NavigationEvents } from 'react';
 import { View, Text, StyleSheet, StatusBar, Dimensions,
         TouchableOpacity, Button, FlatList, ActivityIndicator,
-        SafeAreaView, Animated, Image, BackHandler, Alert } from 'react-native';
+        SafeAreaView, Animated, Image, BackHandler } from 'react-native';
 import { withNavigationFocus } from 'react-navigation';
 import Carousel from 'react-native-snap-carousel';
 
@@ -118,7 +118,7 @@ export default class HomeScreen extends React.Component{
         this.positionX = new Animated.Value(0);         
         this.setState({isLoading: true, showSideMenu: false});
         this.props.navigation.navigate('Grupo', {
-            key: item.key,
+            _id: item._id,
             name: item.name,
             value: item.value,
             prefix: item.prefix,
@@ -174,6 +174,7 @@ export default class HomeScreen extends React.Component{
                     });
                     */
                     return {
+                        _id: item._id,
                         name: item.name,
                         prefix: item.prefix,
                         value: 0
@@ -226,7 +227,6 @@ export default class HomeScreen extends React.Component{
             </TouchableOpacity>
         );
     }
-
 
 
 
@@ -317,7 +317,6 @@ export default class HomeScreen extends React.Component{
             </SafeAreaView>
         );
     }
-
 }
 
 const styles = StyleSheet.create({

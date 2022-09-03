@@ -2,7 +2,9 @@ import React, { Component } from 'react'
 import { View, Text, StyleSheet, TextInput, StatusBar, Dimensions,
         Image , TouchableOpacity, Button, KeyboardAvoidingView,
         ActivityIndicator } from 'react-native'
+
 import logo from '../../images/Logo-completa.png';
+
 const { width, height } = Dimensions.get("screen");
 
 import helper from './helper'

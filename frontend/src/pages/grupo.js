@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { View, Text, StyleSheet, StatusBar, TextInput,
         TouchableOpacity, Button, FlatList, YellowBox, BackHandler,
-        KeyboardAvoidingView, Dimensions, Image, Animated } from 'react-native'
+        KeyboardAvoidingView, Dimensions, Image, Animated, Alert } from 'react-native'
 
 import TokenManager from './tokenManager';
 
@@ -24,7 +24,7 @@ export default class Grupo extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            key: this.props.route.params.key,
+            _id: this.props.route.params._id,
             name: this.props.route.params.name,
             value: this.props.route.params.value,
             prefix: this.props.route.params.prefix,
@@ -130,8 +130,45 @@ export default class Grupo extends React.Component{
         }).start();
     }
 
-    goHistory(){
-        this.props.navigation.navigate('History');
+    async deleteGrupo(){
+        try{
+            const token = await TokenManager.getToken();
+            if(!token){
+                this.props.navigation.navigate('Login')
+            }
+
+            await fetch("https://fintrack-express.herokuapp.com/removeGrupo/"+this.state._id, { 
+                method: 'delete', 
+                headers: new Headers({
+                    'Authorization': `Bearer ${token}`, 
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                })
+            }).then(response => {
+                if(response.status === 200){
+                    alert("Grupo removido com sucesso!")
+                    const params = this.props.route.params;
+                    params.refresh();
+                    this.props.navigation.goBack(null)
+                }else{
+                    return response.json()
+                }
+            }).then(response => {
+                alert(response.message)
+            })
+        }catch(error){}
+    }
+
+    openDeletePopUp(){
+        Alert.alert(
+            'Exit App',
+            'Deseja excluir o Grupo?', [{
+                text: 'Excluir',
+                onPress: () => {this.deleteGrupo()},
+            }, {
+                text: 'Cancelar',
+                style: 'cancel'
+            },]
+        )
     }
 
 
@@ -194,24 +231,12 @@ export default class Grupo extends React.Component{
 
                         <View>
                             <TouchableOpacity
-                                onPress={() => this.goHistory()}
+                                onPress={() => this.openDeletePopUp()}
                                 style={{
                                     alignSelf: 'flex-start',
                                     left: 25,
-
-
                                 }}>
                                 <Image source={lixo} style={{height: 30, width: 30}}/>
-                            </TouchableOpacity>
-
-                            <TouchableOpacity
-                                onPress={() => this.goHistory()} style={{
-                                    alignSelf: 'flex-end',
-                                    right: 15,
-                                    top: -25
-                                    
-                                }}>
-                                <Image source={historico} style={{height: 25, width: 25}}/>
                             </TouchableOpacity>
                         </View>
 

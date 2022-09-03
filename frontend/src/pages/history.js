@@ -14,21 +14,11 @@ export default class History extends React.Component{
       this.state = {
           _id: this.props.route.params._id,
           name: this.props.route.params.name,
-          value: this.props.route.params.value,
-          prefix: this.props.route.params.prefix,
-
-          precision: this.props.route.params.precision,
           
           showEdit: false,
-          showTransfer: false,
-          showCurrencies: false,
-          isLoadingChart: true,
 
-          signal: '+',
           color: '#40970A',
           text: '0.00',
-          auxValue: this.props.route.params.value,
-          auxPrefix: this.props.route.params.prefix,
           points: [],
       }
       this.popUpScale = new Animated.Value(0);

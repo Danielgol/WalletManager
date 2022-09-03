@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import {View, Text, StyleSheet, TextInput, StatusBar, Dimensions,
-        Image , TouchableOpacity, Button, KeyboardAvoidingView} from 'react-native'
+        Image , TouchableOpacity, Button, KeyboardAvoidingView, } from 'react-native'
 
 import logo from '../images/Logo-completa.png';
 
@@ -11,6 +11,37 @@ export default class Register extends React.Component{
 
     constructor(props){
         super(props);
+        this.state = {
+            name: '',
+            email: '',
+            password: '',
+        }
+    }
+
+    async register(){
+        try{
+            await fetch('https://fintrack-express.herokuapp.com/register', {
+                method: 'POST',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    name: this.state.name,
+                    email: this.state.email,
+                    password: this.state.password,
+                })
+            }).then(response => {
+                if(response.status === 201){
+                    alert("Conta criada com sucesso!");
+                    this.props.navigation.navigate('Login');
+                }else{
+                    return response.json();
+                }
+            }).then(responseJson =>{
+                alert(responseJson.message);
+            })
+        }catch{}
     }
 
     render(){
@@ -28,6 +59,7 @@ export default class Register extends React.Component{
                         <Text style={{color: '#AEE637', marginBottom: 3, fontSize: 15, textAlign: 'left', width: width*0.75}}>Nome:</Text>
                         <TextInput
                             placeholder = "Digite seu nome."
+                            onChangeText={(name) => this.setState({name: name})}
                             placeholderTextColor="black"
                             style={styles.input}
                             elevation={10}/>
@@ -35,19 +67,21 @@ export default class Register extends React.Component{
                         <Text style={{color: '#AEE637', marginBottom: 3, fontSize: 15, textAlign: 'left', width: width*0.75}}>Email</Text>
                         <TextInput
                             placeholder = "Digite seu email."
+                            onChangeText={(email) => this.setState({email: email})}
                             placeholderTextColor="black"
                             style={styles.input}
                             elevation={10}/>
                         <Text style={{color: '#AEE637', marginBottom: 3, fontSize: 15, textAlign: 'left', width: width*0.75}}>Senha</Text>
                          <TextInput
                             placeholder = "Digite sua senha."
+                            onChangeText={(password) => this.setState({password: password})}
                             placeholderTextColor="black"
                             style={styles.input}
                             secureTextEntry={true}
                             elevation={10}/>
 
                         <TouchableOpacity 
-                            onPress={() => this.props.navigation.navigate('Login')}
+                            onPress={() => this.register()}
                             style={{
                                 marginTop: 20,
                                 width: width*0.5,

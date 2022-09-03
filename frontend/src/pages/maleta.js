@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { View, Text, StyleSheet, StatusBar, TextInput,
         TouchableOpacity, Button, FlatList, YellowBox, BackHandler,
-        KeyboardAvoidingView, Dimensions, Image, Animated } from 'react-native'
+        KeyboardAvoidingView, Dimensions, Image, Animated, Alert } from 'react-native'
 
 import seta from '../images/seta3-verde.png';
 import historico from '../images/historico.png';
@@ -197,6 +197,7 @@ export default class Maleta extends React.Component{
         }
         return precision;
     }
+
     goHistory(){
         var precision = this.getPrecision(this.state.prefix);         
         this.positionX = new Animated.Value(0);         
@@ -204,10 +205,48 @@ export default class Maleta extends React.Component{
         this.props.navigation.navigate('History', {
             _id: this.state._id,
             name: this.state.name,
-            value: this.state.value,
-            prefix: this.state.prefix,
-            precision: precision,
         });
+    }
+
+    async deleteMaleta(){
+        try{
+            const token = await TokenManager.getToken();
+            if(!token){
+                this.props.navigation.navigate('Login')
+            }
+
+            await fetch("https://fintrack-express.herokuapp.com/removeMaleta/"+this.state.name, { 
+                method: 'delete', 
+                headers: new Headers({
+                    'Authorization': `Bearer ${token}`, 
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                })
+            }).then(response => {
+                if(response.status === 200){
+                    alert("Maleta removida com sucesso!")
+                    const params = this.props.route.params;
+                    params.refresh();
+                    this.props.navigation.goBack(null)
+                }else{
+                    return response.json()
+                }
+            }).then(response => {
+                alert(response.message)
+            })
+        }catch(error){}
+    }
+
+    openDeletePopUp(){
+        Alert.alert(
+            'Exit App',
+            'Deseja excluir a Maleta?', [{
+                text: 'Excluir',
+                onPress: () => {this.deleteMaleta()},
+            }, {
+                text: 'Cancelar',
+                style: 'cancel'
+            },]
+        )
     }
 
 
@@ -278,12 +317,10 @@ export default class Maleta extends React.Component{
 
                         <View>
                             <TouchableOpacity
-                                onPress={() => this.goHistory()}
+                                onPress={() => this.openDeletePopUp()}
                                 style={{
                                     alignSelf: 'flex-start',
                                     left: 25,
-
-
                                 }}>
                                 <Image source={lixo} style={{height: 30, width: 30}}/>
                             </TouchableOpacity>
@@ -293,7 +330,6 @@ export default class Maleta extends React.Component{
                                     alignSelf: 'flex-end',
                                     right: 15,
                                     top: -25
-                                    
                                 }}>
                                 <Image source={historico} style={{height: 25, width: 25}}/>
                             </TouchableOpacity>
