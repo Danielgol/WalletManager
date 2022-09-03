@@ -5,11 +5,13 @@ import { View, Text, StyleSheet, StatusBar, TextInput,
 
 import seta from '../images/seta3-verde.png';
 import historico from '../images/historico.png';
+import mais from '../images/mais-padrao.png';
 
 import CurrencyChart from '../components/currencyChart.js';
 import CurrencyPopup from '../components/currencyPopup.js';
 import EditPopUp from '../components/editPopup';
 import TransferPopUp from '../components/transferPopup';
+
 
 const { width, height } = Dimensions.get("screen");
 const site = "https://api.coingecko.com/api/v3/coins/markets?vs_currency=";
@@ -349,17 +351,17 @@ export default class Maleta extends React.Component{
 
                 {/* ----------- BOTAO + ----------- */}
                 <View style={{
-                    top: 40,
+                    top: 10,
                     right: 20,
                     alignItems: 'flex-end',
                     justifyContent: 'flex-end',}}>
                     <TouchableOpacity
-                        style={[styles.roundButton]}
+                    
                         onPress={() => this.emerge( this.state.showCurrencies
                             ? {showTransfer: true, showCurrencies: false}
                             : {showTransfer: true, showEdit: false}
                             , this.popUpScale)}>
-                        <Text style={{fontWeight: 'bold', fontSize: 65}}>+</Text>
+                        <Image source={mais} style={{height: 100, width: 100}}/>
                     </TouchableOpacity>
                 </View>
                 
