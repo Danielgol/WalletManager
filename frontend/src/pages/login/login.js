@@ -74,7 +74,7 @@ export default class Login extends React.Component{
                                 marginVertical: 5,
                                 elevation: 10,
                             }}>
-                            <Text style={{fontSize: 20, fontWeight: 'bold'}}>LOG IN</Text>
+                            <Text style={{fontSize: 20, fontWeight: 'bold'}}>Entrar</Text>
                         </TouchableOpacity>
 
                     </View>

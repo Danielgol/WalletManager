@@ -211,10 +211,25 @@ export default class Maleta extends React.Component{
         }).start();
     }
 
-    goHistory(){
-        this.props.navigation.navigate('History');
+    getPrecision(prefix) {
+        var precision = 2;
+        if(prefix === 'BTC' || prefix === 'ETH'){
+            precision = 8;
+        }
+        return precision;
     }
-
+    goHistory(){
+        var precision = this.getPrecision(this.state.prefix);         
+        this.positionX = new Animated.Value(0);         
+        this.setState({isLoading: true, showSideMenu: false});
+        this.props.navigation.navigate('History', {
+            _id: this.state._id,
+            name: this.state.name,
+            value: this.state.value,
+            prefix: this.state.prefix,
+            precision: precision,
+        });
+    }
 
 
 
