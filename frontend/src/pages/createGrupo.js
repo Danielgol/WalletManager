@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { View, Text, StyleSheet, StatusBar, TextInput,
         TouchableOpacity, Button, FlatList, YellowBox, BackHandler,
         Dimensions, Image, Animated } from 'react-native';
+import TokenManager from './tokenManager';
 
 import seta from '../images/seta3-verde.png';
 import grupo from '../images/grupo-verde.png';
@@ -32,8 +33,6 @@ export default class CreateGrupo extends React.Component{
     }
 
     componentWillUnmount(){
-        //const params = this.props.route.params;
-        //params.refresh();
         BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
     }
 
@@ -94,31 +93,45 @@ export default class CreateGrupo extends React.Component{
         return parseFloat(item.value).toFixed(this.getPrecision(item))
     }
 
-    postUpdate(name, prefix, maletas){
-        /*
-        fetch('http://192.168.0.182:3000/postCreateCounter', {
-            method: 'POST',
-            headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                name: name,
-                prefix: prefix,
-                maletas: maletas,
-            })
-        }).then(response => {
-        }).catch(error => {
-            console.error(error);
-        });
-        */
-    }
+    async createGrupo(){
+        var email = ''
+        var token = ''
+        try{
+            const token = await TokenManager.getToken();
 
-    pressCreate(){
-        if(this.state.selecteds.length > 0 && this.state.name != '') {
-            this.postUpdate(this.state.name, this.state.prefix, this.state.selecteds);
-            this.props.navigation.navigate('HomeScreen');
-        }
+            const name = this.state.name;
+            const prefix = this.state.prefix;
+            var maletas = []
+
+            for(var i=0; i<this.state.selecteds.length; i++){
+                maletas.push(this.state.selecteds[i])
+            }
+
+            await fetch('https://fintrack-express.herokuapp.com/createGrupo', {
+                method: 'POST',
+                headers: new Headers({
+                    Accept: 'application/json',
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                }),
+                body: JSON.stringify({
+                    name: name,
+                    prefix: prefix,
+                    maletas: maletas,
+                })
+            }).then(response => {
+                if(response.status === 201){
+                    alert("Grupo criado com sucesso!")
+                    const params = this.props.route.params;
+                    params.refresh();
+                    this.props.navigation.goBack(null)
+                }else{
+                    return response.json()
+                }
+            }).then(response => {
+                alert(response.message)
+            })
+        }catch(error){}
     }
 
     emerge(shows, scale){
@@ -142,10 +155,10 @@ export default class CreateGrupo extends React.Component{
     handleCheckBox(item){
         var list = this.state.selecteds;
 
-        if(list.includes(item.name)) {
-            this.state.selecteds = list.filter(elem => elem !== item.name);
+        if(list.includes(item._id)) {
+            this.state.selecteds = list.filter(elem => elem !== item._id);
         }else{
-            list = list.push(item.name);
+            list = list.push(item._id);
         }
         this.setState({});
     }
@@ -234,7 +247,7 @@ export default class CreateGrupo extends React.Component{
                                 renderItem={({ item }) => (
                                 <TouchableOpacity
                                     style={[styles.botao, {
-                                        backgroundColor: this.state.selecteds.includes(item.name) ? 
+                                        backgroundColor: this.state.selecteds.includes(item._id) ? 
                                         '#40970A' : '#606060'
                                     }]}
                                     onPress={() => this.handleCheckBox(item)}
@@ -266,7 +279,7 @@ export default class CreateGrupo extends React.Component{
 
                     <View style={{bottom: 25, alignItems: 'center'}}>
                         <TouchableOpacity 
-                            onPress={() => this.pressCreate() }
+                            onPress={() => this.createGrupo() }
                             style={{
                                 width: width*0.5,
                                 backgroundColor: '#AEE637',

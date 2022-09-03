@@ -10,6 +10,7 @@ import History from './pages/history.js';
 import Maleta from './pages/maleta.js';
 import Register from './pages/register.js';
 import SobreNos from './pages/sobreNos.js';
+import Grupo from './pages/grupo.js';
 
 const Stack = createStackNavigator();
 
@@ -20,6 +21,7 @@ export default function App(){
                 <Stack.Screen name="Login" component={Login}/>
                 <Stack.Screen name="HomeScreen" component={HomeScreen}/>
                 <Stack.Screen name="Maleta" component={Maleta}/>
+                <Stack.Screen name="Grupo" component={Grupo}/>
                 <Stack.Screen name="History" component={History}/>
                 <Stack.Screen name="CreateMaleta" component={CreateMaleta}/>
                 <Stack.Screen name="CreateGrupo" component={CreateGrupo}/>

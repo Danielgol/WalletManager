@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, StatusBar, TextInput,
         TouchableOpacity, Button, FlatList, YellowBox, BackHandler,
         KeyboardAvoidingView, Dimensions, Image, Animated } from 'react-native'
 
+import TokenManager from './tokenManager';
 
 import seta from '../images/seta3-verde.png';
 import historico from '../images/historico.png';
@@ -14,11 +15,6 @@ import EditPopUp from '../components/editPopup';
 import TransferPopUp from '../components/transferPopup';
 
 const { width, height } = Dimensions.get("screen");
-const site = "https://api.coingecko.com/api/v3/coins/markets?vs_currency=";
-const currency = "usd";
-const settings = "&order=market_cap_desc&per_page=20&page=1&sparkline=true&price_change_percentage=";
-const price_change_percentage = "7d";
-const url = site + currency + settings + price_change_percentage;
 
 
 
@@ -33,35 +29,26 @@ export default class Grupo extends React.Component{
             value: this.props.route.params.value,
             prefix: this.props.route.params.prefix,
             precision: this.props.route.params.precision,
-            
-            showEdit: false,
-            showTransfer: false,
+
+            maletas: [],
             showCurrencies: false,
-            isLoadingChart: true,
 
             signal: '+',
             color: '#40970A',
             text: '0.00',
-            auxValue: this.props.route.params.value,
-            auxPrefix: this.props.route.params.prefix,
             points: [],
         }
         this.popUpScale = new Animated.Value(0);
     }
 
     componentDidMount(){
-        fetch(url).then(response => response.json()).then((responseJson) => {
-            this.state.points = responseJson;
-            this.setState({ isLoadingChart: false })
-        }).catch((error) => {});
-
+        this.load();
         BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
     }
 
     componentWillUnmount(){
         const params = this.props.route.params;
         params.refresh();
-
         BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
     }
 
@@ -76,6 +63,24 @@ export default class Grupo extends React.Component{
             return false;
         }
         return true;
+    }
+
+    async load(){
+        try{
+            const token = await TokenManager.getToken();
+            if(!token){
+                this.props.navigation.navigate('Login')
+            }
+            await fetch("https://fintrack-express.herokuapp.com/getMaletasByGrupo/"+this.state.name, { 
+                method: 'get', 
+                headers: new Headers({
+                    'Authorization': `Bearer ${token}`, 
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                })
+            }).then(response => response.json()).then((responseJson) => {
+                this.setState({maletas: responseJson});
+            }).catch((error) => {});
+        }catch{}
     }
 
     isCripto(){
@@ -116,50 +121,6 @@ export default class Grupo extends React.Component{
         return parseFloat(this.state.value).toFixed(this.state.precision)
     }
 
-    postUpdate(value, prefix){
-        fetch('http://192.168.0.182:3000/post', {
-            method: 'POST',
-            headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                name: this.state.name,
-                value: value,
-                prefix: prefix,
-            })
-        }).then(response => {
-            this.setState({value: value, prefix: prefix});
-        }).catch(error => {
-            console.error(error);
-        });
-    }
-
-    pressTransfer(){
-        var valor = this.state.text;
-        if(valor != null && valor != '' && valor != '.'){
-            var novo = 0;
-            if(this.state.signal === '+'){
-                novo = parseFloat(this.state.value) + parseFloat(valor);
-            }else{
-                novo = parseFloat(this.state.value) - parseFloat(valor);
-            }
-            this.setState({showTransfer: false});
-            this.postUpdate(novo, this.state.prefix);
-        }
-    }
-
-    pressEdit(){
-        if(this.state.auxValue != '' && this.state.auxValue != '.' && this.state.auxValue != null){
-            var precision = 2;
-            if(this.state.auxPrefix === 'BTC'){
-                precision = 8;
-            }
-            this.setState({ showEdit: false, precision: precision});
-            this.postUpdate(this.state.auxValue, this.state.auxPrefix);
-        }   
-    }
-
     emerge(shows, scale){
         this.setState(shows);
         Animated.timing(scale, {
@@ -185,13 +146,11 @@ export default class Grupo extends React.Component{
                 <StatusBar hidden={true}/>
 
                 {/* ----------- POPUP BACKGROUND ----------- */}
-                { this.state.showCurrencies || this.state.showEdit || this.state.showTransfer ?
+                { this.state.showCurrencies ?
                 <View style={{position: 'absolute', top: 0, width: width, height: height,
                 backgroundColor: 'black', elevation: 10, opacity: 0.5, zIndex: 1}}></View>
                 : null
                 }
-
-
 
                 {/* ----------- HEADER ----------- */}
                 <View style={styles.header}>
@@ -216,30 +175,21 @@ export default class Grupo extends React.Component{
                         </View>
 
                         <View style={{top: 10, alignItems: 'center', alignSelf: 'center'}}>
-                            <TouchableOpacity onPress={() => this.emerge(this.state.showCurrencies 
-                                    ? {showEdit: true, showCurrencies: false}
-                                    : {showEdit: true, showTransfer: false}
-                                , this.popUpScale) }>
-                                <View style={{flexDirection: 'row', right: 10}}>
+                            <View style={{flexDirection: 'row', right: 10}}>
 
-                                    <View style={{justifyContent: 'flex-end', bottom: 6, right: 3}}>
-                                        <Text style={{color: '#AEE637', fontSize: width/22}}>
+                                <View style={{justifyContent: 'flex-end', bottom: 6, right: 3}}>
+                                    <Text style={{color: '#AEE637', fontSize: width/22}}>
                                             {this.convertPrefix()}
-                                        </Text>
-                                    </View>
-
-                                    <View style={{justifyContent: 'flex-end'}}>
-                                        <Text style={{ color: '#AEE637', fontSize: width/10}} onPress={() =>
-                                            this.emerge(this.state.showCurrencies 
-                                            ? {showEdit: true, showCurrencies: false}
-                                            : {showEdit: true, showTransfer: false},
-                                            this.popUpScale) }>
-                                                { this.currencyFormat() }
-                                        </Text>
-                                    </View>
-
+                                    </Text>
                                 </View>
-                            </TouchableOpacity>
+
+                                <View style={{justifyContent: 'flex-end'}}>
+                                    <Text style={{ color: '#AEE637', fontSize: width/10}}>
+                                            { this.currencyFormat() }
+                                    </Text>
+                                </View>
+
+                            </View>
                         </View>
 
                         <View>
@@ -268,17 +218,34 @@ export default class Grupo extends React.Component{
                     </View>
                 </View>
 
+                <View style={{height: 10}}></View>
 
-
-                {/* ----------- CHART ----------- */}
-                <View style={{height: '1%'}}>
-                    { ( this.state.isLoadingChart || !this.isCripto() ) ? null :
-                    <CurrencyChart currency={this.state.prefix} points={this.state.points}/> }
-                </View>
-
-
+                {/* ----------- LISTA ----------- */}
+                <FlatList
+                    data={this.state.maletas}
+                    style={{bottom: 10}}
+                    renderItem={({ item }) => (
+                        <View
+                            style={styles.botao}
+                            //onPress={() => this.abrirMaleta(item)}
+                            elevation={30}>
+                            <View style={styles.row}>
+                                <Text style={[styles.textoBotao, {color: '#AEE637'}]}> {item.name} </Text>
+                                <Text style={[styles.textoBotao, {
+                                    color: ((item.prefix == 'BTC' || item.prefix == 'ETH') ? '#BFF111' : '#AEE637'),
+                                    fontWeight: ((item.prefix == 'BTC' || item.prefix == 'ETH') ? 'bold' : 'normal'),
+                                }]}>
+                                {/*this.convertPrefix(item.prefix)} {this.currencyFormat(item)*/}
+                                {item.prefix} {item.value}
+                                </Text>
+                            </View>
+                        </View>
+                     )}
+                    keyExtractor={(item, index) => index.toString()}
+                />
 
                 {/* ----------- POPUPS ----------- */}
+                {/*
                 <KeyboardAvoidingView behavior="position" style={[styles.middle, {zIndex: 2}]}>
                     { this.state.showCurrencies ?
                         <Animated.View style={[styles.middle, {top: 10, elevation: 10, transform: [{scale: this.popUpScale}]}]}>
@@ -286,61 +253,15 @@ export default class Grupo extends React.Component{
                             cancel={() => this.setState({
                                 showCurrencies: false,
                                 showEdit: true,
-                                auxPrefix: this.state.prefix,
-                                auxValue: this.state.value})}
+                            })}
                             onChoose={(curr) => this.setState({
                                 auxPrefix: curr,
                                 showCurrencies: false,
                                 showEdit: true})}/>
                         </Animated.View> : null
                     }
-
-                    { this.state.showTransfer ?
-                        <Animated.View style={{top: '25%', elevation: 10, transform: [{scale: this.popUpScale}] }}>
-                        <TransferPopUp
-                            value={this.state.text}
-                            color={this.state.color}
-                            signal={this.state.signal}
-                            pressTransfer={() => this.pressTransfer()}
-                            changeSign={(obj) => this.setState(obj)}
-                            cancel={() => this.setState({showTransfer: false, text: '0.00'})}
-                            handleChange={(text) => this.setState({text: text})}/>
-                        </Animated.View>
-                    : null}
-
-                    {this.state.showEdit ?
-                        <Animated.View style={{top: '25%', elevation: 10, transform: [{scale: this.popUpScale}]}}>
-                        <EditPopUp
-                            auxValue={this.state.auxValue}
-                            auxPrefix={this.state.auxPrefix}
-                            cancel={() => this.setState({
-                                showEdit: false,
-                                auxPrefix: this.state.prefix,
-                                auxValue: this.state.value})}
-                            pressEdit={() => this.pressEdit()}
-                            pressCurr={() => this.emerge({showEdit: false, showCurrencies: true}, this.popUpScale)}
-                            handleChange={(text) => this.setState({auxValue: text})}/>
-                        </Animated.View>
-                    : null}
                 </KeyboardAvoidingView>
-
-
-
-                {/* ----------- BOTAO + ----------- */}
-                <View style={{
-                    top: 40,
-                    right: 20,
-                    alignItems: 'flex-end',
-                    justifyContent: 'flex-end',}}>
-                    <TouchableOpacity
-                        style={[styles.roundButton]}
-                        onPress={() => this.emerge( this.state.showCurrencies
-                            ? {showTransfer: true, showCurrencies: false}
-                            : {showTransfer: true, showEdit: false}
-                            , this.popUpScale)}>
-                        <Text style={{fontWeight: 'bold', fontSize: 65}}>+</Text>
-                    </TouchableOpacity>
-                </View>
+                */}
                 
             </View>
         );
@@ -359,10 +280,31 @@ const styles = StyleSheet.create({
         borderBottomRightRadius: 22,
         borderBottomLeftRadius: 22,
     },
+    row: {
+        width: '100%',
+        paddingVertical: 25,
+        paddingHorizontal: 15,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+    },
+    botao: {
+        width: width*1,
+        height: height*0.075,
+        marginTop: 8,
+        backgroundColor: '#272727',
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 4,
+        elevation: 5,
+    },
     middle: {
         height: height/2,
         alignItems: 'center',
         elevation: 10,
+    },
+    textoBotao: {
+        color: 'white',
+        fontSize: width/22,
     },
     roundButton: {
         width: width/5,

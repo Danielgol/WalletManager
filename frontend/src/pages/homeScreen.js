@@ -113,12 +113,11 @@ export default class HomeScreen extends React.Component{
         });
     }
 
-    /*
     abrirGrupo(item) {
         var precision = this.getPrecision(item);         
         this.positionX = new Animated.Value(0);         
         this.setState({isLoading: true, showSideMenu: false});
-        this.props.navigation.navigate('Maleta', {
+        this.props.navigation.navigate('Grupo', {
             key: item.key,
             name: item.name,
             value: item.value,
@@ -127,7 +126,6 @@ export default class HomeScreen extends React.Component{
             refresh: this.refresh.bind(this)
         });
     }
-    */
 
     async refresh() {
         this.positionX = new Animated.Value(0);
@@ -205,25 +203,27 @@ export default class HomeScreen extends React.Component{
 
     _renderGrupoButton = ({item, index}) => {
         return (
-            <View style={{top: 25, alignItems: 'center', alignSelf: 'center'}}>
-                <View style={{flexDirection: 'row', right: 10}}>
-                    <View style={{justifyContent: 'flex-end', bottom: 6, right: 3}}>
-                        <Text style={{color: '#AEE637', fontSize: width/22}}>
-                            {this.convertPrefix(item.prefix)}
-                        </Text>
+            <TouchableOpacity onPress={() => this.abrirGrupo(item)}>
+                <View style={{top: 25, alignItems: 'center', alignSelf: 'center'}}>
+                    <View style={{flexDirection: 'row', right: 10}}>
+                        <View style={{justifyContent: 'flex-end', bottom: 6, right: 3}}>
+                            <Text style={{color: '#AEE637', fontSize: width/22}}>
+                                {this.convertPrefix(item.prefix)}
+                            </Text>
+                        </View>
+                        <View style={{justifyContent: 'flex-end'}}>
+                            <Text style={{ color: '#AEE637', fontSize: width/10}}>
+                                {this.currencyFormat(item)}
+                            </Text>
+                        </View>
                     </View>
-                    <View style={{justifyContent: 'flex-end'}}>
-                        <Text style={{ color: '#AEE637', fontSize: width/10}}>
-                            {this.currencyFormat(item)}
+                    <View style={{bottom: 1}}>
+                        <Text style={{ color: '#aaa', fontSize: width/35}}>
+                            {item.name}
                         </Text>
                     </View>
                 </View>
-                <View style={{bottom: 1}}>
-                    <Text style={{ color: '#aaa', fontSize: width/35}}>
-                        {item.name}
-                    </Text>
-                </View>
-            </View>
+            </TouchableOpacity>
         );
     }
 

@@ -150,27 +150,6 @@ export default class Maleta extends React.Component{
         }catch(error){}
     }
 
-    /*
-    postUpdate(value, prefix){
-        fetch('http://192.168.0.182:3000/post', {
-            method: 'POST',
-            headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                name: this.state.name,
-                value: value,
-                prefix: prefix,
-            })
-        }).then(response => {
-            this.setState({value: value, prefix: prefix});
-        }).catch(error => {
-            console.error(error);
-        });
-    }
-    */
-
     async pressTransfer(){
         var value = this.state.text;
         if(value != null && value != '' && value != '.'){
