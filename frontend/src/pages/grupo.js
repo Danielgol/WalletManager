@@ -6,6 +6,7 @@ import { View, Text, StyleSheet, StatusBar, TextInput,
 
 import seta from '../images/seta3-verde.png';
 import historico from '../images/historico.png';
+import lixo from '../images/lixo.png';
 
 import CurrencyChart from '../components/currencyChart.js';
 import CurrencyPopup from '../components/currencyPopup.js';
@@ -241,9 +242,25 @@ export default class Grupo extends React.Component{
                             </TouchableOpacity>
                         </View>
 
-                        <View style={{alignSelf: 'flex-end', right: 15}}>
+                        <View>
                             <TouchableOpacity
-                                onPress={() => this.goHistory()}>
+                                onPress={() => this.goHistory()}
+                                style={{
+                                    alignSelf: 'flex-start',
+                                    left: 25,
+
+
+                                }}>
+                                <Image source={lixo} style={{height: 30, width: 30}}/>
+                            </TouchableOpacity>
+
+                            <TouchableOpacity
+                                onPress={() => this.goHistory()} style={{
+                                    alignSelf: 'flex-end',
+                                    right: 15,
+                                    top: -25
+                                    
+                                }}>
                                 <Image source={historico} style={{height: 25, width: 25}}/>
                             </TouchableOpacity>
                         </View>
