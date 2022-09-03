@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity,
-        Button, FlatList, TextInput, Dimensions } from 'react-native';
+        Button, FlatList, TextInput, Dimensions, Image } from 'react-native';
 import mais from '../images/mais-verde.png';
 import menos from '../images/menos.png';
 
@@ -21,6 +21,7 @@ function changeSign(props){
         props.changeSign({ signal: '-', color: '#BB0000'});
     } else {
         props.changeSign({ signal: '+', color: '#40970A'});
+        x = menos;
     }
 }
 
@@ -42,7 +43,9 @@ const TransferPopUp = (props) => {
                 <TouchableOpacity
                     style={[styles.signButtom,{backgroundColor: props.color}]}
                     onPress={() => changeSign(props) }>
-                    <Text style={{fontWeight: 'bold', fontSize: 40}}> {props.signal} </Text>
+                    {props.signal === '+' && <Image source={mais} style={{height: 50, width: 50}}/>}
+                    {props.signal === '-' && <Image source={menos} style={{height: 50, width: 50}}/>}
+                    {/*<Image source={x} style={{height: 25, width: 25}}/>*/}
                 </TouchableOpacity>
 
                 <TextInput
