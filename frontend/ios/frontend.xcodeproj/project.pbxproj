@@ -12,6 +12,46 @@
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		124AED43BDBB40D199B0267E /* SourceCodePro-Italic-VariableFont_wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CB624E07D84B4CC7A47C61ED /* SourceCodePro-Italic-VariableFont_wght.ttf */; };
+		799D46F6C53446F590BF6B9D /* SourceCodePro-VariableFont_wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 83EB26328C934A939DFBE14A /* SourceCodePro-VariableFont_wght.ttf */; };
+		6F5C40B30DBD4163ADA42F58 /* SourceCodePro-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9106B8022E634660846A9F70 /* SourceCodePro-Black.ttf */; };
+		1CB56AA654D5417E8716E0C0 /* SourceCodePro-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9A4E5A221A7144B390D8D465 /* SourceCodePro-BlackItalic.ttf */; };
+		DC1231C64FDD4E51ABDB9803 /* SourceCodePro-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FC5C2E904417403A92A91925 /* SourceCodePro-Bold.ttf */; };
+		861B5AA33B5B4591926B517B /* SourceCodePro-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4C676802D3E14F1FA02C28C8 /* SourceCodePro-BoldItalic.ttf */; };
+		0E6E558F2EB5413895CFDBBE /* SourceCodePro-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 838A03BBCF7749389B14D33E /* SourceCodePro-ExtraBold.ttf */; };
+		620132BE217A42C89B6FF3E3 /* SourceCodePro-ExtraBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3C60C652AD8A43958E52EC3C /* SourceCodePro-ExtraBoldItalic.ttf */; };
+		13F0578532EE4D3FBD85D2AD /* SourceCodePro-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D54DE528E9C447E6B072CF80 /* SourceCodePro-ExtraLight.ttf */; };
+		0CF8D53EE3BF49CE8823B22B /* SourceCodePro-ExtraLightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 44A45FC96032491A93F0A90F /* SourceCodePro-ExtraLightItalic.ttf */; };
+		1ADFD795DD0349E6B8DC55FD /* SourceCodePro-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BE16136DB7DA4B35A8999AC3 /* SourceCodePro-Italic.ttf */; };
+		BA179F730BB5447398558152 /* SourceCodePro-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DCEEB86B818545DE800029BA /* SourceCodePro-Light.ttf */; };
+		9501826CC6934FD796BF3B51 /* SourceCodePro-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2B6464D995A0497283F71139 /* SourceCodePro-LightItalic.ttf */; };
+		F9489CF466E6462C9A422521 /* SourceCodePro-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D0757A8B91AE4C6D87D258E8 /* SourceCodePro-Medium.ttf */; };
+		4DB84B6ED96A4450A117BF1F /* SourceCodePro-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7932A091A60546FFA9C75886 /* SourceCodePro-MediumItalic.ttf */; };
+		0D11CAC554D94C348B293846 /* SourceCodePro-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BB6A2AAD16DA4D698C95126C /* SourceCodePro-Regular.ttf */; };
+		0F357261BAEA4DBC9AA4CCD5 /* SourceCodePro-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1FC6856768A1476D92C5ECDD /* SourceCodePro-SemiBold.ttf */; };
+		03749376C15C406696012210 /* SourceCodePro-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 57F2C15CA2D2439DAEA1C075 /* SourceCodePro-SemiBoldItalic.ttf */; };
+		EE757561A48F4062ACD2CEC0 /* WorkSans-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7B087AADB13C488597E5D3CD /* WorkSans-Black.ttf */; };
+		9487F0A0454342BFA069B9D2 /* WorkSans-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6AF44BAB84FF4E4EA0A43068 /* WorkSans-BlackItalic.ttf */; };
+		4E40CF2064254D568EB81252 /* WorkSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8125CC691A8C44D78838196D /* WorkSans-Bold.ttf */; };
+		CCB0A92ED4F44BA6B0A8D976 /* WorkSans-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EE1BAF88F5B94415BFF41103 /* WorkSans-BoldItalic.ttf */; };
+		70C4B10A028A45BDA81CE4D1 /* WorkSans-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A7D8EFC62726414692B8CEE9 /* WorkSans-ExtraBold.ttf */; };
+		3118435C50F34816A38A2B82 /* WorkSans-ExtraBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5F16F5D39160407BBDF8CFDA /* WorkSans-ExtraBoldItalic.ttf */; };
+		5E9EB2E5D1284D0DAF6E233B /* WorkSans-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 477C0C635B26467B9DD87C85 /* WorkSans-ExtraLight.ttf */; };
+		70F8BD78F3AC43B6B9CC2F84 /* WorkSans-ExtraLightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 33A670ABCCF54DBE82EF9126 /* WorkSans-ExtraLightItalic.ttf */; };
+		58A6CB5503A248E7B75E3ED2 /* WorkSans-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 68CE82A847964C36AB042E4B /* WorkSans-Italic.ttf */; };
+		B7D16B70B99246B0BE2680D6 /* WorkSans-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6DEC1DB74C96452F8994C594 /* WorkSans-Light.ttf */; };
+		E5DE551554454E0680892C81 /* WorkSans-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 33EC32C064E34B13B9D3F647 /* WorkSans-LightItalic.ttf */; };
+		C1B4BBD79412482791961538 /* WorkSans-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8F52C10319E445A299B2636C /* WorkSans-Medium.ttf */; };
+		D4C1253CC2564B9582525BBC /* WorkSans-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5350BF1EB49F4FAD8A324E3D /* WorkSans-MediumItalic.ttf */; };
+		D47D91ADBFF54449BD7A9E30 /* WorkSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 55AFEA0DF846436CBD2740D9 /* WorkSans-Regular.ttf */; };
+		AC86542D291E4A98937A7CA6 /* WorkSans-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 04A97A8B2F44445382E1090B /* WorkSans-SemiBold.ttf */; };
+		26C8339A4C1D4A95832977BF /* WorkSans-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A242E57EC3CF496FBB557957 /* WorkSans-SemiBoldItalic.ttf */; };
+		F8D38A3C1E544B3FBA2C3A6E /* WorkSans-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CD1EEE61B67A42109C0AFEB9 /* WorkSans-Thin.ttf */; };
+		CFCFEF2F29E44396AC0B5143 /* WorkSans-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 88215A5213D14D019FAE786D /* WorkSans-ThinItalic.ttf */; };
+		88216CDA926F4DE89901B984 /* WorkSans-Italic-VariableFont_wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 760E4E71ABFE43A5885D685C /* WorkSans-Italic-VariableFont_wght.ttf */; };
+		ED3E9C2142FA461597025292 /* WorkSans-VariableFont_wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 975EDC29C3684B7DB700C94B /* WorkSans-VariableFont_wght.ttf */; };
+		521EFE272B9547F59609DF3C /* BebasNeue-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9C822008ECAD43BD9FAF8B3A /* BebasNeue-Regular.ttf */; };
+		F4A0E831025C42588882769F /* AbrilFatface-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 911B91294FB049CEB37E7EA8 /* AbrilFatface-Regular.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +76,46 @@
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = frontend/main.m; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = frontend/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		CB624E07D84B4CC7A47C61ED /* SourceCodePro-Italic-VariableFont_wght.ttf */ = {isa = PBXFileReference; name = "SourceCodePro-Italic-VariableFont_wght.ttf"; path = "../assets/fonts/SourceCodePro-Italic-VariableFont_wght.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		83EB26328C934A939DFBE14A /* SourceCodePro-VariableFont_wght.ttf */ = {isa = PBXFileReference; name = "SourceCodePro-VariableFont_wght.ttf"; path = "../assets/fonts/SourceCodePro-VariableFont_wght.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		9106B8022E634660846A9F70 /* SourceCodePro-Black.ttf */ = {isa = PBXFileReference; name = "SourceCodePro-Black.ttf"; path = "../assets/fonts/static/SourceCodePro-Black.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		9A4E5A221A7144B390D8D465 /* SourceCodePro-BlackItalic.ttf */ = {isa = PBXFileReference; name = "SourceCodePro-BlackItalic.ttf"; path = "../assets/fonts/static/SourceCodePro-BlackItalic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		FC5C2E904417403A92A91925 /* SourceCodePro-Bold.ttf */ = {isa = PBXFileReference; name = "SourceCodePro-Bold.ttf"; path = "../assets/fonts/static/SourceCodePro-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		4C676802D3E14F1FA02C28C8 /* SourceCodePro-BoldItalic.ttf */ = {isa = PBXFileReference; name = "SourceCodePro-BoldItalic.ttf"; path = "../assets/fonts/static/SourceCodePro-BoldItalic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		838A03BBCF7749389B14D33E /* SourceCodePro-ExtraBold.ttf */ = {isa = PBXFileReference; name = "SourceCodePro-ExtraBold.ttf"; path = "../assets/fonts/static/SourceCodePro-ExtraBold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		3C60C652AD8A43958E52EC3C /* SourceCodePro-ExtraBoldItalic.ttf */ = {isa = PBXFileReference; name = "SourceCodePro-ExtraBoldItalic.ttf"; path = "../assets/fonts/static/SourceCodePro-ExtraBoldItalic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		D54DE528E9C447E6B072CF80 /* SourceCodePro-ExtraLight.ttf */ = {isa = PBXFileReference; name = "SourceCodePro-ExtraLight.ttf"; path = "../assets/fonts/static/SourceCodePro-ExtraLight.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		44A45FC96032491A93F0A90F /* SourceCodePro-ExtraLightItalic.ttf */ = {isa = PBXFileReference; name = "SourceCodePro-ExtraLightItalic.ttf"; path = "../assets/fonts/static/SourceCodePro-ExtraLightItalic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		BE16136DB7DA4B35A8999AC3 /* SourceCodePro-Italic.ttf */ = {isa = PBXFileReference; name = "SourceCodePro-Italic.ttf"; path = "../assets/fonts/static/SourceCodePro-Italic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		DCEEB86B818545DE800029BA /* SourceCodePro-Light.ttf */ = {isa = PBXFileReference; name = "SourceCodePro-Light.ttf"; path = "../assets/fonts/static/SourceCodePro-Light.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		2B6464D995A0497283F71139 /* SourceCodePro-LightItalic.ttf */ = {isa = PBXFileReference; name = "SourceCodePro-LightItalic.ttf"; path = "../assets/fonts/static/SourceCodePro-LightItalic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		D0757A8B91AE4C6D87D258E8 /* SourceCodePro-Medium.ttf */ = {isa = PBXFileReference; name = "SourceCodePro-Medium.ttf"; path = "../assets/fonts/static/SourceCodePro-Medium.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		7932A091A60546FFA9C75886 /* SourceCodePro-MediumItalic.ttf */ = {isa = PBXFileReference; name = "SourceCodePro-MediumItalic.ttf"; path = "../assets/fonts/static/SourceCodePro-MediumItalic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		BB6A2AAD16DA4D698C95126C /* SourceCodePro-Regular.ttf */ = {isa = PBXFileReference; name = "SourceCodePro-Regular.ttf"; path = "../assets/fonts/static/SourceCodePro-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		1FC6856768A1476D92C5ECDD /* SourceCodePro-SemiBold.ttf */ = {isa = PBXFileReference; name = "SourceCodePro-SemiBold.ttf"; path = "../assets/fonts/static/SourceCodePro-SemiBold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		57F2C15CA2D2439DAEA1C075 /* SourceCodePro-SemiBoldItalic.ttf */ = {isa = PBXFileReference; name = "SourceCodePro-SemiBoldItalic.ttf"; path = "../assets/fonts/static/SourceCodePro-SemiBoldItalic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		7B087AADB13C488597E5D3CD /* WorkSans-Black.ttf */ = {isa = PBXFileReference; name = "WorkSans-Black.ttf"; path = "../assets/fonts/static/WorkSans-Black.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		6AF44BAB84FF4E4EA0A43068 /* WorkSans-BlackItalic.ttf */ = {isa = PBXFileReference; name = "WorkSans-BlackItalic.ttf"; path = "../assets/fonts/static/WorkSans-BlackItalic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		8125CC691A8C44D78838196D /* WorkSans-Bold.ttf */ = {isa = PBXFileReference; name = "WorkSans-Bold.ttf"; path = "../assets/fonts/static/WorkSans-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		EE1BAF88F5B94415BFF41103 /* WorkSans-BoldItalic.ttf */ = {isa = PBXFileReference; name = "WorkSans-BoldItalic.ttf"; path = "../assets/fonts/static/WorkSans-BoldItalic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		A7D8EFC62726414692B8CEE9 /* WorkSans-ExtraBold.ttf */ = {isa = PBXFileReference; name = "WorkSans-ExtraBold.ttf"; path = "../assets/fonts/static/WorkSans-ExtraBold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		5F16F5D39160407BBDF8CFDA /* WorkSans-ExtraBoldItalic.ttf */ = {isa = PBXFileReference; name = "WorkSans-ExtraBoldItalic.ttf"; path = "../assets/fonts/static/WorkSans-ExtraBoldItalic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		477C0C635B26467B9DD87C85 /* WorkSans-ExtraLight.ttf */ = {isa = PBXFileReference; name = "WorkSans-ExtraLight.ttf"; path = "../assets/fonts/static/WorkSans-ExtraLight.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		33A670ABCCF54DBE82EF9126 /* WorkSans-ExtraLightItalic.ttf */ = {isa = PBXFileReference; name = "WorkSans-ExtraLightItalic.ttf"; path = "../assets/fonts/static/WorkSans-ExtraLightItalic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		68CE82A847964C36AB042E4B /* WorkSans-Italic.ttf */ = {isa = PBXFileReference; name = "WorkSans-Italic.ttf"; path = "../assets/fonts/static/WorkSans-Italic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		6DEC1DB74C96452F8994C594 /* WorkSans-Light.ttf */ = {isa = PBXFileReference; name = "WorkSans-Light.ttf"; path = "../assets/fonts/static/WorkSans-Light.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		33EC32C064E34B13B9D3F647 /* WorkSans-LightItalic.ttf */ = {isa = PBXFileReference; name = "WorkSans-LightItalic.ttf"; path = "../assets/fonts/static/WorkSans-LightItalic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		8F52C10319E445A299B2636C /* WorkSans-Medium.ttf */ = {isa = PBXFileReference; name = "WorkSans-Medium.ttf"; path = "../assets/fonts/static/WorkSans-Medium.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		5350BF1EB49F4FAD8A324E3D /* WorkSans-MediumItalic.ttf */ = {isa = PBXFileReference; name = "WorkSans-MediumItalic.ttf"; path = "../assets/fonts/static/WorkSans-MediumItalic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		55AFEA0DF846436CBD2740D9 /* WorkSans-Regular.ttf */ = {isa = PBXFileReference; name = "WorkSans-Regular.ttf"; path = "../assets/fonts/static/WorkSans-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		04A97A8B2F44445382E1090B /* WorkSans-SemiBold.ttf */ = {isa = PBXFileReference; name = "WorkSans-SemiBold.ttf"; path = "../assets/fonts/static/WorkSans-SemiBold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		A242E57EC3CF496FBB557957 /* WorkSans-SemiBoldItalic.ttf */ = {isa = PBXFileReference; name = "WorkSans-SemiBoldItalic.ttf"; path = "../assets/fonts/static/WorkSans-SemiBoldItalic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		CD1EEE61B67A42109C0AFEB9 /* WorkSans-Thin.ttf */ = {isa = PBXFileReference; name = "WorkSans-Thin.ttf"; path = "../assets/fonts/static/WorkSans-Thin.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		88215A5213D14D019FAE786D /* WorkSans-ThinItalic.ttf */ = {isa = PBXFileReference; name = "WorkSans-ThinItalic.ttf"; path = "../assets/fonts/static/WorkSans-ThinItalic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		760E4E71ABFE43A5885D685C /* WorkSans-Italic-VariableFont_wght.ttf */ = {isa = PBXFileReference; name = "WorkSans-Italic-VariableFont_wght.ttf"; path = "../assets/fonts/WorkSans-Italic-VariableFont_wght.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		975EDC29C3684B7DB700C94B /* WorkSans-VariableFont_wght.ttf */ = {isa = PBXFileReference; name = "WorkSans-VariableFont_wght.ttf"; path = "../assets/fonts/WorkSans-VariableFont_wght.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		9C822008ECAD43BD9FAF8B3A /* BebasNeue-Regular.ttf */ = {isa = PBXFileReference; name = "BebasNeue-Regular.ttf"; path = "../assets/fonts/BebasNeue-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		911B91294FB049CEB37E7EA8 /* AbrilFatface-Regular.ttf */ = {isa = PBXFileReference; name = "AbrilFatface-Regular.ttf"; path = "../assets/fonts/AbrilFatface-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +189,7 @@
 				00E356EF1AD99517003FC87E /* frontendTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
+				20CF22E58AAC499CBF016497 /* Resources */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -123,6 +204,54 @@
 			);
 			name = Products;
 			sourceTree = "<group>";
+		};
+		20CF22E58AAC499CBF016497 /* Resources */ = {
+			isa = "PBXGroup";
+			children = (
+				CB624E07D84B4CC7A47C61ED /* SourceCodePro-Italic-VariableFont_wght.ttf */,
+				83EB26328C934A939DFBE14A /* SourceCodePro-VariableFont_wght.ttf */,
+				9106B8022E634660846A9F70 /* SourceCodePro-Black.ttf */,
+				9A4E5A221A7144B390D8D465 /* SourceCodePro-BlackItalic.ttf */,
+				FC5C2E904417403A92A91925 /* SourceCodePro-Bold.ttf */,
+				4C676802D3E14F1FA02C28C8 /* SourceCodePro-BoldItalic.ttf */,
+				838A03BBCF7749389B14D33E /* SourceCodePro-ExtraBold.ttf */,
+				3C60C652AD8A43958E52EC3C /* SourceCodePro-ExtraBoldItalic.ttf */,
+				D54DE528E9C447E6B072CF80 /* SourceCodePro-ExtraLight.ttf */,
+				44A45FC96032491A93F0A90F /* SourceCodePro-ExtraLightItalic.ttf */,
+				BE16136DB7DA4B35A8999AC3 /* SourceCodePro-Italic.ttf */,
+				DCEEB86B818545DE800029BA /* SourceCodePro-Light.ttf */,
+				2B6464D995A0497283F71139 /* SourceCodePro-LightItalic.ttf */,
+				D0757A8B91AE4C6D87D258E8 /* SourceCodePro-Medium.ttf */,
+				7932A091A60546FFA9C75886 /* SourceCodePro-MediumItalic.ttf */,
+				BB6A2AAD16DA4D698C95126C /* SourceCodePro-Regular.ttf */,
+				1FC6856768A1476D92C5ECDD /* SourceCodePro-SemiBold.ttf */,
+				57F2C15CA2D2439DAEA1C075 /* SourceCodePro-SemiBoldItalic.ttf */,
+				7B087AADB13C488597E5D3CD /* WorkSans-Black.ttf */,
+				6AF44BAB84FF4E4EA0A43068 /* WorkSans-BlackItalic.ttf */,
+				8125CC691A8C44D78838196D /* WorkSans-Bold.ttf */,
+				EE1BAF88F5B94415BFF41103 /* WorkSans-BoldItalic.ttf */,
+				A7D8EFC62726414692B8CEE9 /* WorkSans-ExtraBold.ttf */,
+				5F16F5D39160407BBDF8CFDA /* WorkSans-ExtraBoldItalic.ttf */,
+				477C0C635B26467B9DD87C85 /* WorkSans-ExtraLight.ttf */,
+				33A670ABCCF54DBE82EF9126 /* WorkSans-ExtraLightItalic.ttf */,
+				68CE82A847964C36AB042E4B /* WorkSans-Italic.ttf */,
+				6DEC1DB74C96452F8994C594 /* WorkSans-Light.ttf */,
+				33EC32C064E34B13B9D3F647 /* WorkSans-LightItalic.ttf */,
+				8F52C10319E445A299B2636C /* WorkSans-Medium.ttf */,
+				5350BF1EB49F4FAD8A324E3D /* WorkSans-MediumItalic.ttf */,
+				55AFEA0DF846436CBD2740D9 /* WorkSans-Regular.ttf */,
+				04A97A8B2F44445382E1090B /* WorkSans-SemiBold.ttf */,
+				A242E57EC3CF496FBB557957 /* WorkSans-SemiBoldItalic.ttf */,
+				CD1EEE61B67A42109C0AFEB9 /* WorkSans-Thin.ttf */,
+				88215A5213D14D019FAE786D /* WorkSans-ThinItalic.ttf */,
+				760E4E71ABFE43A5885D685C /* WorkSans-Italic-VariableFont_wght.ttf */,
+				975EDC29C3684B7DB700C94B /* WorkSans-VariableFont_wght.ttf */,
+				9C822008ECAD43BD9FAF8B3A /* BebasNeue-Regular.ttf */,
+				911B91294FB049CEB37E7EA8 /* AbrilFatface-Regular.ttf */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+			path = "";
 		};
 /* End PBXGroup section */
 
@@ -214,6 +343,46 @@
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				124AED43BDBB40D199B0267E /* SourceCodePro-Italic-VariableFont_wght.ttf in Resources */,
+				799D46F6C53446F590BF6B9D /* SourceCodePro-VariableFont_wght.ttf in Resources */,
+				6F5C40B30DBD4163ADA42F58 /* SourceCodePro-Black.ttf in Resources */,
+				1CB56AA654D5417E8716E0C0 /* SourceCodePro-BlackItalic.ttf in Resources */,
+				DC1231C64FDD4E51ABDB9803 /* SourceCodePro-Bold.ttf in Resources */,
+				861B5AA33B5B4591926B517B /* SourceCodePro-BoldItalic.ttf in Resources */,
+				0E6E558F2EB5413895CFDBBE /* SourceCodePro-ExtraBold.ttf in Resources */,
+				620132BE217A42C89B6FF3E3 /* SourceCodePro-ExtraBoldItalic.ttf in Resources */,
+				13F0578532EE4D3FBD85D2AD /* SourceCodePro-ExtraLight.ttf in Resources */,
+				0CF8D53EE3BF49CE8823B22B /* SourceCodePro-ExtraLightItalic.ttf in Resources */,
+				1ADFD795DD0349E6B8DC55FD /* SourceCodePro-Italic.ttf in Resources */,
+				BA179F730BB5447398558152 /* SourceCodePro-Light.ttf in Resources */,
+				9501826CC6934FD796BF3B51 /* SourceCodePro-LightItalic.ttf in Resources */,
+				F9489CF466E6462C9A422521 /* SourceCodePro-Medium.ttf in Resources */,
+				4DB84B6ED96A4450A117BF1F /* SourceCodePro-MediumItalic.ttf in Resources */,
+				0D11CAC554D94C348B293846 /* SourceCodePro-Regular.ttf in Resources */,
+				0F357261BAEA4DBC9AA4CCD5 /* SourceCodePro-SemiBold.ttf in Resources */,
+				03749376C15C406696012210 /* SourceCodePro-SemiBoldItalic.ttf in Resources */,
+				EE757561A48F4062ACD2CEC0 /* WorkSans-Black.ttf in Resources */,
+				9487F0A0454342BFA069B9D2 /* WorkSans-BlackItalic.ttf in Resources */,
+				4E40CF2064254D568EB81252 /* WorkSans-Bold.ttf in Resources */,
+				CCB0A92ED4F44BA6B0A8D976 /* WorkSans-BoldItalic.ttf in Resources */,
+				70C4B10A028A45BDA81CE4D1 /* WorkSans-ExtraBold.ttf in Resources */,
+				3118435C50F34816A38A2B82 /* WorkSans-ExtraBoldItalic.ttf in Resources */,
+				5E9EB2E5D1284D0DAF6E233B /* WorkSans-ExtraLight.ttf in Resources */,
+				70F8BD78F3AC43B6B9CC2F84 /* WorkSans-ExtraLightItalic.ttf in Resources */,
+				58A6CB5503A248E7B75E3ED2 /* WorkSans-Italic.ttf in Resources */,
+				B7D16B70B99246B0BE2680D6 /* WorkSans-Light.ttf in Resources */,
+				E5DE551554454E0680892C81 /* WorkSans-LightItalic.ttf in Resources */,
+				C1B4BBD79412482791961538 /* WorkSans-Medium.ttf in Resources */,
+				D4C1253CC2564B9582525BBC /* WorkSans-MediumItalic.ttf in Resources */,
+				D47D91ADBFF54449BD7A9E30 /* WorkSans-Regular.ttf in Resources */,
+				AC86542D291E4A98937A7CA6 /* WorkSans-SemiBold.ttf in Resources */,
+				26C8339A4C1D4A95832977BF /* WorkSans-SemiBoldItalic.ttf in Resources */,
+				F8D38A3C1E544B3FBA2C3A6E /* WorkSans-Thin.ttf in Resources */,
+				CFCFEF2F29E44396AC0B5143 /* WorkSans-ThinItalic.ttf in Resources */,
+				88216CDA926F4DE89901B984 /* WorkSans-Italic-VariableFont_wght.ttf in Resources */,
+				ED3E9C2142FA461597025292 /* WorkSans-VariableFont_wght.ttf in Resources */,
+				521EFE272B9547F59609DF3C /* BebasNeue-Regular.ttf in Resources */,
+				F4A0E831025C42588882769F /* AbrilFatface-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -256,6 +256,13 @@ export default class Grupo extends React.Component{
                             elevation={30}>
                             <View style={styles.row}>
                                 <Text style={[styles.textoBotao, {color: '#AEE637'}]}> {item.name} </Text>
+                                <TouchableOpacity
+                                    onPress={() => this.openDeletePopUp()}
+                                    style={{
+                                        alignSelf: 'flex-start',
+                                    }}>
+                                    <Image source={lixo} style={{height: 30, width: 30}}/>
+                                </TouchableOpacity>
                                 <Text style={[styles.textoBotao, {
                                     color: ((item.prefix == 'BTC' || item.prefix == 'ETH') ? '#BFF111' : '#AEE637'),
                                     fontWeight: ((item.prefix == 'BTC' || item.prefix == 'ETH') ? 'bold' : 'normal'),
