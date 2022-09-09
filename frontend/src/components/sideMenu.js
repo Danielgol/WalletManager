@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity,
-        Button, FlatList, Image, AsyncStorage } from 'react-native';
+        Button, FlatList, Image } from 'react-native';
 
 import TokenManager from '../pages/tokenManager';
 

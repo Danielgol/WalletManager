@@ -158,12 +158,50 @@ export default class Grupo extends React.Component{
         }catch(error){}
     }
 
+    async deleteMaletaFromGrupo(item){
+        try{
+            const token = await TokenManager.getToken();
+            if(!token){
+                this.props.navigation.navigate('Login')
+            }
+
+            await fetch("https://fintrack-express.herokuapp.com/removeMaletaFromGrupo/"+this.state.name+"/"+item._id, { 
+                method: 'delete', 
+                headers: new Headers({
+                    'Authorization': `Bearer ${token}`, 
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                })
+            }).then(response => {
+                if(response.status === 200){
+                    alert("Maleta removida do Grupo com sucesso!")
+                }else{
+                    return response.json()
+                }
+            }).then(response => {
+                alert(response.message)
+            })
+        }catch(error){}
+    }
+
     openDeletePopUp(){
         Alert.alert(
             'Exit App',
             'Deseja excluir o Grupo?', [{
                 text: 'Excluir',
                 onPress: () => {this.deleteGrupo()},
+            }, {
+                text: 'Cancelar',
+                style: 'cancel'
+            },]
+        )
+    }
+
+    openDeleteMaletaPopUp(item){
+        Alert.alert(
+            'Exit App',
+            'Deseja excluir a Maleta do Grupo?', [{
+                text: 'Excluir',
+                onPress: () => {this.deleteMaletaFromGrupo(item)},
             }, {
                 text: 'Cancelar',
                 style: 'cancel'
@@ -257,7 +295,7 @@ export default class Grupo extends React.Component{
                             <View style={styles.row}>
                                 <Text style={[styles.textoBotao, {color: '#AEE637'}]}> {item.name} </Text>
                                 <TouchableOpacity
-                                    onPress={() => this.openDeletePopUp()}
+                                    onPress={() => this.openDeleteMaletaPopUp(item)}
                                     style={{
                                         alignSelf: 'flex-start',
                                     }}>

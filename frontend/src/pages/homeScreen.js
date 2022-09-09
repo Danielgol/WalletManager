@@ -44,19 +44,6 @@ export default class HomeScreen extends React.Component{
 
     handleBackButton = () => {
         if (this.props.navigation.isFocused()) {
-            /*
-            Alert.alert(
-                'Exit App',
-                'Deseja sair do Aplicativo?', [{
-                    text: 'Cancelar',
-                    style: 'cancel'
-                }, {
-                    text: 'Sim',
-                    onPress: () => {BackHandler.exitApp()}
-                },]
-            )
-            */
-            //return true;
             BackHandler.exitApp()
             return true
         }
