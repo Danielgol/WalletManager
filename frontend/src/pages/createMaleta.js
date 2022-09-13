@@ -114,7 +114,7 @@ export default class CreateMaleta extends React.Component{
             if(resp){
                 alert(resp);
             }else{
-                //alert("Sessão Encerrada!");
+                alert("Sessão Encerrada!");
                 this.props.navigation.navigate('Login');
                 return;
             }

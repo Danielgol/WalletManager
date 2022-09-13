@@ -80,6 +80,7 @@ export default class Grupo extends React.Component{
             }).then(response => {
                 if (response.status === 401 || response.status === 403) {
                     TokenManager.removeToken()
+                    return null;
                 }else{
                     return response.json()
                 }

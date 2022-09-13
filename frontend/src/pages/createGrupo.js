@@ -121,7 +121,7 @@ export default class CreateGrupo extends React.Component{
                 })
             }).then(response => {
                 if (response.status === 401 || response.status === 403) {
-                    TokenManager.logout(this.props)
+                    TokenManager.removeToken();
                 }else if(response.status === 201){
                     const params = this.props.route.params;
                     params.refresh();
@@ -139,7 +139,7 @@ export default class CreateGrupo extends React.Component{
             if(resp){
                 alert(resp)
             }else{
-                //alert("Sessão Encerrada!");
+                alert("Sessão Encerrada!");
                 this.props.navigation.navigate('Login');
                 return;
             }

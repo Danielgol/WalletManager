@@ -142,6 +142,7 @@ export default class Maleta extends React.Component{
             }).then(response => {
                 if (response.status === 401 || response.status === 403) {
                     TokenManager.removeToken()
+                    return null;
                 }else if(response.status === 201){
                     const atual = this.state.value;
                     return {value: value+atual, prefix: prefix};
