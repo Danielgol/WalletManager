@@ -107,7 +107,7 @@ export default class CreateGrupo extends React.Component{
                 maletas.push(this.state.selecteds[i])
             }
 
-            await fetch('https://fintrack-express.herokuapp.com/createGrupo', {
+            const resp = await fetch('https://fintrack-express.herokuapp.com/createGrupo', {
                 method: 'POST',
                 headers: new Headers({
                     Accept: 'application/json',
@@ -120,17 +120,29 @@ export default class CreateGrupo extends React.Component{
                     maletas: maletas,
                 })
             }).then(response => {
-                if(response.status === 201){
-                    alert("Grupo criado com sucesso!")
+                if (response.status === 401 || response.status === 403) {
+                    TokenManager.logout(this.props)
+                }else if(response.status === 201){
                     const params = this.props.route.params;
                     params.refresh();
                     this.props.navigation.goBack(null)
+                    return {message: "Grupo criado com sucesso!"};
                 }else{
                     return response.json()
                 }
             }).then(response => {
-                alert(response.message)
+                return response.message;
+            }).catch((error) => {
+                return null;
             })
+
+            if(resp){
+                alert(resp)
+            }else{
+                //alert("Sessão Encerrada!");
+                this.props.navigation.navigate('Login');
+                return;
+            }
         }catch(error){}
     }
 

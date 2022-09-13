@@ -9,9 +9,9 @@ import mais from '../images/mais-padrao.png';
 import lixo from '../images/lixo.png';
 
 import CurrencyChart from '../components/currencyChart.js';
-import CurrencyPopup from '../components/currencyPopup.js';
-import EditPopUp from '../components/editPopup';
 import TransferPopUp from '../components/transferPopup';
+//import CurrencyPopup from '../components/currencyPopup.js';
+//import EditPopUp from '../components/editPopup';
 
 
 const { width, height } = Dimensions.get("screen");
@@ -37,9 +37,9 @@ export default class Maleta extends React.Component{
 
             precision: this.props.route.params.precision,
             
-            showEdit: false,
+            //showEdit: false,
+            //showCurrencies: false,
             showTransfer: false,
-            showCurrencies: false,
             isLoadingChart: true,
 
             signal: '+',
@@ -67,13 +67,15 @@ export default class Maleta extends React.Component{
     }
 
     handleBackButton = () => {
-        if(this.state.showCurrencies == true){
-            this.setState({showEdit: true, showCurrencies: false});
-        } else if(this.state.showEdit == true){
-            this.setState({showEdit: false});
-        }else if(this.state.showTransfer == true){
+        //if(this.state.showCurrencies == true){
+        //   this.setState({showEdit: true, showCurrencies: false});
+        //} else if(this.state.showEdit == true){
+        //    this.setState({showEdit: false});
+        //}else
+        if(this.state.showTransfer == true){
             this.setState({showTransfer: false})
-        }else if(!this.state.showEdit && !this.state.showTransfer && !this.state.showCurrencies){
+        } //else if(!this.state.showEdit && !this.state.showTransfer && !this.state.showCurrencies){
+        else {
             return false;
         }
         return true;
@@ -124,7 +126,7 @@ export default class Maleta extends React.Component{
                 this.props.navigation.navigate('Login')
             }
 
-            await fetch('https://fintrack-express.herokuapp.com/createRegistro', {
+            const resp = await fetch('https://fintrack-express.herokuapp.com/createRegistro', {
                 method: 'POST',
                 headers: new Headers({
                     Accept: 'application/json',
@@ -138,15 +140,25 @@ export default class Maleta extends React.Component{
                     value: value,
                 })
             }).then(response => {
-                if(response.status === 201){
+                if (response.status === 401 || response.status === 403) {
+                    TokenManager.removeToken()
+                }else if(response.status === 201){
                     const atual = this.state.value;
-                    this.setState({value: value+atual, prefix: prefix});
+                    return {value: value+atual, prefix: prefix};
                 }else{
                     return response.json();
                 }
-            }).then(response => {
-                //alert(response.message)
+            }).catch((error) => {
+                return null;
             })
+
+            if(resp){
+                this.setState(resp);
+            }else{
+                //alert("Sessão Encerrada!");
+                this.props.navigation.navigate('Login');
+                return;
+            }
         }catch(error){}
     }
 
@@ -215,24 +227,36 @@ export default class Maleta extends React.Component{
                 this.props.navigation.navigate('Login')
             }
 
-            await fetch("https://fintrack-express.herokuapp.com/removeMaleta/"+this.state.name, { 
+            const resp = await fetch("https://fintrack-express.herokuapp.com/removeMaleta/"+this.state.name, { 
                 method: 'delete', 
                 headers: new Headers({
                     'Authorization': `Bearer ${token}`, 
                     'Content-Type': 'application/x-www-form-urlencoded'
                 })
             }).then(response => {
-                if(response.status === 200){
-                    alert("Maleta removida com sucesso!")
+                if (response.status === 401 || response.status === 403) {
+                    TokenManager.removeToken()
+                }else if(response.status === 200){
                     const params = this.props.route.params;
                     params.refresh();
                     this.props.navigation.goBack(null)
+                    return {message: "Maleta removida com sucesso!"};
                 }else{
                     return response.json()
                 }
             }).then(response => {
-                alert(response.message)
+                return response.message;
+            }).catch((error) => {
+                return null;
             })
+
+            if(resp){
+                alert(resp);
+            }else{
+                //alert("Sessão Encerrada!");
+                this.props.navigation.navigate('Login');
+                return;
+            }
         }catch(error){}
     }
 
@@ -260,7 +284,8 @@ export default class Maleta extends React.Component{
                 <StatusBar hidden={true}/>
 
                 {/* ----------- POPUP BACKGROUND ----------- */}
-                { this.state.showCurrencies || this.state.showEdit || this.state.showTransfer ?
+                { //this.state.showCurrencies || this.state.showEdit || this.state.showTransfer 
+                this.state.showTransfer ?
                 <View style={{position: 'absolute', top: 0, width: width, height: height,
                 backgroundColor: 'black', elevation: 10, opacity: 0.5, zIndex: 1}}></View>
                 : null
@@ -289,10 +314,11 @@ export default class Maleta extends React.Component{
                         </View>
 
                         <View style={{top: 10, alignItems: 'center', alignSelf: 'center'}}>
-                            <TouchableOpacity onPress={() => this.emerge(this.state.showCurrencies 
+                            <TouchableOpacity
+                                    /*onPress={() => this.emerge(this.state.showCurrencies 
                                     ? {showEdit: true, showCurrencies: false}
                                     : {showEdit: true, showTransfer: false}
-                                , this.popUpScale) }>
+                                , this.popUpScale) }*/>
                                 <View style={{flexDirection: 'row', right: 10}}>
 
                                     <View style={{justifyContent: 'flex-end', bottom: 6, right: 3}}>
@@ -302,11 +328,12 @@ export default class Maleta extends React.Component{
                                     </View>
 
                                     <View style={{justifyContent: 'flex-end'}}>
-                                        <Text style={{ color: '#AEE637', fontSize: width/10}} onPress={() =>
-                                            this.emerge(this.state.showCurrencies 
+                                        <Text style={{ color: '#AEE637', fontSize: width/10}}
+                                            /*onPress={() =>
+                                            this.emerge(this.state.showCurrencies
                                             ? {showEdit: true, showCurrencies: false}
                                             : {showEdit: true, showTransfer: false},
-                                            this.popUpScale) }>
+                                            this.popUpScale) }*/>
                                                 { this.currencyFormat() }
                                         </Text>
                                     </View>
@@ -350,7 +377,7 @@ export default class Maleta extends React.Component{
 
                 {/* ----------- POPUPS ----------- */}
                 <KeyboardAvoidingView behavior="position" style={[styles.middle, {zIndex: 2}]}>
-                    { this.state.showCurrencies ?
+                    {/* this.state.showCurrencies ?
                         <Animated.View style={[styles.middle, {top: 10, elevation: 10, transform: [{scale: this.popUpScale}]}]}>
                             <CurrencyPopup 
                             cancel={() => this.setState({
@@ -361,9 +388,11 @@ export default class Maleta extends React.Component{
                             onChoose={(curr) => this.setState({
                                 auxPrefix: curr,
                                 showCurrencies: false,
-                                showEdit: true})}/>
+                                showEdit: true
+                                }
+                                )}/>
                         </Animated.View> : null
-                    }
+                    */}
 
                     { this.state.showTransfer ?
                         <Animated.View style={{top: '25%', elevation: 10, transform: [{scale: this.popUpScale}] }}>
@@ -378,7 +407,7 @@ export default class Maleta extends React.Component{
                         </Animated.View>
                     : null}
 
-                    {this.state.showEdit ?
+                    {/*this.state.showEdit ?
                         <Animated.View style={{top: '25%', elevation: 10, transform: [{scale: this.popUpScale}]}}>
                         <EditPopUp
                             auxValue={this.state.auxValue}
@@ -391,7 +420,7 @@ export default class Maleta extends React.Component{
                             pressCurr={() => this.emerge({showEdit: false, showCurrencies: true}, this.popUpScale)}
                             handleChange={(text) => this.setState({auxValue: text})}/>
                         </Animated.View>
-                    : null}
+                    : null*/}
                 </KeyboardAvoidingView>
 
 
@@ -403,11 +432,13 @@ export default class Maleta extends React.Component{
                     alignItems: 'flex-end',
                     justifyContent: 'flex-end',}}>
                     <TouchableOpacity
-                    
+                        /*
                         onPress={() => this.emerge( this.state.showCurrencies
                             ? {showTransfer: true, showCurrencies: false}
                             : {showTransfer: true, showEdit: false}
                             , this.popUpScale)}>
+                        */
+                        onPress={() => this.emerge({showTransfer: true} , this.popUpScale)}>
                         <Image source={mais} style={{height: 100, width: 100}}/>
                     </TouchableOpacity>
                 </View>

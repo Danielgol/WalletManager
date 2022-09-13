@@ -34,7 +34,7 @@ const helper = {
     },
 
     login: async function(email, password, navigation) {
-        fetch('https://fintrack-express.herokuapp.com/login', {
+        await fetch('https://fintrack-express.herokuapp.com/login', {
             method: 'POST',
             headers: {
                 Accept: 'application/json',

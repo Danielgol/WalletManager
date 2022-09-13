@@ -39,6 +39,10 @@ export default class HomeScreen extends React.Component{
     
     componentWillUnmount() {
         //this._isMounted = false;
+        // https://stackoverflow.com/questions/53949393/cant-perform-a-react-state-update-on-an-unmounted-component
+        this.setState = (state, callback)=>{
+            return;
+        };
         BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
     }
 
@@ -114,6 +118,82 @@ export default class HomeScreen extends React.Component{
         });
     }
 
+    async getUserInfo(token){
+        return await fetch("https://fintrack-express.herokuapp.com/getUserInfo", { 
+            method: 'get', 
+            headers: new Headers({
+               'Authorization': `Bearer ${token}`, 
+               'Content-Type': 'application/x-www-form-urlencoded'
+            })
+        }).then(response => {
+            if (response.status === 401 || response.status === 403) {
+                TokenManager.removeToken()
+            }else{
+                return response.json()
+            }
+        }).then((responseJson) => {
+            return responseJson.name;
+        }).catch((error) => {
+            return null;
+        });
+    }
+
+    async getMaletas(token){
+        return await fetch("https://fintrack-express.herokuapp.com/getMaletas", { 
+            method: 'get', 
+            headers: new Headers({
+                'Authorization': `Bearer ${token}`, 
+                'Content-Type': 'application/x-www-form-urlencoded'
+            })
+        }).then(response => {
+            if (response.status === 401 || response.status === 403) {
+                TokenManager.removeToken()
+            }else{
+                return response.json()
+            }
+        }).then((responseJson) => {
+            return responseJson;
+        }).catch((error) => {
+            return null;
+        });
+    }
+
+    async getGrupos(token){
+        return await fetch("https://fintrack-express.herokuapp.com/getGrupos", { 
+            method: 'get', 
+            headers: new Headers({
+                'Authorization': `Bearer ${token}`, 
+                'Content-Type': 'application/x-www-form-urlencoded'
+            })
+        }).then(response => {
+            if (response.status === 401 || response.status === 403) {
+                TokenManager.removeToken()
+            }else{
+                return response.json()
+            }
+        }).then((responseJson) => {
+            return responseJson.map( function(item) {
+                /*
+                const value = responseJson.banco.filter((bag) => {
+                    if(item.bags.includes(bag.key)){
+                        //CONVERTER VALOR PARA O PREFIXO EM ITEM;
+                        return bag.value;
+                    }
+                });
+                */
+                return {
+                    _id: item._id,
+                    name: item.name,
+                    prefix: item.prefix,
+                    value: 0
+                    //value: value.reduce((a, b) => parseFloat(a) + parseFloat(b.value), 0)
+                };
+            });
+        }).catch((error) => {
+            return null;
+        });
+    }
+
     async refresh() {
         this.positionX = new Animated.Value(0);
         this.setState({isLoading: true, showSideMenu: false});
@@ -124,51 +204,27 @@ export default class HomeScreen extends React.Component{
                 this.props.navigation.navigate('Login')
             }
 
-            await fetch("https://fintrack-express.herokuapp.com/getUserInfo", { 
-                method: 'get', 
-                headers: new Headers({
-                    'Authorization': `Bearer ${token}`, 
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                })
-            }).then(response => response.json()).then((responseJson) => {
-                this.state.name = responseJson.name;
-            }).catch((error) => {});
+            this.state.name = await this.getUserInfo(token)
+            if (!this.state.name) {
+                alert("Sessão Encerrada!");
+                this.props.navigation.navigate('Login');
+                return;
+            }
 
-            await fetch("https://fintrack-express.herokuapp.com/getMaletas", { 
-                method: 'get', 
-                headers: new Headers({
-                    'Authorization': `Bearer ${token}`, 
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                })
-            }).then(response => response.json()).then((responseJson) => {
-                this.state.maletas = responseJson;
-            }).catch((error) => {});
+            this.state.maletas = await this.getMaletas(token)
+            if (!this.state.maletas) {
+                alert("Sessão Encerrada!");
+                this.props.navigation.navigate('Login');
+                return;
+            }
 
-            await fetch("https://fintrack-express.herokuapp.com/getGrupos", { 
-                method: 'get', 
-                headers: new Headers({
-                    'Authorization': `Bearer ${token}`, 
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                })
-            }).then(response => response.json()).then((responseJson) => {
-                this.state.grupos = responseJson.map( function(item) {
-                    /*
-                    const value = responseJson.banco.filter((bag) => {
-                        if(item.bags.includes(bag.key)){
-                            //CONVERTER VALOR PARA O PREFIXO EM ITEM;
-                            return bag.value;
-                        }
-                    });
-                    */
-                    return {
-                        _id: item._id,
-                        name: item.name,
-                        prefix: item.prefix,
-                        value: 0
-                        //value: value.reduce((a, b) => parseFloat(a) + parseFloat(b.value), 0)
-                    };
-                });
-            }).catch((error) => {});
+            this.state.grupos = await this.getGrupos(token)
+            if (!this.state.grupos) {
+                alert("Sessão Encerrada!");
+                this.props.navigation.navigate('Login');
+                return;
+            }
+            
             this.setState({ isLoading: false })
         }catch(error){}
     }

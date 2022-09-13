@@ -71,15 +71,31 @@ export default class Grupo extends React.Component{
             if(!token){
                 this.props.navigation.navigate('Login')
             }
-            await fetch("https://fintrack-express.herokuapp.com/getMaletasByGrupo/"+this.state.name, { 
+            const resp = await fetch("https://fintrack-express.herokuapp.com/getMaletasByGrupo/"+this.state.name, { 
                 method: 'get', 
                 headers: new Headers({
                     'Authorization': `Bearer ${token}`, 
                     'Content-Type': 'application/x-www-form-urlencoded'
                 })
-            }).then(response => response.json()).then((responseJson) => {
-                this.setState({maletas: responseJson});
-            }).catch((error) => {});
+            }).then(response => {
+                if (response.status === 401 || response.status === 403) {
+                    TokenManager.removeToken()
+                }else{
+                    return response.json()
+                }
+            }).then((responseJson) => {
+                return responseJson;
+            }).catch((error) => {
+                return null;
+            });
+
+            if(resp){
+                this.setState({maletas: resp});
+            }else{
+                //alert("Sessão Encerrada!");
+                this.props.navigation.navigate('Login');
+                return;
+            }
         }catch{}
     }
 
@@ -137,24 +153,36 @@ export default class Grupo extends React.Component{
                 this.props.navigation.navigate('Login')
             }
 
-            await fetch("https://fintrack-express.herokuapp.com/removeGrupo/"+this.state._id, { 
+            const resp = await fetch("https://fintrack-express.herokuapp.com/removeGrupo/"+this.state._id, { 
                 method: 'delete', 
                 headers: new Headers({
                     'Authorization': `Bearer ${token}`, 
                     'Content-Type': 'application/x-www-form-urlencoded'
                 })
             }).then(response => {
-                if(response.status === 200){
-                    alert("Grupo removido com sucesso!")
+                if (response.status === 401 || response.status === 403) {
+                    TokenManager.removeToken()
+                }else if(response.status === 200){
                     const params = this.props.route.params;
                     params.refresh();
                     this.props.navigation.goBack(null)
+                    return {message: "Grupo removido com sucesso!"}
                 }else{
                     return response.json()
                 }
             }).then(response => {
-                alert(response.message)
-            })
+                return response.message;
+            }).catch((error) => {
+                return null;
+            });
+
+            if(resp){
+                alert(resp)
+            }else{
+                //alert("Sessão Encerrada!");
+                this.props.navigation.navigate('Login');
+                return;
+            }
         }catch(error){}
     }
 
@@ -165,21 +193,34 @@ export default class Grupo extends React.Component{
                 this.props.navigation.navigate('Login')
             }
 
-            await fetch("https://fintrack-express.herokuapp.com/removeMaletaFromGrupo/"+this.state.name+"/"+item._id, { 
+            const resp = await fetch("https://fintrack-express.herokuapp.com/removeMaletaFromGrupo/"+this.state.name+"/"+item._id, { 
                 method: 'delete', 
                 headers: new Headers({
                     'Authorization': `Bearer ${token}`, 
                     'Content-Type': 'application/x-www-form-urlencoded'
                 })
             }).then(response => {
-                if(response.status === 200){
-                    alert("Maleta removida do Grupo com sucesso!")
+                if (response.status === 401 || response.status === 403) {
+                    TokenManager.removeToken()
+                }else if(response.status === 200){
+                    return {message: "Maleta removida do Grupo com sucesso!"};
                 }else{
                     return response.json()
                 }
             }).then(response => {
-                alert(response.message)
-            })
+                return response.message;
+            }).catch((error) => {
+                return null;
+            });
+
+            if(resp){
+                alert(resp)
+                this.load();
+            }else{
+                //alert("Sessão Encerrada!");
+                this.props.navigation.navigate('Login');
+                return;
+            }
         }catch(error){}
     }
 

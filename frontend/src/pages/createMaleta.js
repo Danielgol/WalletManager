@@ -82,7 +82,7 @@ export default class CreateMaleta extends React.Component{
             const value = this.state.value;
             const prefix = this.state.prefix;
 
-            await fetch('https://fintrack-express.herokuapp.com/createMaleta', {
+            const resp = await fetch('https://fintrack-express.herokuapp.com/createMaleta', {
                 method: 'POST',
                 headers: new Headers({
                     Accept: 'application/json',
@@ -95,17 +95,30 @@ export default class CreateMaleta extends React.Component{
                     prefix: prefix,
                 })
             }).then(response => {
-                if(response.status === 201){
-                    alert("Maleta criada com sucesso!")
+                if (response.status === 401 || response.status === 403) {
+                    TokenManager.removeToken()
+                }else if(response.status === 201){
                     const params = this.props.route.params;
                     params.refresh();
                     this.props.navigation.goBack(null)
+                    return {message: "Maleta criada com sucesso!"};
                 }else{
-                    return response.json()
+                    return response.json();
                 }
             }).then(response => {
-                alert(response.message)
+                return response.message;
+            }).catch((error) => {
+                return null;
             })
+
+            if(resp){
+                alert(resp);
+            }else{
+                //alert("Sessão Encerrada!");
+                this.props.navigation.navigate('Login');
+                return;
+            }
+
         }catch(error){}
     }
 

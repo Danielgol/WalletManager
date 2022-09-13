@@ -27,6 +27,13 @@ export default class History extends React.Component{
     this.getRegistros();
   }
 
+  componentWillUnmount() {
+      // https://stackoverflow.com/questions/53949393/cant-perform-a-react-state-update-on-an-unmounted-component
+      this.setState = (state, callback)=>{
+          return;
+      };
+  }
+
   getPrecision(item) {
     var precision = 2;
     if(item.prefix === 'BTC' || item.prefix === 'ETH'){
@@ -65,18 +72,34 @@ export default class History extends React.Component{
   }
 
   async getRegistros(){
-    try{
-      const token = await TokenManager.getToken();
-      await fetch("https://fintrack-express.herokuapp.com/getRegistros/"+this.state._id, {
-        method: 'get',
-        headers: new Headers({
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/x-www-form-urlencoded'
-        })
-      }).then(response => response.json()).then((responseJson) => {
-        this.setState({registros: responseJson})
-      }).catch((error) => {});
-    }catch(error){}
+      try{
+          const token = await TokenManager.getToken();
+          const resp = await fetch("https://fintrack-express.herokuapp.com/getRegistros/"+this.state._id, {
+              method: 'get',
+              headers: new Headers({
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/x-www-form-urlencoded'
+              })
+          }).then(response => {
+              if (response.status === 401 || response.status === 403) {
+                TokenManager.removeToken();
+                return null;
+              }else{
+                return response.json()
+              }
+          }).then((responseJson) => {
+              return responseJson;
+          }).catch((error) => {
+              return null;
+          })
+
+          if(resp){
+              this.setState({registros: resp});
+          }else{
+              this.props.navigation.navigate('Login');
+              return;
+          }
+      }catch(error){}
   }
 
   render(){
