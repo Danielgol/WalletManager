@@ -65,6 +65,80 @@ export default class Grupo extends React.Component{
         return true;
     }
 
+    async getCriptoPrice(cripto, prefix, token) {
+        const url = 'https://fintrack-express.herokuapp.com/getCriptoPrice/'+cripto+'/'+prefix;
+        return await fetch(url, { 
+            method: 'get', 
+            headers: new Headers({
+                'Authorization': `Bearer ${token}`, 
+                'Content-Type': 'application/x-www-form-urlencoded'
+            })
+        }).then(response => {
+            if (response.status === 401 || response.status === 403) {
+                TokenManager.removeToken()
+            }else{
+                return response.json()
+            }
+        }).then((responseJson) => {
+            return responseJson;
+        }).catch((error) => {
+            return null;
+        });
+    }
+
+    async getCurrencyPrice(curr, prefix, token) {
+        const url = 'https://fintrack-express.herokuapp.com/getCurrencyPrice/'+curr+'/'+prefix;
+        return await fetch(url, { 
+            method: 'get', 
+            headers: new Headers({
+                'Authorization': `Bearer ${token}`, 
+                'Content-Type': 'application/x-www-form-urlencoded'
+            })
+        }).then(response => {
+            if (response.status === 401 || response.status === 403) {
+                TokenManager.removeToken()
+            }else{
+                return response.json();
+            }
+        }).then((responseJson) => {
+            return responseJson;
+        }).catch((error) => {
+            return null;
+        });
+    }
+
+    async convertToPrefix(value, prefix, generalPrefix, token) {
+        if(generalPrefix === prefix){
+            return value;
+        }
+
+        var price = 0
+        if(prefix === "BTC" || prefix === "ETH"){
+            price = await this.getCriptoPrice(prefix, generalPrefix, token);
+        }else{
+            price = await this.getCurrencyPrice(prefix, generalPrefix, token);
+        }
+
+        if(price){
+            return price.value * value;
+        }
+        return null;
+    }
+
+    async calcularSaldoGeral(generalPrefix, token) {
+        var saldo = 0;
+        for(var i=0; i<this.state.maletas.length; i++) {
+            const value = this.state.maletas[i].value;
+            const prefix = this.state.maletas[i].prefix;
+            var resp = await this.convertToPrefix(value, prefix, generalPrefix, token);
+            if(!resp){
+                return null;
+            }
+            saldo += resp;
+        }
+        return saldo;
+    }
+
     async load(){
         try{
             const token = await TokenManager.getToken();
@@ -97,6 +171,16 @@ export default class Grupo extends React.Component{
                 this.props.navigation.navigate('Login');
                 return;
             }
+
+            const saldo = await this.calcularSaldoGeral(this.state.prefix, token);
+            if(saldo){
+                this.setState({value: saldo});
+            }else{
+                //alert("Sessão Encerrada!");
+                this.props.navigation.navigate('Login');
+                return;
+            }
+            
         }catch{}
     }
 
