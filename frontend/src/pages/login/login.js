@@ -61,7 +61,11 @@ export default class Login extends React.Component{
                             onChangeText={(password) => this.setState({password: password})}
                             elevation={10}/>
 
-                        <TouchableOpacity 
+                    </View>
+                </KeyboardAvoidingView>
+
+                <View style={{alignItems: 'center', top: height/6}}>
+                    <TouchableOpacity 
                             onPress={() => 
                                 helper.login(this.state.email, this.state.password, this.props.navigation)
                             }
@@ -78,11 +82,6 @@ export default class Login extends React.Component{
                             }}>
                             <Text style={{fontSize: 20, fontWeight: 'bold'}}>Entrar</Text>
                         </TouchableOpacity>
-
-                    </View>
-                </KeyboardAvoidingView>
-
-                <View style={{alignItems: 'center', top: height/3.5}}>
                     <Text style={{
                         fontSize: 20,
                         justifyContent: 'center',

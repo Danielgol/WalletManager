@@ -321,7 +321,7 @@ export default class HomeScreen extends React.Component{
                                 />
                             </View>
                         :   <View style={{justifyContent: 'flex-end', bottom: 6, right: 3}}>
-                                <Text style={{color: '#bbb', fontSize: width/22}}>
+                                <Text style={{color: '#AEE637', fontSize: width/22, marginTop: 15}}>
                                     Ainda não há grupos!
                                 </Text>
                             </View>

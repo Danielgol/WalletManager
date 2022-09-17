@@ -50,8 +50,8 @@ export default class Register extends React.Component{
             <View style={styles.screen}>
 
                 <StatusBar hidden={true}/>
-
-                <KeyboardAvoidingView behavior="position" style={{top: '22%'}}>
+                
+                <KeyboardAvoidingView behavior="padding" style={{top: '10%'}}>
                     <View style={styles.container}>
                         
                         <Image source={logo} style={{top: -20, height: 100, width: width*0.65}}/>
@@ -80,7 +80,13 @@ export default class Register extends React.Component{
                             secureTextEntry={true}
                             elevation={10}/>
 
-                        <TouchableOpacity 
+                        
+
+                    </View>
+                </KeyboardAvoidingView>
+
+                <View style={{alignItems: 'center', top: height/6}}>
+                    <TouchableOpacity 
                             onPress={() => this.register()}
                             style={{
                                 marginTop: 20,
@@ -95,11 +101,6 @@ export default class Register extends React.Component{
                             }}>
                             <Text style={{fontSize: 20, fontWeight: 'bold'}}>Registrar-se</Text>
                         </TouchableOpacity>
-
-                    </View>
-                </KeyboardAvoidingView>
-
-                <View style={{alignItems: 'center', top: height/3.5}}>
                     <Text style={{fontSize: 20, justifyContent: 'center', color: '#AEE637'}}>Já possui uma conta?</Text>
                     <Text
                         style={{fontSize: 20, justifyContent: 'center', color: '#AEE637', textDecorationLine: 'underline'}}
