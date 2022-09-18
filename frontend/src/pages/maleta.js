@@ -53,10 +53,12 @@ export default class Maleta extends React.Component{
     }
 
     componentDidMount(){
-        fetch(url).then(response => response.json()).then((responseJson) => {
-            this.state.points = responseJson;
-            this.setState({ isLoadingChart: false })
-        }).catch((error) => {});
+        if(this.state.prefix === "BTC" || this.state.prefix === "ETH"){
+            fetch(url).then(response => response.json()).then((responseJson) => {
+                this.state.points = responseJson;
+                this.setState({ isLoadingChart: false })
+            }).catch((error) => {});
+        }
         BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
     }
 

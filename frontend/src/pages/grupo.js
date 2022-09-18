@@ -50,6 +50,9 @@ export default class Grupo extends React.Component{
         const params = this.props.route.params;
         params.refresh();
         BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
+        this.setState = (state, callback)=>{
+            return;
+        };
     }
 
     handleBackButton = () => {

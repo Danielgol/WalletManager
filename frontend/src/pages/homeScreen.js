@@ -247,24 +247,14 @@ export default class HomeScreen extends React.Component{
 
     _renderGrupoButton = ({item, index}) => {
         return (
-            <TouchableOpacity onPress={() => this.abrirGrupo(item)}>
-                <View style={{top: 25, alignItems: 'center', alignSelf: 'center'}}>
-                    <View style={{flexDirection: 'row', right: 10}}>
-                        <View style={{justifyContent: 'flex-end', bottom: 6, right: 3}}>
-                            <Text style={{color: '#AEE637', fontSize: width/22}}>
-                                {this.convertPrefix(item.prefix)}
-                            </Text>
-                        </View>
+            <TouchableOpacity style={{top: 25}} onPress={() => this.abrirGrupo(item)}>
+                <View style={{alignItems: 'center', alignSelf: 'center'}}>
+                    <View style={{flexDirection: 'row'}}>
                         <View style={{justifyContent: 'flex-end'}}>
                             <Text style={{ color: '#AEE637', fontSize: width/10}}>
-                                {this.currencyFormat(item)}
+                                {item.name}
                             </Text>
                         </View>
-                    </View>
-                    <View style={{bottom: 1}}>
-                        <Text style={{ color: '#aaa', fontSize: width/35}}>
-                            {item.name}
-                        </Text>
                     </View>
                 </View>
             </TouchableOpacity>
@@ -326,6 +316,12 @@ export default class HomeScreen extends React.Component{
                                 </Text>
                             </View>
                         }
+
+                        <View style={{bottom: 1,  alignItems: 'center'}}>
+                            <Text style={{ color: '#aaa', fontSize: width/35}}>
+                                Grupos
+                            </Text>
+                        </View>
                     </Animated.View>
 
                     <View style={{height: 10}}></View>
