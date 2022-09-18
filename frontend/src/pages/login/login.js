@@ -41,7 +41,7 @@ export default class Login extends React.Component{
 
                 <StatusBar hidden={true}/>
                 
-                <KeyboardAvoidingView behavior="position" style={{top: '22%'}}>
+                <KeyboardAvoidingView behavior="padding" style={{top: '22%'}}>
                     <View style={styles.container}>
                         
                         <Image source={logo} style={{top: -20, height: 100, width: width*0.65}}/>

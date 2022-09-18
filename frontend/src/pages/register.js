@@ -51,7 +51,7 @@ export default class Register extends React.Component{
 
                 <StatusBar hidden={true}/>
                 
-                <KeyboardAvoidingView behavior="padding" style={{top: '10%'}}>
+                <View behavior="padding" style={{top: '10%'}}>
                     <View style={styles.container}>
                         
                         <Image source={logo} style={{top: -20, height: 100, width: width*0.65}}/>
@@ -83,7 +83,7 @@ export default class Register extends React.Component{
                         
 
                     </View>
-                </KeyboardAvoidingView>
+                </View>
 
                 <View style={{alignItems: 'center', top: height/6}}>
                     <TouchableOpacity 
