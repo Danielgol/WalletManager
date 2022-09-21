@@ -367,7 +367,7 @@ export default class Grupo extends React.Component{
                             width: 40,
                             justifyContent: 'center',
                         }}>
-                        <Image source={seta} style={{height: 30, width: 30}}/>
+                        <Image source={seta} style={{height: height*0.05, width: width*0.08}}/>
                     </TouchableOpacity>
 
                     <View style={{top: -10}}>
@@ -403,7 +403,7 @@ export default class Grupo extends React.Component{
                                     alignSelf: 'flex-start',
                                     left: 25,
                                 }}>
-                                <Image source={lixo} style={{height: 30, width: 30}}/>
+                                <Image source={lixo} style={{height: height*0.038, width: width*0.06}}/>
                             </TouchableOpacity>
                         </View>
 
@@ -428,7 +428,7 @@ export default class Grupo extends React.Component{
                                     style={{
                                         alignSelf: 'flex-start',
                                     }}>
-                                    <Image source={lixo} style={{height: 30, width: 30}}/>
+                                <Image source={lixo} style={{height: height*0.038, width: width*0.06}}/>
                                 </TouchableOpacity>
                                 <Text style={[styles.textoBotao, {
                                     color: ((item.prefix == 'BTC' || item.prefix == 'ETH') ? '#BFF111' : '#AEE637'),

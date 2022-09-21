@@ -44,7 +44,7 @@ export default class Login extends React.Component{
                 <KeyboardAvoidingView behavior="padding" style={{top: '22%'}}>
                     <View style={styles.container}>
                         
-                        <Image source={logo} style={{top: -20, height: 100, width: width*0.65}}/>
+                        <Image source={logo} style={{ height: height*0.13, width: width*0.65}}/>
 
                         <TextInput
                             placeholder = "Digite seu email."
@@ -80,14 +80,14 @@ export default class Login extends React.Component{
                                 marginVertical: 5,
                                 elevation: 10,
                             }}>
-                            <Text style={{fontSize: 20, fontWeight: 'bold'}}>Entrar</Text>
+                            <Text style={{fontSize: width*0.05, fontWeight: 'bold'}}>Entrar</Text>
                         </TouchableOpacity>
                     <Text style={{
-                        fontSize: 20,
+                        fontSize: width*0.05,
                         justifyContent: 'center',
                         color: '#AEE637'}}>Não possui uma conta?</Text>
                     <Text style={{
-                            fontSize: 20,
+                            fontSize: width*0.05,
                             justifyContent: 'center',
                             color: '#AEE637',
                             textDecorationLine: 'underline'
@@ -117,8 +117,8 @@ const styles = StyleSheet.create({
         color: 'black',
         padding: 10,
         marginTop: 15,
-        width: 300,
-        fontSize: 16,
+        width: width*0.8,
+        fontSize: width*0.035,
         backgroundColor: '#808080',
         borderRadius: 20
     }

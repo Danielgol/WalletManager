@@ -43,8 +43,8 @@ const TransferPopUp = (props) => {
                 <TouchableOpacity
                     style={[styles.signButtom,{backgroundColor: props.color}]}
                     onPress={() => changeSign(props) }>
-                    {props.signal === '+' && <Image source={mais} style={{height: 50, width: 50}}/>}
-                    {props.signal === '-' && <Image source={menos} style={{height: 50, width: 50}}/>}
+                    {props.signal === '+' && <Image source={mais} style={{height: height*0.06, width: width*0.1}}/>}
+                    {props.signal === '-' && <Image source={menos} style={{height: height*0.06, width: width*0.1}}/>}
                     {/*<Image source={x} style={{height: 25, width: 25}}/>*/}
                 </TouchableOpacity>
 
@@ -53,7 +53,7 @@ const TransferPopUp = (props) => {
                     borderRadius={8}
                     padding={10}
                     fontSize={20}
-                    width={200}
+                    width={width*0.6}
                     elevation={4}
                     backgroundColor='#808080'
                     keyboardType='numeric'
@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: '#303030',
-        height: 250,
+        height: height*0.3,
         borderRadius: 20,
         elevation: 10,
     },
@@ -104,7 +104,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         borderRadius: 120,
         right: 15,
-        elevation: 5
+        elevation: 5,
+        marginRight: 4
     },
 });
 

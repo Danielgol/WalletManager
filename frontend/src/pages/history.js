@@ -116,7 +116,7 @@ export default class History extends React.Component{
                   width: 40,
                   justifyContent: 'center',
               }}>
-              <Image source={seta} style={{height: 30, width: 30}}/>
+                        <Image source={seta} style={{height: height*0.05, width: width*0.08}}/>
           </TouchableOpacity>
   
           <View style={{top: -10}}>

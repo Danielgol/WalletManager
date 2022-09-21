@@ -305,7 +305,7 @@ export default class Maleta extends React.Component{
                             width: 40,
                             justifyContent: 'center',
                         }}>
-                        <Image source={seta} style={{height: 30, width: 30}}/>
+                        <Image source={seta} style={{height: height*0.05, width: width*0.08}}/>
                     </TouchableOpacity>
 
                     <View style={{top: -10}}>
@@ -352,7 +352,7 @@ export default class Maleta extends React.Component{
                                     alignSelf: 'flex-start',
                                     left: 25,
                                 }}>
-                                <Image source={lixo} style={{height: 30, width: 30}}/>
+                                <Image source={lixo} style={{height: height*0.038, width: width*0.06}}/>
                             </TouchableOpacity>
 
                             <TouchableOpacity
@@ -361,7 +361,7 @@ export default class Maleta extends React.Component{
                                     right: 15,
                                     top: -25
                                 }}>
-                                <Image source={historico} style={{height: 25, width: 25}}/>
+                                <Image source={historico} style={{height: height*0.03, width: width*0.05}}/>
                             </TouchableOpacity>
                         </View>
 
@@ -442,7 +442,7 @@ export default class Maleta extends React.Component{
                             , this.popUpScale)}>
                         */
                         onPress={() => this.emerge({showTransfer: true} , this.popUpScale)}>
-                        <Image source={mais} style={{height: 100, width: 100}}/>
+                        <Image source={mais} style={{height: height*0.1, width: width*0.2}}/>
                     </TouchableOpacity>
                 </View>
                 

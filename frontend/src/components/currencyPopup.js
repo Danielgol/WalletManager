@@ -20,9 +20,9 @@ const CurrencyPopup = (props) => {
             <TouchableOpacity onPress={() => props.cancel()}
                         style={{
                             top: 33,
-                            left: 130,
+                            left: width*0.33,
                         }}>
-                        <Image source={fechar} style={{height: 20, width: 20}}/>
+                        <Image source={fechar} style={{height: 35, width: 35}}/>
             </TouchableOpacity>
             <Text style={styles.text}> Selecione a Moeda </Text>
             <FlatList 
@@ -61,17 +61,18 @@ const styles = StyleSheet.create({
     },
     list: {
         top: 25,
-        height: '82%',
+        height: height*0.8,
+        width: width*0.8,
         flexGrow: 0
     },
     text: {
         top: 10,
-        fontSize: 18, 
+        fontSize: width*0.05, 
         color: '#AEE637'
     },
     botao: {
-        width: 300,
-        height: 45,
+        width: width*0.8,
+        height: height*0.055,
         marginTop: 5,
         backgroundColor: '#272727',
         justifyContent: 'center',
@@ -80,7 +81,7 @@ const styles = StyleSheet.create({
     },
     textoBotao: {
         color: '#AEE637',
-        fontSize: 18,
+        fontSize: width*0.05,
     },
 });
 

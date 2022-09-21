@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity,
-        Button, FlatList, Image } from 'react-native';
+        Button, FlatList, Image, Dimensions } from 'react-native';
 
 import TokenManager from '../pages/tokenManager';
 
@@ -10,6 +10,8 @@ import mala from '../images/mala-preta.png';
 import grupo from '../images/grupo-preto.png';
 import sobre from '../images/info.png';
 import sair from '../images/sair.png';
+
+const { width, height } = Dimensions.get("screen");
 
 const SideMenu = (props) => {
     return(
@@ -57,13 +59,16 @@ const button = (title, image, page, props) =>{
                 borderRadius: 8,
                 marginTop: 15,
                 elevation: 10,
+                height: height*0.05,
+                width: width*0.5
+                
             }}>
 
                 <Image source={image} style={{width: 30, height: 30}}/>
 
             <Text style={{
                 color: '#47525e',
-                fontSize: 15,
+                fontSize: width*0.03,
                 paddingLeft: 15,
             }}> {title} </Text>
 
@@ -86,8 +91,8 @@ const styles = StyleSheet.create({
     logo: {
         top: 30,
         left: 25,
-        width: 85,
-        height: 85,
+        width: 150,
+        height: 150,
     }
 });
 

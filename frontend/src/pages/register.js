@@ -54,9 +54,9 @@ export default class Register extends React.Component{
                 <View behavior="padding" style={{top: '10%'}}>
                     <View style={styles.container}>
                         
-                        <Image source={logo} style={{top: -20, height: 100, width: width*0.65}}/>
+                        <Image source={logo} style={{top: -20, height: height*0.12, width: width*0.65}}/>
 
-                        <Text style={{color: '#AEE637', marginBottom: 3, fontSize: 15, textAlign: 'left', width: width*0.75}}>Nome:</Text>
+                        <Text style={{color: '#AEE637', marginBottom: 3, fontSize: width*0.042, textAlign: 'left', width: width*0.75}}>Nome:</Text>
                         <TextInput
                             placeholder = "Digite seu nome."
                             onChangeText={(name) => this.setState({name: name})}
@@ -64,14 +64,14 @@ export default class Register extends React.Component{
                             style={styles.input}
                             elevation={10}/>
 
-                        <Text style={{color: '#AEE637', marginBottom: 3, fontSize: 15, textAlign: 'left', width: width*0.75}}>Email</Text>
+                        <Text style={{color: '#AEE637', marginBottom: 3, fontSize: width*0.042, textAlign: 'left', width: width*0.75}}>Email</Text>
                         <TextInput
                             placeholder = "Digite seu email."
                             onChangeText={(email) => this.setState({email: email})}
                             placeholderTextColor="black"
                             style={styles.input}
                             elevation={10}/>
-                        <Text style={{color: '#AEE637', marginBottom: 3, fontSize: 15, textAlign: 'left', width: width*0.75}}>Senha</Text>
+                        <Text style={{color: '#AEE637', marginBottom: 3, fontSize: width*0.042, textAlign: 'left', width: width*0.75}}>Senha</Text>
                          <TextInput
                             placeholder = "Digite sua senha."
                             onChangeText={(password) => this.setState({password: password})}
@@ -99,11 +99,11 @@ export default class Register extends React.Component{
                                 marginVertical: 5,
                                 elevation: 10,
                             }}>
-                            <Text style={{fontSize: 20, fontWeight: 'bold'}}>Registrar-se</Text>
+                            <Text style={{fontSize: width*0.045, fontWeight: 'bold'}}>Registrar-se</Text>
                         </TouchableOpacity>
-                    <Text style={{fontSize: 20, justifyContent: 'center', color: '#AEE637'}}>Já possui uma conta?</Text>
+                    <Text style={{fontSize: width*0.045, justifyContent: 'center', color: '#AEE637'}}>Já possui uma conta?</Text>
                     <Text
-                        style={{fontSize: 20, justifyContent: 'center', color: '#AEE637', textDecorationLine: 'underline'}}
+                        style={{fontSize: width*0.045, justifyContent: 'center', color: '#AEE637', textDecorationLine: 'underline'}}
                         onPress={() => 
                             this.props.navigation.navigate('Login')
                         }>
@@ -131,8 +131,8 @@ const styles = StyleSheet.create({
         padding: 10,
         marginTop: 0,
         marginBottom: 5,
-        width: 300,
-        fontSize: 16,
+        width: width*0.8,
+        fontSize: width*0.035,
         backgroundColor: '#808080',
         borderRadius: 20
     }

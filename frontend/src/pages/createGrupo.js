@@ -202,7 +202,7 @@ export default class CreateGrupo extends React.Component{
                             width: 40,
                             justifyContent: 'center',
                         }}>
-                        <Image source={seta} style={{height: 30, width: 30}}/>
+                        <Image source={seta} style={{height: height*0.05, width: width*0.08}}/>
                     </TouchableOpacity>
                     {/*
                     <View style={[styles.middle, {fontWeight: 'bold'}]}>
@@ -219,17 +219,17 @@ export default class CreateGrupo extends React.Component{
                 <View style={{alignItems: 'center', height: height}}>
                     <View style={{alignItems: 'flex-start'}}>
 
-                        <View style={{top: 10, height: 30}}>
+                        <View style={{top: 10, height: height*0.06}}>
                             <Text style={{color: '#AEE637', fontSize: width*0.04}}>
                                 Digite o nome do Grupo:
                             </Text>
                         </View>
 
-                        <View style={[styles.row, {top: 10, height: width*0.12}]}>
+                        <View style={[styles.row, {top: 10, height: height*0.05, width: width*0.2}]}>
                             <TouchableOpacity
                                 style={{backgroundColor: '#606060', borderRadius: 8, justifyContent: 'center'}}
                                 onPress={() => this.emerge({showCurrencies: true}, this.popUpScale) }>
-                                <Text style={{fontSize: 20, color: '#AEE637', fontWeight: 'bold'}}>  {this.state.prefix}      </Text>
+                                <Text style={{fontSize: width*0.04, color: '#AEE637', fontWeight: 'bold'}}>  {this.state.prefix}      </Text>
                             </TouchableOpacity>
 
                             <TextInput
@@ -244,7 +244,7 @@ export default class CreateGrupo extends React.Component{
                             />
                         </View>
 
-                        <View style={{top: 30, height: height*0.04}}>
+                        <View style={{top: 30, height: height*0.06}}>
                             <Text style={{color: '#AEE637', fontSize: width*0.04}}>
                                 Selecione
                             </Text>
@@ -301,7 +301,7 @@ export default class CreateGrupo extends React.Component{
                                 justifyContent: 'center',
                                 elevation: 10,
                             }}>
-                            <Text style={{fontSize: 20, fontWeight: 'bold'}}>CRIAR</Text>
+                            <Text style={{fontSize: width*0.04, fontWeight: 'bold'}}>CRIAR</Text>
                         </TouchableOpacity>
                     </View>
 

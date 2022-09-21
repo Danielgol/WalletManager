@@ -291,7 +291,7 @@ export default class HomeScreen extends React.Component{
                         <TouchableOpacity
                             style={{position: 'absolute', left: 15, top: '15%'}}
                             onPress={() => this.slide()}>
-                            <Image source={sidebutton} style={{height: 32, width: 32}}/>
+                            <Image source={sidebutton} style={{height: height*0.05, width: width*0.08}}/>
                         </TouchableOpacity>
 
                         <View>

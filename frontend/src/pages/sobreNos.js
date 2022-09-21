@@ -33,11 +33,11 @@ export default class Login extends React.Component{
                                 width: 40,
                                 justifyContent: 'center',
                             }}>
-                            <Image source={seta} style={{height: 35, width: 35}}/>
+                        <Image source={seta} style={{height: height*0.05, width: width*0.08}}/>
                         </TouchableOpacity>
                     </View>
                     <View style={styles.container}>
-                        <Image source={logo} style={{top: 40, height: 100, width: width*0.65, alignItems: 'center'}}/>
+                        <Image source={logo} style={{top: 40, height: height*0.125, width: width*0.65, alignItems: 'center'}}/>
                     </View>
     
                     <View style={styles.container}>
