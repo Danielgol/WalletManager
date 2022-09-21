@@ -21,7 +21,6 @@ function changeSign(props){
         props.changeSign({ signal: '-', color: '#BB0000'});
     } else {
         props.changeSign({ signal: '+', color: '#40970A'});
-        x = menos;
     }
 }
 

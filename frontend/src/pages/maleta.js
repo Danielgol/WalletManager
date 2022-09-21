@@ -166,6 +166,8 @@ export default class Maleta extends React.Component{
     }
 
     async pressTransfer(){
+        this.setState({showTransfer: false});
+
         var value = this.state.text;
         if(value != null && value != '' && value != '.'){
             //var novo = 0;
@@ -181,7 +183,6 @@ export default class Maleta extends React.Component{
                 await this.postUpdate(value, this.state.prefix);
             }catch(error){}
             
-            this.setState({showTransfer: false});
         }
     }
 
