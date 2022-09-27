@@ -7,10 +7,10 @@ import strings from '../utils/localization.js';
 const { width, height } = Dimensions.get("screen");
 
 const group = [
-    {value: 'Real Brasileiro', key: 'BRL'},
-    {value: 'Dólar Americano', key: 'USD'},
-    {value: 'Euro', key: 'EUR'},
-    {value: 'Libra Esterlina', key: 'GBP'},
+    {value: strings.real, key: 'BRL'},
+    {value: strings.dolar, key: 'USD'},
+    {value: strings.euro, key: 'EUR'},
+    {value: strings.libra, key: 'GBP'},
     {value: 'Bitcoin', key: 'BTC'},
     {value: 'Etherium', key: 'ETH'},
 ];
