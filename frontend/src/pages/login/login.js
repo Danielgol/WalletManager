@@ -9,8 +9,7 @@ const { width, height } = Dimensions.get("screen");
 
 import helper from './helper'
 
-
-
+import strings from '../../utils/localization.js';
 
 
 export default class Login extends React.Component{
@@ -43,18 +42,17 @@ export default class Login extends React.Component{
                 
                 <KeyboardAvoidingView behavior="padding" style={{top: '22%'}}>
                     <View style={styles.container}>
-                        
                         <Image source={logo} style={{ height: height*0.13, width: width*0.65}}/>
 
                         <TextInput
-                            placeholder = "Digite seu email."
+                            placeholder = {strings.loginEmailLabel}
                             placeholderTextColor="black"
                             style={styles.input}
                             onChangeText={(email) => this.setState({email: email})}
                             elevation={10}/>
 
                         <TextInput
-                            placeholder = "Digite sua senha."
+                            placeholder = {strings.loginPasswordLabel}
                             placeholderTextColor="black"
                             style={styles.input}
                             secureTextEntry={true}
@@ -80,12 +78,12 @@ export default class Login extends React.Component{
                                 marginVertical: 5,
                                 elevation: 10,
                             }}>
-                            <Text style={{fontSize: width*0.05, fontWeight: 'bold'}}>Entrar</Text>
+                            <Text style={{fontSize: width*0.05, fontWeight: 'bold'}}>{strings.buttonEnter}</Text>
                         </TouchableOpacity>
                     <Text style={{
                         fontSize: width*0.05,
                         justifyContent: 'center',
-                        color: '#AEE637'}}>Não possui uma conta?</Text>
+                        color: '#AEE637'}}>{strings.noAccount}</Text>
                     <Text style={{
                             fontSize: width*0.05,
                             justifyContent: 'center',
@@ -95,7 +93,7 @@ export default class Login extends React.Component{
                         onPress={() =>
                             this.props.navigation.navigate('Register')
                         }>
-                        Registre-se!
+                        {strings.registerNow}
                     </Text>
                 </View>
             </View>
