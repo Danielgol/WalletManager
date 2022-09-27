@@ -25,7 +25,7 @@ const CurrencyPopup = (props) => {
                         }}>
                         <Image source={fechar} style={{height: 35, width: 35}}/>
             </TouchableOpacity>
-            <Text style={styles.text}> {strings.selectCoin} </Text>
+            <Text style={styles.text}> {strings.select} {strings.selectCoin} </Text>
             <FlatList 
                 data={group}
                 style={styles.list}
