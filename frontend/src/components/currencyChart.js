@@ -51,29 +51,31 @@ const CurrencyChart = (props) => {
                 >
             </LineChart>
 
+            <Text style={{width: width, color: "#aaa", left: 10}}>Últimos 7 dias</Text>
+
             <View style={[styles.row, {top: 30, width: width}]}>
 
                 <View>
                     <Text style={{
-                        left: 10,
+                        left: 0,
                         color: 'white',
                         textTransform: 'uppercase',
-                        fontSize: height/47,
+                        fontSize: height/50,
                     }}>
-                        {'U$'} {filter[0].current_price.toFixed(2)}
+                       {'U$'} {daily[0].toFixed(2)} {'-> '} {'U$'} {filter[0].current_price.toFixed(2)}
                     </Text>
                 </View>
 
                 <View>
                     <Text style={{
                         right: 10,
-                        color: filter[0].price_change_percentage_24h > 0 ? '#88C70F' : 'red',
+                        color: filter[0].price_change_percentage_7d_in_currency > 0 ? '#88C70F' : 'red',
                         textTransform: 'uppercase',
                         fontSize: height/47,
                         fontWeight: 'bold',
                     }}>
-                        {filter[0].price_change_percentage_24h > 0 ? '+' : null}
-                        {filter[0].price_change_percentage_24h.toFixed(2)}{'%'}
+                        {filter[0].price_change_percentage_7d_in_currency > 0 ? '+' : null}
+                        {filter[0].price_change_percentage_7d_in_currency.toFixed(2)}{'%'}
                     </Text>
                 </View>
 

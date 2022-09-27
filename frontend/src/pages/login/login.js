@@ -23,7 +23,7 @@ export default class Login extends React.Component{
         }
     }
 
-    async componentDidMount() {
+    async componentDidMount() { 
         try{
             await helper.mount(this.props.navigation)
         }catch(error){}
@@ -52,6 +52,7 @@ export default class Login extends React.Component{
                             elevation={10}/>
 
                         <TextInput
+                            ref={input => {this.passwordInput = input}}
                             placeholder = {strings.loginPasswordLabel}
                             placeholderTextColor="black"
                             style={styles.input}
@@ -64,8 +65,12 @@ export default class Login extends React.Component{
 
                 <View style={{alignItems: 'center', top: height/6}}>
                     <TouchableOpacity 
-                            onPress={() => 
-                                helper.login(this.state.email, this.state.password, this.props.navigation)
+                            onPress={() => { 
+                                    const email = this.state.email
+                                    const password = this.state.password
+                                    this.passwordInput.clear()
+                                    helper.login(email, password, this.props.navigation)
+                                }
                             }
                             style={{
                                 marginTop: 20,

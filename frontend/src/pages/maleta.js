@@ -10,9 +10,6 @@ import lixo from '../images/lixo.png';
 
 import CurrencyChart from '../components/currencyChart.js';
 import TransferPopUp from '../components/transferPopup';
-//import CurrencyPopup from '../components/currencyPopup.js';
-//import EditPopUp from '../components/editPopup';
-
 
 const { width, height } = Dimensions.get("screen");
 const site = "https://api.coingecko.com/api/v3/coins/markets?vs_currency=";
@@ -20,6 +17,8 @@ const currency = "usd";
 const settings = "&order=market_cap_desc&per_page=20&page=1&sparkline=true&price_change_percentage=";
 const price_change_percentage = "7d";
 const url = site + currency + settings + price_change_percentage;
+
+const api = "https://fintrack-express.herokuapp.com/"
 
 import TokenManager from './tokenManager';
 
@@ -36,9 +35,6 @@ export default class Maleta extends React.Component{
             prefix: this.props.route.params.prefix,
 
             precision: this.props.route.params.precision,
-            
-            //showEdit: false,
-            //showCurrencies: false,
             showTransfer: false,
             isLoadingChart: true,
 
@@ -128,7 +124,7 @@ export default class Maleta extends React.Component{
                 this.props.navigation.navigate('Login')
             }
 
-            const resp = await fetch('https://fintrack-express.herokuapp.com/createRegistro', {
+            const resp = await fetch(api+'createRegistro', {
                 method: 'POST',
                 headers: new Headers({
                     Accept: 'application/json',
@@ -231,7 +227,7 @@ export default class Maleta extends React.Component{
                 this.props.navigation.navigate('Login')
             }
 
-            const resp = await fetch("https://fintrack-express.herokuapp.com/removeMaleta/"+this.state.name, { 
+            const resp = await fetch(api+"removeMaleta/"+this.state.name, { 
                 method: 'delete', 
                 headers: new Headers({
                     'Authorization': `Bearer ${token}`, 
@@ -374,7 +370,10 @@ export default class Maleta extends React.Component{
                 {/* ----------- CHART ----------- */}
                 <View style={{height: '1%'}}>
                     { ( this.state.isLoadingChart || !this.isCripto() ) ? null :
-                    <CurrencyChart currency={this.state.prefix} points={this.state.points}/> }
+                    <View>
+                        <CurrencyChart currency={this.state.prefix} points={this.state.points}/>
+                    </View>
+                    }
                 </View>
 
 
