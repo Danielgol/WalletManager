@@ -3,6 +3,8 @@ import { View, Text, StyleSheet, TouchableOpacity,
         Button, FlatList, TextInput, Dimensions, Image } from 'react-native';
 import mais from '../images/mais-verde.png';
 import menos from '../images/menos.png';
+import strings from '../utils/localization.js';
+
 
 const { width, height } = Dimensions.get("screen");
 
@@ -33,7 +35,7 @@ const TransferPopUp = (props) => {
         <View style={styles.screen}>
             <View style={[styles.row, {top: -40}]}>
                 <Text style={{color: '#AEE637', fontSize: width/22}}>
-                    Movimentação Financeira
+                    {strings.financialMovement}
                 </Text>
             </View>
 
@@ -65,14 +67,14 @@ const TransferPopUp = (props) => {
                 <View style={{width: width/2.8}}>
                     <Button
                         onPress={() => props.cancel() }
-                        title="Cancelar"
+                        title={strings.cancel}
                         color="#FF8C00"
                     />
                 </View>
                 <View style={{width: width/2.8}}>
                     <Button
                         onPress={() => props.pressTransfer() }
-                        title="Salvar"
+                        title={strings.save}
                         color="#40970A"
                     />
                 </View>

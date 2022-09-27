@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity,
         Button, FlatList, TextInput, Dimensions } from 'react-native';
+import strings from '../utils/localization.js';
 
 
 

@@ -4,6 +4,7 @@ import { View, Text, StyleSheet, StatusBar, TextInput,
         KeyboardAvoidingView, Dimensions, Image, Animated, Alert } from 'react-native'
 
 import TokenManager from './tokenManager';
+import strings from '../utils/localization.js';
 
 import seta from '../images/seta3-verde.png';
 import historico from '../images/historico.png';

@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity,
         Button, FlatList, Dimensions, Image} from 'react-native'
 import fechar from '../images/X-laranja.png';
+import strings from '../utils/localization.js';
 
 const { width, height } = Dimensions.get("screen");
 
@@ -24,7 +25,7 @@ const CurrencyPopup = (props) => {
                         }}>
                         <Image source={fechar} style={{height: 35, width: 35}}/>
             </TouchableOpacity>
-            <Text style={styles.text}> Selecione a Moeda </Text>
+            <Text style={styles.text}> {strings.selectCoin} </Text>
             <FlatList 
                 data={group}
                 style={styles.list}

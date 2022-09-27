@@ -4,6 +4,8 @@ import {View, Text, StyleSheet, TextInput, StatusBar, Dimensions,
 
 import logo from '../images/Logo-completa.png';
 
+import strings from '../utils/localization.js';
+
 const { width, height } = Dimensions.get("screen");
 
 
@@ -56,24 +58,24 @@ export default class Register extends React.Component{
                         
                         <Image source={logo} style={{top: -20, height: height*0.12, width: width*0.65}}/>
 
-                        <Text style={{color: '#AEE637', marginBottom: 3, fontSize: width*0.042, textAlign: 'left', width: width*0.75}}>Nome:</Text>
+                        <Text style={{color: '#AEE637', marginBottom: 3, fontSize: width*0.042, textAlign: 'left', width: width*0.75}}>{strings.registerName}:</Text>
                         <TextInput
-                            placeholder = "Digite seu nome."
+                            placeholder = {strings.registerNameLabel}
                             onChangeText={(name) => this.setState({name: name})}
                             placeholderTextColor="black"
                             style={styles.input}
                             elevation={10}/>
 
-                        <Text style={{color: '#AEE637', marginBottom: 3, fontSize: width*0.042, textAlign: 'left', width: width*0.75}}>Email</Text>
+                        <Text style={{color: '#AEE637', marginBottom: 3, fontSize: width*0.042, textAlign: 'left', width: width*0.75}}>{strings.registerEmail}</Text>
                         <TextInput
-                            placeholder = "Digite seu email."
+                            placeholder = {strings.registerEmailLabel}
                             onChangeText={(email) => this.setState({email: email})}
                             placeholderTextColor="black"
                             style={styles.input}
                             elevation={10}/>
-                        <Text style={{color: '#AEE637', marginBottom: 3, fontSize: width*0.042, textAlign: 'left', width: width*0.75}}>Senha</Text>
+                        <Text style={{color: '#AEE637', marginBottom: 3, fontSize: width*0.042, textAlign: 'left', width: width*0.75}}>{strings.registerPassword}</Text>
                          <TextInput
-                            placeholder = "Digite sua senha."
+                            placeholder = {strings.registerPasswordLabel}
                             onChangeText={(password) => this.setState({password: password})}
                             placeholderTextColor="black"
                             style={styles.input}
@@ -99,15 +101,15 @@ export default class Register extends React.Component{
                                 marginVertical: 5,
                                 elevation: 10,
                             }}>
-                            <Text style={{fontSize: width*0.045, fontWeight: 'bold'}}>Registrar-se</Text>
+                            <Text style={{fontSize: width*0.045, fontWeight: 'bold'}}>{strings.registerButton}</Text>
                         </TouchableOpacity>
-                    <Text style={{fontSize: width*0.045, justifyContent: 'center', color: '#AEE637'}}>Já possui uma conta?</Text>
+                    <Text style={{fontSize: width*0.045, justifyContent: 'center', color: '#AEE637'}}>{strings.hasAccount}</Text>
                     <Text
                         style={{fontSize: width*0.045, justifyContent: 'center', color: '#AEE637', textDecorationLine: 'underline'}}
                         onPress={() => 
                             this.props.navigation.navigate('Login')
                         }>
-                        Faça Login!
+                        {strings.logNow}
                     </Text>
                 </View>
 

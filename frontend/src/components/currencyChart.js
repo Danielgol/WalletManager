@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, TouchableOpacity, ActivityIndicator,
         Button, FlatList, TextInput, Dimensions } from 'react-native';
 import { LineChart, Grid } from 'react-native-svg-charts';
 import * as shape from 'd3-shape';
+import strings from '../utils/localization.js';
 
 
 const { width, height } = Dimensions.get("screen");

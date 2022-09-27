@@ -7,6 +7,7 @@ import seta from '../images/seta3-verde.png';
 import historico from '../images/historico.png';
 import mais from '../images/mais-padrao.png';
 import lixo from '../images/lixo.png';
+import strings from '../utils/localization.js';
 
 import CurrencyChart from '../components/currencyChart.js';
 import TransferPopUp from '../components/transferPopup';

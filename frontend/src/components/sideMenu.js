@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+    import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity,
         Button, FlatList, Image, Dimensions } from 'react-native';
 
 import TokenManager from '../pages/tokenManager';
+import strings from '../utils/localization.js';
 
 import logo from '../images/FinTrack-android-icon.png';
 import editar from '../images/editar.png';
@@ -16,15 +17,14 @@ const { width, height } = Dimensions.get("screen");
 const SideMenu = (props) => {
     return(
         <View style={styles.screen}>
-
             <Image source={logo} style={styles.logo}/>
 
             <View style={{top: '20%', left: 10}}>
                 {/*{button('Apagar', editar, 'EditPerfil', props)}*/}
-                {button('Criar Grupo', grupo, 'CreateGrupo', props)}
-                {button('Criar Maleta', mala, 'CreateMaleta', props)}
-                {button('Sobre', sobre, 'SobreNos', props)}
-                {button('Sair', sair, 'Login', props)}
+                {button(strings.createGroup, grupo, 'CreateGrupo', props)}
+                {button(strings.createBag, mala, 'CreateMaleta', props)}
+                {button(strings.about, sobre, 'SobreNos', props)}
+                {button(strings.logoff, sair, 'Login', props)}
             </View>
         </View>
     );

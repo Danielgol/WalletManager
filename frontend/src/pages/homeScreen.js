@@ -12,6 +12,8 @@ import TokenManager from './tokenManager';
 import SideMenu from '../components/sideMenu.js';
 import sidebutton from '../images/sidemenu-verde.png'
 
+import strings from '../utils/localization.js';
+
 const { width, height } = Dimensions.get("screen");
 
 
@@ -319,7 +321,7 @@ export default class HomeScreen extends React.Component{
 
                         <View style={{bottom: 1,  alignItems: 'center'}}>
                             <Text style={{ color: '#aaa', fontSize: width/35}}>
-                                Grupos
+                                {strings.group}
                             </Text>
                         </View>
                     </Animated.View>

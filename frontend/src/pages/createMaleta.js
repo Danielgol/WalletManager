@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, StatusBar, TextInput,
         TouchableOpacity, Button, FlatList, YellowBox, BackHandler,
         Dimensions, Image, Animated } from 'react-native'
 import TokenManager from './tokenManager';
+import strings from '../utils/localization.js';
 
 import seta from '../images/seta3-verde.png';
 import maleta from '../images/mala-verde.png';
@@ -196,7 +197,7 @@ export default class CreateMaleta extends React.Component{
                     <View style={{alignItems: 'flex-start'}}>
                         <View style={{top: 10, height: height*0.05}}>
                             <Text style={{color: '#AEE637', fontSize: width*0.04}}>
-                                Digite o nome da Maleta:
+                                {strings.typeBagName}
                             </Text>
                         </View>
 
@@ -215,10 +216,10 @@ export default class CreateMaleta extends React.Component{
 
                         <View style={{height: height*0.06}}>
                             <Text style={{color: '#AEE637', fontSize: width*0.04}}>
-                                Selecione o tipo da Moeda/
+                                {strings.selectCoinAndAmount}
                             </Text>
                             <Text style={{color: '#AEE637', fontSize: width*0.04}}>
-                                Digite a Quantidade:
+                                {strings.typeQuantity}
                             </Text>
                         </View>
 
@@ -274,7 +275,7 @@ export default class CreateMaleta extends React.Component{
                                 justifyContent: 'center',
                                 elevation: 10,
                             }}>
-                            <Text style={{fontSize: width*0.04, fontWeight: 'bold'}}>CRIAR</Text>
+                            <Text style={{fontSize: width*0.04, fontWeight: 'bold'}}>{strings.buttonCreate}</Text>
                         </TouchableOpacity>
                     </View>
 

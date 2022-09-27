@@ -5,6 +5,7 @@ import { View, Text, StyleSheet, StatusBar, TextInput,
 import TokenManager from './tokenManager';
 
 import seta from '../images/seta3-verde.png';
+import strings from '../utils/localization.js';
 
 const { width, height } = Dimensions.get("screen");
 
@@ -123,7 +124,7 @@ export default class History extends React.Component{
                         
             <View style={{alignSelf: 'center'}}>
                 <Text style={{color: '#AEE637', fontSize: width/22}}>
-                    Histórico 
+                    {strings.historc} 
                 </Text>
             </View>
             <View style={{alignSelf: 'center', marginTop: 20}}>

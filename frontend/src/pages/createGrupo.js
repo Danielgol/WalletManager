@@ -7,6 +7,7 @@ import TokenManager from './tokenManager';
 import seta from '../images/seta3-verde.png';
 import grupo from '../images/grupo-verde.png';
 import CurrencyPopup from '../components/currencyPopup.js';
+import strings from '../utils/localization.js';
 
 const { width, height } = Dimensions.get("screen");
 
@@ -221,7 +222,7 @@ export default class CreateGrupo extends React.Component{
 
                         <View style={{top: 10, height: height*0.06}}>
                             <Text style={{color: '#AEE637', fontSize: width*0.04}}>
-                                Digite o nome do Grupo:
+                                {strings.typeGroupName}
                             </Text>
                         </View>
 
@@ -246,10 +247,10 @@ export default class CreateGrupo extends React.Component{
 
                         <View style={{top: 30, height: height*0.06}}>
                             <Text style={{color: '#AEE637', fontSize: width*0.04}}>
-                                Selecione
+                                {strings.select}
                             </Text>
                             <Text style={{color: '#AEE637', fontSize: width*0.04}}>
-                                as Maletas do Grupo:
+                            {strings.selectBag}
                             </Text>
                         </View>
 
@@ -301,7 +302,7 @@ export default class CreateGrupo extends React.Component{
                                 justifyContent: 'center',
                                 elevation: 10,
                             }}>
-                            <Text style={{fontSize: width*0.04, fontWeight: 'bold'}}>CRIAR</Text>
+                            <Text style={{fontSize: width*0.04, fontWeight: 'bold'}}>{strings.buttonCreate}</Text>
                         </TouchableOpacity>
                     </View>
 
